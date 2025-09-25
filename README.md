@@ -35,7 +35,25 @@ This project demonstrates the creation of an AI Agent that can process and analy
    uv sync --dev
    ```
 
-TODO
+3. **Set up environment variables**:
+   ```bash
+   cp .envrc_template .envrc
+   ```
+   
+   Then edit `.envrc` and replace the placeholders with your actual API keys:
+   ```bash
+   export OPENAI_API_KEY='your-actual-openai-key'
+   export ANTHROPIC_API_KEY='your-actual-anthropic-key'
+   ```
+   
+   If you're using [direnv](https://direnv.net/), the environment variables will be loaded automatically when you enter the directory. Otherwise, you can source the file manually:
+
+   ```bash
+   source .envrc
+   ```
+
+4. **Run the data processing pipeline**:
+   Open and run the `data-processing.ipynb` notebook to download and process repository data.
 
 ## 📚 Course Information
 
