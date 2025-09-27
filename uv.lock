@@ -437,6 +437,7 @@ dependencies = [
     { name = "pydantic-ai" },
     { name = "python-frontmatter" },
     { name = "requests" },
+    { name = "toyaikit" },
 ]
 
 [package.dev-dependencies]
@@ -446,12 +447,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "minsearch", specifier = ">=0.0.4" },
+    { name = "minsearch", specifier = "==0.0.5" },
     { name = "nbconvert", specifier = ">=7.16.6" },
     { name = "openai", specifier = ">=1.109.0" },
     { name = "pydantic-ai", specifier = ">=1.0.10" },
     { name = "python-frontmatter", specifier = ">=1.1.0" },
     { name = "requests", specifier = ">=2.32.5" },
+    { name = "toyaikit", specifier = ">=0.0.4" },
 ]
 
 [package.metadata.requires-dev]
@@ -2756,6 +2758,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/e8/59/593bd0f40f7355806bf6573b47b8c22f8e1374c9b6fd03114bd6b7a3dcfd/tornado-6.5.2-cp39-abi3-win32.whl", hash = "sha256:c6f29e94d9b37a95013bb669616352ddb82e3bfe8326fccee50583caebc8a5f0", size = 445023, upload-time = "2025-08-08T18:26:56.677Z" },
     { url = "https://files.pythonhosted.org/packages/c7/2a/f609b420c2f564a748a2d80ebfb2ee02a73ca80223af712fca591386cafb/tornado-6.5.2-cp39-abi3-win_amd64.whl", hash = "sha256:e56a5af51cc30dd2cae649429af65ca2f6571da29504a07995175df14c18f35f", size = 445427, upload-time = "2025-08-08T18:26:57.91Z" },
     { url = "https://files.pythonhosted.org/packages/5e/4f/e1f65e8f8c76d73658b33d33b81eed4322fb5085350e4328d5c956f0c8f9/tornado-6.5.2-cp39-abi3-win_arm64.whl", hash = "sha256:d6c33dc3672e3a1f3618eb63b7ef4683a7688e7b9e6e8f0d9aa5726360a004af", size = 444456, upload-time = "2025-08-08T18:26:59.207Z" },
+]
+
+[[package]]
+name = "toyaikit"
+version = "0.0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ipython" },
+    { name = "mistune" },
+    { name = "openai" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b3/18/83ed04fd2754a9105e4f0bda97e0af860ad40414117bc0e8bc191c598dbc/toyaikit-0.0.4.tar.gz", hash = "sha256:4fc5ddc52938d1b515443c0d5ff072993908ac83a6fe5a0bc2048f1d0b2174d7", size = 114817, upload-time = "2025-09-01T14:31:27Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/29/3d/5c02d7ceeac63285259d750107b96fa8470bbda731d652c1341f7c09f0dd/toyaikit-0.0.4-py3-none-any.whl", hash = "sha256:d724aa0a05fe074ca20cad58c0cb8b57f524eaf21db0894fe23b378158d983e3", size = 15545, upload-time = "2025-09-01T14:31:25.806Z" },
 ]
 
 [[package]]

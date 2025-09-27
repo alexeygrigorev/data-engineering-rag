@@ -5,12 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "minsearch>=0.0.4",
+    "minsearch==0.0.5",
     "nbconvert>=7.16.6",
     "openai>=1.109.0",
     "pydantic-ai>=1.0.10",
     "python-frontmatter>=1.1.0",
     "requests>=2.32.5",
+    "toyaikit>=0.0.4",
 ]
 
 [dependency-groups]
