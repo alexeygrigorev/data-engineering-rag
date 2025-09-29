@@ -1,0 +1,136 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are the necessary packages to install for setting up Spark with Kafka integration?",
+          "timestamp": "2025-09-29T14:14:10.441567+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Spark Kafka integration packages\"}",
+          "tool_call_id": "call_H8GlmE6EEvSQvlYaNbvVaFLs",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 16,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:13+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8vlPec8QH6Z2vIBHlLpbCQncLDO",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Spark Setup\n\nIn this section, we set up the necessary environment and create a Spark session. This involves installing required packages and initializing Spark to handle data streams.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nIn the code block above, we specify the necessary packages for Spark SQL and Kafka integration. The `PYSPARK_SUBMIT_ARGS` environment variable is set to include these packages when launching PySpark.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we import essential modules from PySpark, create a new Spark session, and name it \"Spark-Notebook.\" This session will be used to interact with our streaming data throughout the notebook.\n\n## Reading from Kafka Stream\n\nThis section describes how to read data streams from Kafka. The data is retrieved using the `readStream` function.\n\n### 1.1 Raw Kafka Stream\n\nThe initial step in acquiring our data stream is connecting to the Kafka topic. In this example, we utilize the \"rides_csv\" topic.\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nIn this code block, we set the Kafka bootstrap servers, specify the topic to subscribe to, and configure the starting offsets. The `checkpointLocation` is crucial for fault tolerance, ensuring the stream can be resumed in case of failures.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nThe `printSchema` method displays the structure of the DataFrame, allowing us to understand the nested stru",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "## 0. Spark Setup\n\nTo begin using Apache Spark with Kafka and Avro data formats, we need to configure the environment and establish a Spark session. This is essential for executing our data processing tasks.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code sets the necessary loading parameters for PySpark, including packages for Kafka and Avro support required during runtime.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we create a `SparkSession`, which is the entry point for using the DataFrame and SQL API in PySpark. The application is named \"Spark-Notebook\" for easy identification in Spark's UI.\n\n## 1. Reading from Kafka Stream\n\nWe will now read data from a Kafka stream using PySpark's `readStream` method. This provides a way to continuously read streaming data into a DataFrame.\n\n### 1.1 Raw Kafka Stream\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nThis block reads from a Kafka topic named \"rides_csv\". The `startingOffsets` option is set to \"earliest\", meaning data will be read from the beginning of the topic, and a checkpoint location is set to enable fault tolerance.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nWe print the schema of the raw Kafka DataFrame for verification. This will show the structure of the data we are reading, including key-value pairs.\n\n### 1.2 Encoded Kafka Stream\n\n```python\ndf_kafka_encoded = df_kafka_raw.selectExpr(\"CAST(key AS STRING)\",\"CAST(valu",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Running PySpark Streaming \n\n#### Prerequisite\n\nEnsure your Kafka and Spark services up and running by following the [docker setup readme](./../../docker/README.md). \nIt is important to create network and volume as described in the document. Therefore please ensure, your volume and network are created correctly\n\n```bash\ndocker volume ls # should list hadoop-distributed-file-system\ndocker network ls # should list kafka-spark-network \n```\n\n\n### Running Producer and Consumer\n```bash\n# Run producer\npython3 producer.py\n\n# Run consumer with default settings\npython3 consumer.py\n# Run consumer for specific topic\npython3 consumer.py --topic <topic-name>\n```\n\n### Running Streaming Script\n\nspark-submit script ensures installation of necessary jars before running the streaming.py\n\n```bash\n./spark-submit.sh streaming.py \n```\n\n### Additional Resources\n- [Structured Streaming Programming Guide](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#structured-streaming-programming-guide)\n- [Structured Streaming + Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html#structured-streaming-kafka-integration-guide-kafka-broker-versio)",
+              "filename": "06-streaming/python/streams-example/pyspark/README.md"
+            },
+            {
+              "start": 0,
+              "content": "# Running PySpark Streaming with Redpanda\n\n### 1. Prerequisite\n\nIt is important to create network and volume as described in the document. Therefore please ensure, your volume and network are created correctly.\n\n```bash\ndocker volume ls # should list hadoop-distributed-file-system\ndocker network ls # should list kafka-spark-network \n```\n\n### 2. Create Docker Network & Volume\n\nIf you have not followed any other examples, and above `ls` steps shows no output, create them now.\n\n```bash\n# Create Network\ndocker network create kafka-spark-network\n\n# Create Volume\ndocker volume create --name=hadoop-distributed-file-system\n```\n\n### Running Producer and Consumer\n```bash\n# Run producer\npython producer.py\n\n# Run consumer with default settings\npython consumer.py\n# Run consumer for specific topic\npython consumer.py --topic <topic-name>\n```\n\n### Running Streaming Script\n\nspark-submit script ensures installation of necessary jars before running the streaming.py\n\n```bash\n./spark-submit.sh streaming.py \n```\n\n### Additional Resources\n- [Structured Streaming Programming Guide](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#structured-streaming-programming-guide)\n- [Structured Streaming + Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html#structured-streaming-kafka-integration-guide-kafka-broker-versio)",
+              "filename": "06-streaming/python/streams-example/redpanda/README.md"
+            },
+            {
+              "start": 4000,
+              "content": " records is more efficient compared\nto `iterrows`\n\n\n## Question 5: Sending the Trip Data\n\n* Create a topic `green-trips` and send the data there\n* How much time in seconds did it take? (You can round it to a whole number)\n* Make sure you don't include sleeps in your code\n\n\n## Creating the PySpark consumer\n\nNow let's read the data with PySpark. \n\nSpark needs a library (jar) to be able to connect to Kafka, \nso we need to tell PySpark that it needs to use it:\n\n```python\nimport pyspark\nfrom pyspark.sql import SparkSession\n\npyspark_version = pyspark.__version__\nkafka_jar_package = f\"org.apache.spark:spark-sql-kafka-0-10_2.12:{pyspark_version}\"\n\nspark = SparkSession \\\n    .builder \\\n    .master(\"local[*]\") \\\n    .appName(\"GreenTripsConsumer\") \\\n    .config(\"spark.jars.packages\", kafka_jar_package) \\\n    .getOrCreate()\n```\n\nNow we can connect to the stream:\n\n```python\ngreen_stream = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092\") \\\n    .option(\"subscribe\", \"green-trips\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .load()\n```\n\nIn order to test that we can consume from the stream, \nlet's see what will be the first record there. \n\nIn Spark streaming, the stream is represented as a sequence of \nsmall batches, each batch being a small RDD (or a small dataframe).\n\nSo we can execute a function over each mini-batch.\nLet's run `take(1)` there to see what do we have in the stream:\n\n```python\ndef peek(mini_batch, batch_id):\n    first_row = mini_batch.take(1)\n\n    if first_row:\n        print(first_row[0])\n\nquery = green_stream.writeStream.foreachBatch(peek).start()\n```\n\nYou should see a record like this:\n\n```\nRow(key=None, value=bytearray(b'{\"lpep_pickup_datetime\": \"2019-10-01 00:26:02\", \"lpep_dropoff_datetime\": \"2019-10-01 00:39:58\", \"PULocationID\": 112, \"DOLocationID\": 196, \"passenger_count\": 1.0, \"trip_distance\": 5.88, \"tip_amount\": 0.0}'), topic='green-trips', partition=0, offset=0, timestamp=datetime.datetime(2024,",
+              "filename": "cohorts/2024/06-streaming/homework.md"
+            }
+          ],
+          "tool_call_id": "call_H8GlmE6EEvSQvlYaNbvVaFLs",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:11.266159+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To set up Spark with Kafka integration, you need to install the following necessary packages:\n\n1. **Spark SQL Kafka Connector**: You need to specify the package `org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1`. This allows Spark to read and write data to Kafka.\n\n2. **Spark Avro**: If you are working with Avro data formats, you should also include the package `org.apache.spark:spark-avro_2.12:3.3.1`.\n\nYou can set these packages in your environment variables when launching PySpark using the following code snippet:\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code ensures that when PySpark starts, it will include the necessary jars for Kafka and Avro support.\n\nFor detailed instructions and context, you can refer to the provided notebooks in the course material such as the one detailing Spark and Kafka integration [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb). \n\nAdditionally, you can find another reference in the [PySpark streaming documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2672,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 336,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:14+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8vm46qdE3n9EYPuWuRVeGIUjESO",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb",
+    "question": "What are the necessary packages to install for setting up Spark with Kafka integration?"
+  }
+}

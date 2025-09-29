@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are the differences between using Mage and other orchestration tools like Airflow and Prefect?",
+          "timestamp": "2025-09-29T14:13:11.073851+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"differences Mage Airflow Prefect orchestration tools\"}",
+          "tool_call_id": "call_QTNIEjvVC0NcpdMnJydztXRw",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 225,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 22,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:14+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8uo1hGawJuZxuqMyD2Hr0FlLnVI",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "> [!NOTE]  \n>If you're looking for Airflow videos from the 2022 edition, check the [2022 cohort folder](../cohorts/2022/week_2_data_ingestion/). \n>\n>If you're looking for Prefect videos from the 2023 edition, check the [2023 cohort folder](../cohorts/2023/week_2_data_ingestion/).\n\n# Week 2: Workflow Orchestration\n\nWelcome to Week 2 of the Data Engineering Zoomcamp! \ud83d\ude80\ud83d\ude24 This week, we'll be covering workflow orchestration with Mage.\n\nMage is an open-source, hybrid framework for transforming and integrating data. \u2728\n\nThis week, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). \n\n* [2.2.1 - \ud83d\udcef Intro to Orchestration](#221----intro-to-orchestration)\n* [2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage](#222---%EF%B8%8F-intro-to-mage)\n* [2.2.3 - \ud83d\udc18 ETL: API to Postgres](#223----etl-api-to-postgres)\n* [2.2.4 - \ud83e\udd13 ETL: API to GCS](#224----etl-api-to-gcs)\n* [2.2.5 - \ud83d\udd0d ETL: GCS to BigQuery](#225----etl-gcs-to-bigquery)\n* [2.2.6 - \ud83d\udc68\u200d\ud83d\udcbb Parameterized Execution](#226----parameterized-execution)\n* [2.2.7 - \ud83e\udd16 Deployment (Optional)](#227----deployment-optional)\n* [2.2.8 - \ud83d\uddd2\ufe0f Homework](#228---\ufe0f-homework)\n* [2.2.9 - \ud83d\udc63 Next Steps](#229----next-steps)\n\n## \ud83d\udcd5 Course Resources\n\n### 2.2.1 - \ud83d\udcef Intro to Orchestration\n\nIn this section, we'll cover the basics of workflow orchestration. We'll discuss what it is, why it's important, and how it can be used to build data pipelines.\n\nVideos\n- 2.2.1a - What is Orchestration?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/Li8-MWHhTbo)](https://youtu.be/Li8-MWHhTbo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=17)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/17zSxG5Z-tidmgY-9l7Al1cPmz4Slh4VPK6o2sryFYvw/)\n\n### 2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage\n\nIn this section, we'll introduce the Mage platform. We'll cover what makes Mage different from other orchestrators, the fundame",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 7000,
+              "content": "https://markdown-videos-api.jorgenkh.no/youtube/0YExsb2HgLI)](https://youtu.be/0YExsb2HgLI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=31)\n\nResources\n- [Installing Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)\n- [Installing `gcloud` CLI](https://cloud.google.com/sdk/docs/install)\n- [Mage Terraform Templates](https://github.com/mage-ai/mage-ai-terraform-templates)\n\nAdditional Mage Guides\n- [Terraform](https://docs.mage.ai/production/deploying-to-cloud/using-terraform)\n- [Deploying to GCP with Terraform](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup)\n\n### 2.2.8 - \ud83d\uddd2\ufe0f Homework \n\nWe've prepared a short exercise to test you on what you've learned this week. You can find the homework [here](../cohorts/2024/02-workflow-orchestration/homework.md). This follows closely from the contents of the course and shouldn't take more than an hour or two to complete. \ud83d\ude04\n\n### 2.2.9 - \ud83d\udc63 Next Steps\n\nCongratulations! You've completed Week 2 of the Data Engineering Zoomcamp. We hope you've enjoyed learning about Mage and that you're excited to use it in your final project. If you have any questions, feel free to reach out to us on Slack. Be sure to check out our \"Next Steps\" video for some inspiration for the rest of your journey \ud83d\ude04.\n\nVideos\n- 2.2.9 - Next Steps\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/uUtj7N0TleQ)](https://youtu.be/uUtj7N0TleQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=32)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/1yN-e22VNwezmPfKrZkgXQVrX5owDb285I2HxHWgmAEQ/edit#slide=id.g262fb0d2905_0_12)\n\n### \ud83d\udcd1 Additional Resources\n\n- [Mage Docs](https://docs.mage.ai/)\n- [Mage Guides](https://docs.mage.ai/guides)\n- [Mage Slack](https://www.mage.ai/chat)\n\n\n# Community notes\n\nDid you take notes? You can share them here:\n\n## 2024 notes\n\n* [2024 Videos transcripts week 2](https://drive.google.com/drive/folders/1yxT0uMMYKa6YOxanh91wGqmQUMS7yYW7?usp=sharing) by Maria Fisher\n* [Notes from Jonah Olive",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 1000,
+              "content": " GCS](#224----etl-api-to-gcs)\n* [2.2.5 - \ud83d\udd0d ETL: GCS to BigQuery](#225----etl-gcs-to-bigquery)\n* [2.2.6 - \ud83d\udc68\u200d\ud83d\udcbb Parameterized Execution](#226----parameterized-execution)\n* [2.2.7 - \ud83e\udd16 Deployment (Optional)](#227----deployment-optional)\n* [2.2.8 - \ud83d\uddd2\ufe0f Homework](#228---\ufe0f-homework)\n* [2.2.9 - \ud83d\udc63 Next Steps](#229----next-steps)\n\n## \ud83d\udcd5 Course Resources\n\n### 2.2.1 - \ud83d\udcef Intro to Orchestration\n\nIn this section, we'll cover the basics of workflow orchestration. We'll discuss what it is, why it's important, and how it can be used to build data pipelines.\n\nVideos\n- 2.2.1a - What is Orchestration?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/Li8-MWHhTbo)](https://youtu.be/Li8-MWHhTbo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=17)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/17zSxG5Z-tidmgY-9l7Al1cPmz4Slh4VPK6o2sryFYvw/)\n\n### 2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage\n\nIn this section, we'll introduce the Mage platform. We'll cover what makes Mage different from other orchestrators, the fundamental concepts behind Mage, and how to get started. To cap it off, we'll spin Mage up via Docker \ud83d\udc33 and run a simple pipeline.\n\nVideos\n- 2.2.2a - What is Mage?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/AicKRcK3pa4)](https://youtu.be/AicKRcK3pa4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=18)\n\n- 2.2.2b - Configuring Mage\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/tNiV7Wp08XE)](https://youtu.be/tNiV7Wp08XE&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19)\n\n- 2.2.2c - A Simple Pipeline\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/stI-gg4QBnI)](https://youtu.be/stI-gg4QBnI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=20)\n\nResources\n- [Getting Started Repo](https://github.com/mage-ai/mage-zoomcamp)\n- [Slides](https://docs.google.com/presentation/d/1y_5p3sxr6Xh1RqE6N8o2280gUzAdiic2hPhYUUD6l88/)\n\n### 2.2.3 - \ud83d\udc18 ETL: API to Postgres\n\nHooray! Mage is up and running. Now, let's build a _real_ pipeline. In this section, we'll build a simple ETL pipeline that loads ",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 8000,
+              "content": "ata Engineering Zoomcamp. We hope you've enjoyed learning about Mage and that you're excited to use it in your final project. If you have any questions, feel free to reach out to us on Slack. Be sure to check out our \"Next Steps\" video for some inspiration for the rest of your journey \ud83d\ude04.\n\nVideos\n- 2.2.9 - Next Steps\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/uUtj7N0TleQ)](https://youtu.be/uUtj7N0TleQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=32)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/1yN-e22VNwezmPfKrZkgXQVrX5owDb285I2HxHWgmAEQ/edit#slide=id.g262fb0d2905_0_12)\n\n### \ud83d\udcd1 Additional Resources\n\n- [Mage Docs](https://docs.mage.ai/)\n- [Mage Guides](https://docs.mage.ai/guides)\n- [Mage Slack](https://www.mage.ai/chat)\n\n\n# Community notes\n\nDid you take notes? You can share them here:\n\n## 2024 notes\n\n* [2024 Videos transcripts week 2](https://drive.google.com/drive/folders/1yxT0uMMYKa6YOxanh91wGqmQUMS7yYW7?usp=sharing) by Maria Fisher\n* [Notes from Jonah Oliver](https://www.jonahboliver.com/blog/de-zc-w2)\n* [Notes from Linda](https://github.com/inner-outer-space/de-zoomcamp-2024/blob/main/2-workflow-orchestration/readme.md)\n* [Notes from Kirill](https://github.com/kirill505/data-engineering-zoomcamp/blob/main/02-workflow-orchestration/README.md)\n* [Notes from Zharko](https://www.zharconsulting.com/contents/data/data-engineering-bootcamp-2024/week-2-ingesting-data-with-mage/)\n* Add your notes above this line\n\n## 2023 notes\n\nSee [here](../cohorts/2023/week_2_workflow_orchestration#community-notes)\n\n\n## 2022 notes\n\nSee [here](../cohorts/2022/week_2_data_ingestion#community-notes)",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 6000,
+              "content": "getting-started/runtime-variable)\n\n### 2.2.7 - \ud83e\udd16 Deployment (Optional)\n\nIn this section, we'll cover deploying Mage using Terraform and Google Cloud. This section is optional\u2014 it's not *necessary* to learn Mage, but it might be helpful if you're interested in creating a fully deployed project. If you're using Mage in your final project, you'll need to deploy it to the cloud.\n\nVideos\n- 2.2.7a - Deployment Prerequisites\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/zAwAX5sxqsg)](https://youtu.be/zAwAX5sxqsg&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=28)\n\n- 2.2.7b - Google Cloud Permissions\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/O_H7DCmq2rA)](https://youtu.be/O_H7DCmq2rA&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=29)\n\n- 2.2.7c - Deploying to Google Cloud - Part 1\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/9A872B5hb_0)](https://youtu.be/9A872B5hb_0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=30)\n\n- 2.2.7d - Deploying to Google Cloud - Part 2\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/0YExsb2HgLI)](https://youtu.be/0YExsb2HgLI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=31)\n\nResources\n- [Installing Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)\n- [Installing `gcloud` CLI](https://cloud.google.com/sdk/docs/install)\n- [Mage Terraform Templates](https://github.com/mage-ai/mage-ai-terraform-templates)\n\nAdditional Mage Guides\n- [Terraform](https://docs.mage.ai/production/deploying-to-cloud/using-terraform)\n- [Deploying to GCP with Terraform](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup)\n\n### 2.2.8 - \ud83d\uddd2\ufe0f Homework \n\nWe've prepared a short exercise to test you on what you've learned this week. You can find the homework [here](../cohorts/2024/02-workflow-orchestration/homework.md). This follows closely from the contents of the course and shouldn't take more than an hour or two to complete. \ud83d\ude04\n\n### 2.2.9 - \ud83d\udc63 Next Steps\n\nCongratulations! You've completed Week 2 of the D",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            }
+          ],
+          "tool_call_id": "call_QTNIEjvVC0NcpdMnJydztXRw",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:12.136057+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "Mage, Airflow, and Prefect are all orchestration tools used for managing data pipelines, but they have different features and use cases. Here are some key differences based on the course materials:\n\n1. **Framework Type**:\n   - **Mage** is described as an open-source, hybrid framework that emphasizes ease of use in authoring and sharing data pipelines. It aims to simplify data integration and transformation processes.\n   - **Airflow** is a widely used orchestration tool that provides a powerful workflow management system. It is designed to allow complex workflows and dependencies to be defined programmatically.\n   - **Prefect** is built specifically for data workflows and focuses on simplifying data flow management. It provides a more user-friendly experience compared to Airflow, but it is more opinionated in its approach.\n\n2. **User Experience**:\n   - **Mage** is noted for its user-friendly interface that allows users to get started quickly, making it accessible for users not familiar with coding or programming paradigms.\n   - **Airflow** can be more complex, requiring users to write Python code to define their workflows, which can have a steeper learning curve.\n   - **Prefect** offers a balance between the two, providing a Pythonic approach while also implementing a context-aware task system that simplifies some of the complexity.\n\n3. **Deployment and Management**:\n   - **Mage** integrates well with cloud deployment (e.g., Google Cloud) and emphasizes a deployment approach that is simple and practical via Terraform.\n   - **Airflow** requires a set up that can be more cumbersome, often involving the need for a full-fledged deployment environment and server management.\n   - **Prefect** offers a cloud service option for managing workflows but can also be deployed on-premises.\n\n4. **Flexibility and Use Cases**:\n   - **Mage** positions itself for both ETL and data transformation tasks, making it suitable for general data processing jobs.\n   - **Airflow** is known for its extensive capabilities in managing complex dependencies and coordinating multiple data processing tasks, making it well-suited for larger-scale data engineering tasks.\n   - **Prefect** is designed for ease of orchestration and data flow within data science and analytics environments, often providing a smoother experience for data scientists.\n\nThese differences highlight how Mage is focused on accessibility and integration for diverse ETL tasks, while Airflow and Prefect target users needing more extensive workflow management capabilities but may come with differing complexities and learning curves. \n\nFor more detailed information on these tools, you can refer to the course materials, particularly the section dedicated to workflow orchestration with Mage: [Orchestration with Mage](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/02-workflow-orchestration/README.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3722,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 569,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:15+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8up5mnx11hrBkg0d2kKadUxldKX",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2024/02-workflow-orchestration/README.md",
+    "question": "What are the differences between using Mage and other orchestration tools like Airflow and Prefect?"
+  }
+}

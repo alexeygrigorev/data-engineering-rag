@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "Can you explain what workflow orchestration means in the context of data engineering?",
+          "timestamp": "2025-09-29T14:13:01.813914+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"workflow orchestration\"}",
+          "tool_call_id": "call_dTLNd7RtAadsjKyeErdR6Acd",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 15,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:05+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8ufAwE1hDbUbc7wVbTsJz0mKVcr",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Workflow Orchestration\n\nWelcome to Module 2 of the Data Engineering Zoomcamp! This week, we\u2019ll dive into workflow orchestration using [Kestra](https://go.kestra.io/de-zoomcamp/github). \n\nKestra is an open-source, event-driven orchestration platform that simplifies building both scheduled and event-driven workflows. By adopting Infrastructure as Code practices for data and process orchestration, Kestra enables you to build reliable workflows with just a few lines of YAML.\n\n> [!NOTE]  \n>You can find all videos for this week in this [YouTube Playlist](https://go.kestra.io/de-zoomcamp/yt-playlist).\n\n---\n\n# Course Structure\n\n## 1. Conceptual Material: Introduction to Orchestration and Kestra\n\nIn this section, you\u2019ll learn the foundations of workflow orchestration, its importance, and how Kestra fits into the orchestration landscape.\n\n### Videos\n- **2.2.1 - Introduction to Workflow Orchestration**  \n  [![2.2.1 - Workflow Orchestration Introduction](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FNp6QmmcgLCs)](https://youtu.be/Np6QmmcgLCs)\n\n- **2.2.2 - Learn the Concepts of Kestra**  \n  [![Learn Kestra](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fo79n-EVpics)](https://youtu.be/o79n-EVpics)\n\n### Resources\n- [Quickstart Guide](https://go.kestra.io/de-zoomcamp/quickstart)\n- [Install Kestra with Docker Compose](https://go.kestra.io/de-zoomcamp/docker-compose)\n- [Tutorial](https://go.kestra.io/de-zoomcamp/tutorial)\n- [What is an Orchestrator?](https://go.kestra.io/de-zoomcamp/what-is-an-orchestrator)\n\n---\n\n## 2. Hands-On Coding Project: Build Data Pipelines with Kestra\n\nThis week, we're gonna build ETL pipelines for Yellow and Green Taxi data from NYC\u2019s Taxi and Limousine Commission (TLC). You will:\n1. Extract data from [CSV files](https://github.com/DataTalksClub/nyc-tlc-data/releases).\n2. Load it into Postgres or Google Cloud (GCS + BigQuery).\n3. Explore scheduling and backfilling workflows.\n\n>[!NOTE] \nIf you\u2019re using th",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 21000,
+              "content": "an happen when for due to network/transfer issues, the file is not fully downloaded from GitHub or not correctly uploaded to GCS. The error suggests schema issues but that's not the case. Simply rerun the entire execution including redownloading the CSV file and reuploading it to GCS. This should resolve the issue.\n\n---\n\n## Homework \n\nSee the [2025 cohort folder](../cohorts/2025/02-workflow-orchestration/homework.md)\n\n\n---\n\n# Community notes\n\nDid you take notes? You can share them by creating a PR to this file! \n\n* [Notes from Manuel Guerra)](https://github.com/ManuelGuerra1987/data-engineering-zoomcamp-notes/blob/main/2_Workflow-Orchestration-(Kestra)/README.md)\n* [Notes from Horeb Seidou](https://spotted-hardhat-eea.notion.site/Week-2-Workflow-Orchestration-17129780dc4a80148debf61e6453fffe)\n* [Notes from Livia](https://docs.google.com/document/d/1Y_QMonvEtFPbXIzmdpCSVsKNC1BWAHFBA1mpK9qaZko/edit?usp=sharing)\n* [2025 Gitbook Notes from Tinker0425](https://data-engineering-zoomcamp-2025-t.gitbook.io/tinker0425/module-2/introduction-to-module-2)\n* [Notes from Mercy Markus: Linux/Fedora Tweaks and Tips](https://mercymarkus.com/posts/2025/series/dtc-dez-jan-2025/dtc-dez-2025-module-2/)\n* Add your notes above this line\n\n---\n\n# Previous Cohorts\n\n* 2022: [notes](../cohorts/2022/week_2_data_ingestion#community-notes) and [videos](../cohorts/2022/week_2_data_ingestion)\n* 2023: [notes](../cohorts/2023/week_2_workflow_orchestration#community-notes) and [videos](../cohorts/2023/week_2_workflow_orchestration)\n* 2024: [notes](../cohorts/2024/02-workflow-orchestration#community-notes) and [videos](../cohorts/2024/02-workflow-orchestration)",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 0,
+              "content": "> [!NOTE]  \n>If you're looking for Airflow videos from the 2022 edition, check the [2022 cohort folder](../cohorts/2022/week_2_data_ingestion/). \n>\n>If you're looking for Prefect videos from the 2023 edition, check the [2023 cohort folder](../cohorts/2023/week_2_data_ingestion/).\n\n# Week 2: Workflow Orchestration\n\nWelcome to Week 2 of the Data Engineering Zoomcamp! \ud83d\ude80\ud83d\ude24 This week, we'll be covering workflow orchestration with Mage.\n\nMage is an open-source, hybrid framework for transforming and integrating data. \u2728\n\nThis week, you'll learn how to use the Mage platform to author and share _magical_ data pipelines. This will all be covered in the course, but if you'd like to learn a bit more about Mage, check out our docs [here](https://docs.mage.ai/introduction/overview). \n\n* [2.2.1 - \ud83d\udcef Intro to Orchestration](#221----intro-to-orchestration)\n* [2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage](#222---%EF%B8%8F-intro-to-mage)\n* [2.2.3 - \ud83d\udc18 ETL: API to Postgres](#223----etl-api-to-postgres)\n* [2.2.4 - \ud83e\udd13 ETL: API to GCS](#224----etl-api-to-gcs)\n* [2.2.5 - \ud83d\udd0d ETL: GCS to BigQuery](#225----etl-gcs-to-bigquery)\n* [2.2.6 - \ud83d\udc68\u200d\ud83d\udcbb Parameterized Execution](#226----parameterized-execution)\n* [2.2.7 - \ud83e\udd16 Deployment (Optional)](#227----deployment-optional)\n* [2.2.8 - \ud83d\uddd2\ufe0f Homework](#228---\ufe0f-homework)\n* [2.2.9 - \ud83d\udc63 Next Steps](#229----next-steps)\n\n## \ud83d\udcd5 Course Resources\n\n### 2.2.1 - \ud83d\udcef Intro to Orchestration\n\nIn this section, we'll cover the basics of workflow orchestration. We'll discuss what it is, why it's important, and how it can be used to build data pipelines.\n\nVideos\n- 2.2.1a - What is Orchestration?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/Li8-MWHhTbo)](https://youtu.be/Li8-MWHhTbo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=17)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/17zSxG5Z-tidmgY-9l7Al1cPmz4Slh4VPK6o2sryFYvw/)\n\n### 2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage\n\nIn this section, we'll introduce the Mage platform. We'll cover what makes Mage different from other orchestrators, the fundame",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 20000,
+              "content": "videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fl2M2mW76RIU%3Fsi%3DoqyZ7KUaI27vi90V)](https://youtu.be/l2M2mW76RIU?si=oqyZ7KUaI27vi90V)\n- **DE Zoomcamp FAQ - Docker Setup**  \n  [![DE Zoomcamp FAQ - Docker Setup](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2F73g6qJN0HcM)](https://youtu.be/73g6qJN0HcM)\n\n\n\nIf you encounter similar errors to:\n```\nBigQueryError{reason=invalid, location=null, \nmessage=Error while reading table: kestra-sandbox.zooomcamp.yellow_tripdata_2020_01, \nerror message: CSV table references column position 17, but line contains only 14 columns.; \nline_number: 2103925 byte_offset_to_start_of_line: 194863028 \ncolumn_index: 17 column_name: \"congestion_surcharge\" column_type: NUMERIC \nFile: gs://anna-geller/yellow_tripdata_2020-01.csv}\n```\n\nIt means that the CSV file you're trying to load into BigQuery has a mismatch in the number of columns between the external source table (i.e. file in GCS) and the destination table in BigQuery. This can happen when for due to network/transfer issues, the file is not fully downloaded from GitHub or not correctly uploaded to GCS. The error suggests schema issues but that's not the case. Simply rerun the entire execution including redownloading the CSV file and reuploading it to GCS. This should resolve the issue.\n\n---\n\n## Homework \n\nSee the [2025 cohort folder](../cohorts/2025/02-workflow-orchestration/homework.md)\n\n\n---\n\n# Community notes\n\nDid you take notes? You can share them by creating a PR to this file! \n\n* [Notes from Manuel Guerra)](https://github.com/ManuelGuerra1987/data-engineering-zoomcamp-notes/blob/main/2_Workflow-Orchestration-(Kestra)/README.md)\n* [Notes from Horeb Seidou](https://spotted-hardhat-eea.notion.site/Week-2-Workflow-Orchestration-17129780dc4a80148debf61e6453fffe)\n* [Notes from Livia](https://docs.google.com/document/d/1Y_QMonvEtFPbXIzmdpCSVsKNC1BWAHFBA1mpK9qaZko/edit?usp=sharing)\n* [2025 Gitbook Notes from Tinker0425](https://data-engineering-zoomcamp-2025",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 0,
+              "content": "## Module 2 Homework\n\nATTENTION: At the end of the submission form, you will be required to include a link to your GitHub repository or other public code-hosting site. This repository should contain your code for solving the homework. If your solution includes code that is not in file format, please include these directly in the README file of your repository.\n\n> In case you don't get one option exactly, select the closest one \n\nFor the homework, we'll be working with the _green_ taxi dataset located here:\n\n`https://github.com/DataTalksClub/nyc-tlc-data/releases/tag/green/download`\n\nTo get a `wget`-able link, use this prefix (note that the link itself gives 404):\n\n`https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/`\n\n### Assignment\n\nSo far in the course, we processed data for the year 2019 and 2020. Your task is to extend the existing flows to include data for the year 2021.\n\n![homework datasets](../../../02-workflow-orchestration/images/homework.png)\n\nAs a hint, Kestra makes that process really easy:\n1. You can leverage the backfill functionality in the [scheduled flow](../../../02-workflow-orchestration/flows/06_gcp_taxi_scheduled.yaml) to backfill the data for the year 2021. Just make sure to select the time period for which data exists i.e. from `2021-01-01` to `2021-07-31`. Also, make sure to do the same for both `yellow` and `green` taxi data (select the right service in the `taxi` input).\n2. Alternatively, run the flow manually for each of the seven months of 2021 for both `yellow` and `green` taxi data. Challenge for you: find out how to loop over the combination of Year-Month and `taxi`-type using `ForEach` task which triggers the flow for each combination using a `Subflow` task.\n\n### Quiz Questions\n\nComplete the Quiz shown below. It\u2019s a set of 6 multiple-choice questions to test your understanding of workflow orchestration, Kestra and ETL pipelines for data lakes and warehouses.\n\n1) Within the execution for `Yellow` Taxi data for the ye",
+              "filename": "cohorts/2025/02-workflow-orchestration/homework.md"
+            }
+          ],
+          "tool_call_id": "call_dTLNd7RtAadsjKyeErdR6Acd",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:03.033712+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "In the context of data engineering, **workflow orchestration** refers to the management and coordination of complex data workflows and processes. This involves creating automated workflows that can handle tasks such as data extraction, transformation, and loading (ETL) efficiently and reliably.\n\nIn this week's module of the Data Engineering Zoomcamp, the focus is on using **Kestra**, which is an open-source, event-driven orchestration platform. Kestra simplifies the process of building both scheduled and event-driven workflows through Infrastructure as Code practices. It allows data engineers to construct workflows using simple YAML configurations, ensuring that processes are robust and can be managed effectively.\n\nWorkflow orchestration is essential for:\n- **Automating Repetitive Tasks**: By defining workflows, data engineers can automate routine data operations, reducing the likelihood of human error.\n- **Dependencies Management**: It manages task dependencies, ensuring that tasks are executed in the correct order and only when their prerequisite tasks have been successfully completed.\n- **Scheduling**: Orchestrators can be configured to run workflows on a schedule or in response to specific events, facilitating timely data processing.\n\nOverall, workflow orchestration in data engineering is about streamlining and automating data workflows, enhancing efficiency, reliability, and clarity within the data processing lifecycle.\n\nFor more insights, you can check the course material on this topic: [Workflow Orchestration - Module 2](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/02-workflow-orchestration/README.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3308,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 304,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:06+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8ugDuylrsNPQmAhKAZhjmrjgRoo",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2024/02-workflow-orchestration/README.md",
+    "question": "Can you explain what workflow orchestration means in the context of data engineering?"
+  }
+}

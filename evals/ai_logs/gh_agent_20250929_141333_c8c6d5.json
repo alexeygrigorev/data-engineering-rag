@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are the key topics covered in the RisingWave workshop on stream processing?",
+          "timestamp": "2025-09-29T14:13:29.235995+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"RisingWave workshop stream processing\"}",
+          "tool_call_id": "call_43VLvinQAIb7Ai6xLjDmByPj",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 18,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:32+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8v6wQrmwYIYVLMTZqvmc0VuNeHW",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 2000,
+              "content": "oop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n- **Asynchronous Operations**: The use of async/await allows the application to handle multiple messages concurrently, improving efficiency in processing streams.\n\n- **Console Output**: The primary action taken on the incoming data is to print it to the console, which could be useful for debugging or monitoring purposes in a development context.\n\nOverall, this code serves as a foundational setup for a streaming application that can be further developed to include more sophisticated processing, error handling, or integration with other systems.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 1000,
+              "content": "n.net/badge/Slack/Join%20RisingWave/0abd59?icon=slack\" />\n  </a>\n  <a\n    href=\"https://twitter.com/risingwavelabs\"\n    target=\"_blank\"\n  >\n    <img alt=\"X\" src=\"https://img.shields.io/twitter/follow/risingwavelabs\" />\n  </a>\n  <a\n    href=\"https://www.youtube.com/@risingwave-labs\"\n    target=\"_blank\"\n  >\n    <img alt=\"YouTube\" src=\"https://img.shields.io/youtube/channel/views/UCsHwdyBRxBpmkA5RRd0YNEA\" />\n  </a>\n</div>\n\n## Stream processing with RisingWave\n\nIn this hands-on workshop, we\u2019ll learn how to process real-time streaming data using SQL in RisingWave. The system we\u2019ll use is [RisingWave](https://github.com/risingwavelabs/risingwave), an open-source SQL database for processing and managing streaming data. You may not feel unfamiliar with RisingWave\u2019s user experience, as it\u2019s fully wire compatible with PostgreSQL.\n\n![RisingWave](https://raw.githubusercontent.com/risingwavelabs/risingwave-docs/main/docs/images/new_archi_grey.png)\n\n\n\nWe\u2019ll cover the following topics in this Workshop: \n\n- Why Stream Processing?\n- Stateless computation (Filters, Projections)\n- Stateful Computation (Aggregations, Joins)\n- Data Ingestion and Delivery\n\nRisingWave in 10 Minutes:\nhttps://tutorials.risingwave.com/docs/intro\n\nWorkshop video:\n\n<a href=\"https://youtube.com/live/L2BHFnZ6XjE\">\n  <img src=\"https://markdown-videos-api.jorgenkh.no/youtube/L2BHFnZ6XjE\" />\n</a>\n\n[Project Repository](https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04)\n\n## Homework\n\n**Please setup the environment in [Getting Started](https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04?tab=readme-ov-file#getting-started) and for the [Homework](https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04/blob/main/homework.md#setting-up) first.**\n\n### Question 0\n\n_This question is just a warm-up to introduce dynamic filter, please attempt it before viewing its solution._\n\nWhat are the dropoff taxi zones at the latest dropoff times?\n\nFor this part, we wil",
+              "filename": "cohorts/2024/workshops/rising-wave.md"
+            },
+            {
+              "start": 1000,
+              "content": "he Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous loop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 0,
+              "content": "# Overview of the Code\n\nThis code is a simple application built using the Faust library, which is designed for stream processing with Python. The application consumes messages from a specified Kafka topic, processes these messages, and prints the contents to the console.\n\n## Components of the Application\n\n### Import Statements\n\n```python\nimport faust\nfrom taxi_rides import TaxiRide\n```\n\nThe code begins by importing the `faust` library, which is utilized for building asynchronous stream processing applications. It also imports the `TaxiRide` class from a local module called `taxi_rides`. This class is likely a data model representing the structure of a taxi ride record.\n\n### Application Initialization\n\n```python\napp = faust.App('datatalksclub.stream.v2', broker='kafka://localhost:9092')\n```\n\nAn instance of a Faust application is created using `faust.App()`. The application is named `'datatalksclub.stream.v2'` and is configured to connect to a Kafka broker running locally on port 9092. The Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous l",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 0,
+              "content": "<p align=\"center\">\n  <picture>\n    <source srcset=\"https://github.com/risingwavelabs/risingwave/blob/main/.github/RisingWave-logo-dark.svg\" width=\"500px\" media=\"(prefers-color-scheme: dark)\">\n    <img src=\"https://github.com/risingwavelabs/risingwave/blob/main/.github/RisingWave-logo-light.svg\" width=\"500px\">\n  </picture>\n</p>\n\n\n</div>\n\n<p align=\"center\">\n  <a\n    href=\"https://docs.risingwave.com/\"\n    target=\"_blank\"\n  ><b>Documentation</b></a>&nbsp;&nbsp;&nbsp;\ud83d\udcd1&nbsp;&nbsp;&nbsp;\n  <a\n    href=\"https://tutorials.risingwave.com/\"\n    target=\"_blank\"\n  ><b>Hands-on Tutorials</b></a>&nbsp;&nbsp;&nbsp;\ud83c\udfaf&nbsp;&nbsp;&nbsp;\n  <a\n    href=\"https://cloud.risingwave.com/\"\n    target=\"_blank\"\n  ><b>RisingWave Cloud</b></a>&nbsp;&nbsp;&nbsp;\ud83d\ude80&nbsp;&nbsp;&nbsp;\n  <a\n    href=\"https://risingwave.com/slack\"\n    target=\"_blank\"\n  >\n    <b>Get Instant Help</b>\n  </a>\n</p>\n<div align=\"center\">\n  <a\n    href=\"https://risingwave.com/slack\"\n    target=\"_blank\"\n  >\n    <img alt=\"Slack\" src=\"https://badgen.net/badge/Slack/Join%20RisingWave/0abd59?icon=slack\" />\n  </a>\n  <a\n    href=\"https://twitter.com/risingwavelabs\"\n    target=\"_blank\"\n  >\n    <img alt=\"X\" src=\"https://img.shields.io/twitter/follow/risingwavelabs\" />\n  </a>\n  <a\n    href=\"https://www.youtube.com/@risingwave-labs\"\n    target=\"_blank\"\n  >\n    <img alt=\"YouTube\" src=\"https://img.shields.io/youtube/channel/views/UCsHwdyBRxBpmkA5RRd0YNEA\" />\n  </a>\n</div>\n\n## Stream processing with RisingWave\n\nIn this hands-on workshop, we\u2019ll learn how to process real-time streaming data using SQL in RisingWave. The system we\u2019ll use is [RisingWave](https://github.com/risingwavelabs/risingwave), an open-source SQL database for processing and managing streaming data. You may not feel unfamiliar with RisingWave\u2019s user experience, as it\u2019s fully wire compatible with PostgreSQL.\n\n![RisingWave](https://raw.githubusercontent.com/risingwavelabs/risingwave-docs/main/docs/images/new_archi_grey.png)\n\n\n\nWe\u2019ll cover the following topics in this Worksho",
+              "filename": "cohorts/2024/workshops/rising-wave.md"
+            }
+          ],
+          "tool_call_id": "call_43VLvinQAIb7Ai6xLjDmByPj",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:30.178509+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "The RisingWave workshop on stream processing covers the following key topics:\n\n1. **Why Stream Processing?** - An introduction to the concept and importance of stream processing in modern data applications.\n2. **Stateless Computation** - This involves techniques like filters and projections, which allow for operations that do not retain state information.\n3. **Stateful Computation** - This section covers operations such as aggregations and joins, which maintain state information across the data stream.\n4. **Data Ingestion and Delivery** - Discusses how data is ingested into the system and delivered for processing.\n\nFor more information about the workshop, you can refer to the official documentation [here](https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04) as well as the [RisingWave documentation](https://docs.risingwave.com/) for further insights into the technology used.\n\nThese topics provide a comprehensive understanding of how to utilize RisingWave for processing real-time streaming data using SQL. \n\nSource: [RisingWave Workshop Document](https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04/blob/main/homework.md)",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2868,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 249,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:33+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8v7y23MxWu7yd3AjphjMdAUFLMZ",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2024/workshops/rising-wave.md",
+    "question": "What are the key topics covered in the RisingWave workshop on stream processing?"
+  }
+}

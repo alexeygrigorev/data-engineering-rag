@@ -1,0 +1,218 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are the steps to load green and yellow taxi data using PySpark?",
+          "timestamp": "2025-09-29T14:14:46.987595+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"load green and yellow taxi data PySpark\"}",
+          "tool_call_id": "call_pjjmNF20RVUvRfnMmOxiQeub",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 20,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:50+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wMIWl4Cjqer4hFJXxmiTAkLphf",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Overview of the SQL Code\n\nThis SQL script is intended for use with Google BigQuery. It creates new data tables for New York taxi trips and modifies their schema to standardize the column names. The script operates in two primary phases: creating tables and modifying their schemas. \n\n## Table Creation\n\n### Green Trip Data\n\n```sql\nCREATE TABLE  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` as\nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2019`;\n```\n\nThe script begins by creating a new table called `green_tripdata`. It populates this table with data sourced from the public dataset `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2019`, which contains records of green taxi rides in New York from the year 2019.\n\n### Yellow Trip Data\n\n```sql\nCREATE TABLE  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` as\nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`;\n```\n\nNext, a second table named `yellow_tripdata` is created. This table is populated with records from the dataset `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`, representing yellow taxi rides from the same year. \n\n### Inserting Additional Records\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2020`;\n```\n\nRecords from 2020 are then inserted into the existing `green_tripdata` table. This is done to accumulate data for a subsequent year.\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2020`; \n```\n\nSimilarly, the `yellow_tripdata` table is updated with records from the `tlc_yellow_trips_2020` dataset.\n\n## Schema Modifications\n\nAfter the tables are set up and filled with data from both 2019 and 2020, the script proceeds to modify the column names in both tables for consistency and clarity.\n\n### Altering",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 3000,
+              "content": "up_datetime` to `lpep_pickup_datetime`\n- `dropoff_datetime` to `lpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\nThis step ensures that both `green_tripdata` and `yellow_tripdata` tables have a similar schema structure, making it easier to analyze data across both datasets.\n\n## Important Notes\n\n- **Replacement Placeholder**: The comments at the start emphasize replacing the dataset name `taxi-rides-ny-339813-412521` with one\u2019s own dataset name before executing the script.\n  \n- **Execution Limitation**: The comment advises limiting executed `ALTER TABLE` statements to five at a time. This is necessary to comply with BigQuery's constraints on altering table structures to avoid errors.\n\n## Summary\n\nIn summary, this SQL script effectively creates two tables for tracking New York taxi trips (green and yellow), inserts additional data from a subsequent year, and standardizes their schemas by renaming various columns. This structured approach enables easier data processing and analysis of taxi ride statistics across both types of trips.",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 2000,
+              "content": " Yellow Trip Data Schema\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nThe first alteration renames the `vendor_id` column in the `yellow_tripdata` table to `VendorID`, likely to enhance readability and maintain a consistent naming convention throughout the database.\n\nAdditional `ALTER TABLE` statements continue to rename several more columns in the `yellow_tripdata` table:\n\n- `pickup_datetime` to `tpep_pickup_datetime`\n- `dropoff_datetime` to `tpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\n### Altering Green Trip Data Schema\n\nThe same renaming process is applied to the `green_tripdata` table with similar alterations:\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nSubsequent changes include:\n\n- `pickup_datetime` to `lpep_pickup_datetime`\n- `dropoff_datetime` to `lpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\nThis step ensures that both `green_tripdata` and `yellow_tripdata` tables have a similar schema structure, making it easier to analyze data across both datasets.\n\n## Important Notes\n\n- **Replacement Placeholder**: The comments at the start emphasize replacing the dataset name `taxi-rides-ny-339813-412521` with one\u2019s own dataset name before executing the script.\n  \n- **Execution Limitation**: The comment advises limiting executed `ALTER TABLE` statements to five at a time. This is necessary to comply with BigQuery's constraints on altering table structures to avoid errors.\n\n## Summary\n\nIn summary, this SQL script effectively creates two tables for tracking New York taxi trips (green and yellow), inserts additional data from a subsequent year, an",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 1000,
+              "content": "ata` is created. This table is populated with records from the dataset `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`, representing yellow taxi rides from the same year. \n\n### Inserting Additional Records\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2020`;\n```\n\nRecords from 2020 are then inserted into the existing `green_tripdata` table. This is done to accumulate data for a subsequent year.\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2020`; \n```\n\nSimilarly, the `yellow_tripdata` table is updated with records from the `tlc_yellow_trips_2020` dataset.\n\n## Schema Modifications\n\nAfter the tables are set up and filled with data from both 2019 and 2020, the script proceeds to modify the column names in both tables for consistency and clarity.\n\n### Altering Yellow Trip Data Schema\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nThe first alteration renames the `vendor_id` column in the `yellow_tripdata` table to `VendorID`, likely to enhance readability and maintain a consistent naming convention throughout the database.\n\nAdditional `ALTER TABLE` statements continue to rename several more columns in the `yellow_tripdata` table:\n\n- `pickup_datetime` to `tpep_pickup_datetime`\n- `dropoff_datetime` to `tpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\n### Altering Green Trip Data Schema\n\nThe same renaming process is applied to the `green_tripdata` table with similar alterations:\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nSubsequent changes include:\n\n- `pick",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 0,
+              "content": "## 0. Spark Setup\n\nTo begin using Apache Spark with Kafka and Avro data formats, we need to configure the environment and establish a Spark session. This is essential for executing our data processing tasks.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code sets the necessary loading parameters for PySpark, including packages for Kafka and Avro support required during runtime.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we create a `SparkSession`, which is the entry point for using the DataFrame and SQL API in PySpark. The application is named \"Spark-Notebook\" for easy identification in Spark's UI.\n\n## 1. Reading from Kafka Stream\n\nWe will now read data from a Kafka stream using PySpark's `readStream` method. This provides a way to continuously read streaming data into a DataFrame.\n\n### 1.1 Raw Kafka Stream\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nThis block reads from a Kafka topic named \"rides_csv\". The `startingOffsets` option is set to \"earliest\", meaning data will be read from the beginning of the topic, and a checkpoint location is set to enable fault tolerance.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nWe print the schema of the raw Kafka DataFrame for verification. This will show the structure of the data we are reading, including key-value pairs.\n\n### 1.2 Encoded Kafka Stream\n\n```python\ndf_kafka_encoded = df_kafka_raw.selectExpr(\"CAST(key AS STRING)\",\"CAST(valu",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            }
+          ],
+          "tool_call_id": "call_pjjmNF20RVUvRfnMmOxiQeub",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:47.933629+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"PySpark load taxi data example\"}",
+          "tool_call_id": "call_U373KQwJyxUxZBVrIast4bEI",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2878,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 18,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:51+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wN97dDF3aOG8OOiQHJkqrbsMek",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Streaming Data Processing with PySpark\n\nThis document provides an overview of a PySpark script designed for streaming data processing from Kafka. The script includes functions for reading data from a Kafka topic, parsing it, and performing various aggregation operations before writing the processed data back to the console or Kafka.\n\n## Imports and Dependencies\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.functions as F\nfrom settings import RIDE_SCHEMA, CONSUME_TOPIC_RIDES_CSV, TOPIC_WINDOWED_VENDOR_ID_COUNT\n```\n\nThe script begins by importing necessary libraries:\n- `SparkSession` is the entry point for using Spark SQL.\n- `pyspark.sql.functions` is imported as `F` for utilizing various built-in functions.\n- Configuration variables such as `RIDE_SCHEMA`, `CONSUME_TOPIC_RIDES_CSV`, and `TOPIC_WINDOWED_VENDOR_ID_COUNT` are imported from a `settings` module.\n\n## Kafka Data Reading\n\n```python\ndef read_from_kafka(consume_topic: str):\n    # Spark Streaming DataFrame, connect to Kafka topic served at host in bootrap.servers option\n    ...\n    return df_stream\n```\n\nThe `read_from_kafka` function establishes a connection to a specified Kafka topic. It uses the Spark Streaming API to create a streaming DataFrame, which allows real-time ingestion of data. The DataFrame's starting offsets are set to 'earliest', ensuring it captures all available messages. The function returns the streaming DataFrame for further processing.\n\n## Parsing Kafka Messages\n\n```python\ndef parse_ride_from_kafka_message(df, schema):\n    \"\"\" take a Spark Streaming df and parse value col based on <schema>, return streaming df cols in schema \"\"\"\n    ...\n    return df.select([field.name for field in schema])\n```\n\nThe `parse_ride_from_kafka_message` function takes in a streaming DataFrame and a schema. It converts the 'value' column from Kafka messages into multiple columns based on the provided schema. The function utilizes Spark SQL expressions to cast the relevant fields and returns ",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming.py"
+            },
+            {
+              "start": 0,
+              "content": "## 0. Spark Setup\n\nTo begin using Apache Spark with Kafka and Avro data formats, we need to configure the environment and establish a Spark session. This is essential for executing our data processing tasks.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code sets the necessary loading parameters for PySpark, including packages for Kafka and Avro support required during runtime.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we create a `SparkSession`, which is the entry point for using the DataFrame and SQL API in PySpark. The application is named \"Spark-Notebook\" for easy identification in Spark's UI.\n\n## 1. Reading from Kafka Stream\n\nWe will now read data from a Kafka stream using PySpark's `readStream` method. This provides a way to continuously read streaming data into a DataFrame.\n\n### 1.1 Raw Kafka Stream\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nThis block reads from a Kafka topic named \"rides_csv\". The `startingOffsets` option is set to \"earliest\", meaning data will be read from the beginning of the topic, and a checkpoint location is set to enable fault tolerance.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nWe print the schema of the raw Kafka DataFrame for verification. This will show the structure of the data we are reading, including key-value pairs.\n\n### 1.2 Encoded Kafka Stream\n\n```python\ndf_kafka_encoded = df_kafka_raw.selectExpr(\"CAST(key AS STRING)\",\"CAST(valu",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Overview of the SQL Code\n\nThis SQL script is intended for use with Google BigQuery. It creates new data tables for New York taxi trips and modifies their schema to standardize the column names. The script operates in two primary phases: creating tables and modifying their schemas. \n\n## Table Creation\n\n### Green Trip Data\n\n```sql\nCREATE TABLE  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` as\nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2019`;\n```\n\nThe script begins by creating a new table called `green_tripdata`. It populates this table with data sourced from the public dataset `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2019`, which contains records of green taxi rides in New York from the year 2019.\n\n### Yellow Trip Data\n\n```sql\nCREATE TABLE  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` as\nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`;\n```\n\nNext, a second table named `yellow_tripdata` is created. This table is populated with records from the dataset `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`, representing yellow taxi rides from the same year. \n\n### Inserting Additional Records\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2020`;\n```\n\nRecords from 2020 are then inserted into the existing `green_tripdata` table. This is done to accumulate data for a subsequent year.\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2020`; \n```\n\nSimilarly, the `yellow_tripdata` table is updated with records from the `tlc_yellow_trips_2020` dataset.\n\n## Schema Modifications\n\nAfter the tables are set up and filled with data from both 2019 and 2020, the script proceeds to modify the column names in both tables for consistency and clarity.\n\n### Altering",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 3000,
+              "content": "up_datetime` to `lpep_pickup_datetime`\n- `dropoff_datetime` to `lpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\nThis step ensures that both `green_tripdata` and `yellow_tripdata` tables have a similar schema structure, making it easier to analyze data across both datasets.\n\n## Important Notes\n\n- **Replacement Placeholder**: The comments at the start emphasize replacing the dataset name `taxi-rides-ny-339813-412521` with one\u2019s own dataset name before executing the script.\n  \n- **Execution Limitation**: The comment advises limiting executed `ALTER TABLE` statements to five at a time. This is necessary to comply with BigQuery's constraints on altering table structures to avoid errors.\n\n## Summary\n\nIn summary, this SQL script effectively creates two tables for tracking New York taxi trips (green and yellow), inserts additional data from a subsequent year, and standardizes their schemas by renaming various columns. This structured approach enables easier data processing and analysis of taxi ride statistics across both types of trips.",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            },
+            {
+              "start": 1000,
+              "content": "ata` is created. This table is populated with records from the dataset `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2019`, representing yellow taxi rides from the same year. \n\n### Inserting Additional Records\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2020`;\n```\n\nRecords from 2020 are then inserted into the existing `green_tripdata` table. This is done to accumulate data for a subsequent year.\n\n```sql\ninsert into  `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata` \nSELECT * FROM `bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2020`; \n```\n\nSimilarly, the `yellow_tripdata` table is updated with records from the `tlc_yellow_trips_2020` dataset.\n\n## Schema Modifications\n\nAfter the tables are set up and filled with data from both 2019 and 2020, the script proceeds to modify the column names in both tables for consistency and clarity.\n\n### Altering Yellow Trip Data Schema\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.yellow_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nThe first alteration renames the `vendor_id` column in the `yellow_tripdata` table to `VendorID`, likely to enhance readability and maintain a consistent naming convention throughout the database.\n\nAdditional `ALTER TABLE` statements continue to rename several more columns in the `yellow_tripdata` table:\n\n- `pickup_datetime` to `tpep_pickup_datetime`\n- `dropoff_datetime` to `tpep_dropoff_datetime`\n- `rate_code` to `RatecodeID`\n- `imp_surcharge` to `improvement_surcharge`\n- `pickup_location_id` to `PULocationID`\n- `dropoff_location_id` to `DOLocationID`\n\n### Altering Green Trip Data Schema\n\nThe same renaming process is applied to the `green_tripdata` table with similar alterations:\n\n```sql\nALTER TABLE `taxi-rides-ny-339813-412521.trips_data_all.green_tripdata`\n  RENAME COLUMN vendor_id TO VendorID;\n```\n\nSubsequent changes include:\n\n- `pick",
+              "code": false,
+              "filename": "04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql"
+            }
+          ],
+          "tool_call_id": "call_U373KQwJyxUxZBVrIast4bEI",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:49.094110+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To load green and yellow taxi data using PySpark, you'll generally follow these steps:\n\n### Step 1: Set Up the Spark Environment\n\nBefore loading the taxi data, ensure that your Spark environment is properly configured. Here's how you can set up the Spark session and necessary configurations:\n\n```python\nimport os\nfrom pyspark.sql import SparkSession\n\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Taxi Data Loader\") \\\n    .getOrCreate()\n```\n\n### Step 2: Load the Data\n\nYou will typically load the data from a source, such as a file system or a streaming service like Kafka. If you are using a static dataset (like CSV or Parquet files), you might do it like this:\n\n#### For CSV Files\n\nIf you are loading the data from CSV files, you can use the `spark.read.csv` method:\n\n```python\n# Load Green Taxi Data\ngreen_taxi_df = spark.read.csv(\"path/to/green_taxi_data.csv\", header=True, inferSchema=True)\n\n# Load Yellow Taxi Data\nyellow_taxi_df = spark.read.csv(\"path/to/yellow_taxi_data.csv\", header=True, inferSchema=True)\n```\n\n#### For Streaming Data (e.g., from Kafka)\n\nIf you are streaming data from Kafka, the setup looks like this:\n\n```python\n# Read from Kafka stream\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092\") \\\n    .option(\"subscribe\", \"your_topic_name\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .load()\n```\n\n### Step 3: Data Processing\n\nAfter loading the data, you may want to process it. For instance, you can apply transformations or aggregations. For example:\n\n```python\nprocessed_green_taxi_df = green_taxi_df.select(\"pickup_location_id\", \"dropoff_location_id\", \"fare_amount\")\nprocessed_yellow_taxi_df = yellow_taxi_df.select(\"pickup_location_id\", \"dropoff_location_id\", \"fare_amount\")\n```\n\n### Step 4: Write the Data (if needed)\n\nYou may want to write the processed data to a database, file system, or another stream:\n\n```python\n# For static data:\ngreen_taxi_df.write.parquet(\"path/to/processed_green_taxi_data.parquet\")\nyellow_taxi_df.write.parquet(\"path/to/processed_yellow_taxi_data.parquet\")\n\n# For streaming data:\nquery = df_kafka_raw \\\n    .writeStream \\\n    .format(\"console\") \\\n    .start()\n```\n\n### Summary\n\nThis overview provides the basic steps on how to set up your environment, load green and yellow taxi data using PySpark, process that data, and eventually write it out to a destination. Make sure to adjust the paths and configurations according to your specific setup and data sources.\n\nFor more detailed examples and specifics regarding the schema and processing logic, please check the provided SQL scripts and implementations:\n\n- [Taxi Data Loading Example](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql)",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5458,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 2816,
+        "output_tokens": 726,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:52+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wOtnqpfBv4gG1hYqwW4VFiN9tO",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "05-batch/code/06_spark_sql.ipynb",
+    "question": "What are the steps to load green and yellow taxi data using PySpark?"
+  }
+}

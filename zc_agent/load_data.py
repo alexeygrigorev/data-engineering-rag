@@ -26,7 +26,7 @@ def sliding_window(seq, size, step):
 
 
 def chunk_documents(docs, size=2000, step=1000):
-    chunks = []
+    results = []
 
     for doc in docs:
         doc_copy = doc.copy()
@@ -34,9 +34,9 @@ def chunk_documents(docs, size=2000, step=1000):
         chunks = sliding_window(doc_content, size=size, step=step)
         for chunk in chunks:
             chunk.update(doc_copy)
-        chunks.extend(chunks)
+        results.extend(chunks)
 
-    return chunks
+    return results
 
 
 def index_data(

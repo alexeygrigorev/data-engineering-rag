@@ -1,0 +1,180 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How can I create an external table using the fhv 2019 data and what should I avoid doing when loading it?",
+          "timestamp": "2025-09-29T14:13:50.786174+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"create external table fhv 2019 data\"}",
+          "tool_call_id": "call_c86jzaCnPtGYVI51RF53Hi2d",
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"avoid loading external table fhv 2019 data\"}",
+          "tool_call_id": "call_UpTDVN5qiFtUFkBxJGF326Ff",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 231,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 59,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:54+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8vSt97AiwS7bsHhEdoR3YBdWndU",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Analysis of the SQL Script\n\nThis SQL script primarily deals with creating and manipulating external tables related to taxi ride data in New York City, specifically focused on for-hire vehicle (FHV) trip data for the year 2019. The script includes operations for creating external tables, counting records, and creating new tables based on the external data.\n\n## Table Creation\n\n### External Table Definition\n\n```sql\nCREATE OR REPLACE EXTERNAL TABLE `taxi-rides-ny.nytaxi.fhv_tripdata`\nOPTIONS (\n  format = 'CSV',\n  uris = ['gs://nyc-tl-data/trip data/fhv_tripdata_2019-*.csv']\n);\n```\n\nThis part of the script creates or replaces an external table named `fhv_tripdata` in the `taxi-rides-ny` project, specifically under the `nytaxi` dataset. The external table is defined to read CSV files stored in a Google Cloud Storage (GCS) bucket. The `uris` option points to all CSV files matching the pattern `fhv_tripdata_2019-*.csv`, which includes all FHV trip data files for 2019. By using an external table, the content in the files can be queried directly without needing to load it into a regular database table.\n\n## Data Overview and Count\n\n### Total Records Count\n\n```sql\nSELECT count(*) FROM `taxi-rides-ny.nytaxi.fhv_tripdata`;\n```\n\nThis query counts the total number of records present in the `fhv_tripdata` external table. This count can provide insights into the overall amount of trip data collected for the designated period.\n\n### Unique Dispatch Base Count\n\n```sql\nSELECT COUNT(DISTINCT(dispatching_base_num)) FROM `taxi-rides-ny.nytaxi.fhv_tripdata`;\n```\n\nHere, the script counts the number of distinct dispatching base numbers found in the `fhv_tripdata`. The dispatching base number is likely a unique identifier for the different taxi service providers. This query helps in understanding how many unique operators are present in the dataset.\n\n## Data Transformation\n\n### Non-Partitioned Table Creation\n\n```sql\nCREATE OR REPLACE TABLE `taxi-rides-ny.nytaxi.fhv_nonpartitioned_tripdata`\nAS",
+              "code": false,
+              "filename": "03-data-warehouse/big_query_hw.sql"
+            },
+            {
+              "start": 1000,
+              "content": "an use the linked script [here](./load_yellow_taxi_data.py):<br>\nYou will simply need to generate a Service Account with GCS Admin Priveleges or be authenticated with the Google SDK and update the bucket name in the script to the name of your bucket<br>\nNothing is fool proof so make sure that all 6 files show in your GCS Bucket before begining.</br><br>\n\n<u>NOTE:</u> You will need to use the PARQUET option files when creating an External Table</br>\n\n<b>BIG QUERY SETUP:</b></br>\nCreate an external table using the Yellow Taxi Trip Records. </br>\nCreate a (regular/materialized) table in BQ using the Yellow Taxi Trip Records (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2024 Yellow Taxi Data?\n- 65,623\n- 840,402\n- 20,332,093\n- 85,431,289\n\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the **estimated amount** of data that will be read when this query is executed on the External Table and the Table?\n\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 155.12 MB for the Materialized Table\n- 2.14 GB for the External Table and 0MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n\n## Question 3:\nWrite a query to retrieve the PULocationID from the table (not the external table) in BigQuery. Now write a query to retrieve the PULocationID and DOLocationID on the same table. Why are the estimated number of Bytes different?\n- BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires \nreading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.\n- BigQuery duplicates data across multiple storage partitions, so selecting two columns instead of one requires scanning the table twice, \ndou",
+              "filename": "cohorts/2025/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 0,
+              "content": "## Module 3 Homework\n\nSolution: https://www.youtube.com/watch?v=8g_lRKaC9ro\n\nATTENTION: At the end of the submission form, you will be required to include a link to your GitHub repository or other public code-hosting site. This repository should contain your code for solving the homework. If your solution includes code that is not in file format (such as SQL queries or shell commands), please include these directly in the README file of your repository.\n\n<b><u>Important Note:</b></u> <p> For this homework we will be using the 2022 Green Taxi Trip Record Parquet Files from the New York\nCity Taxi Data found here: </br> https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page </br>\nIf you are using orchestration such as Mage, Airflow or Prefect do not load the data into Big Query using the orchestrator.</br> \nStop with loading the files into a bucket. </br></br>\n<u>NOTE:</u> You will need to use the PARQUET option files when creating an External Table</br>\n\n<b>SETUP:</b></br>\nCreate an external table using the Green Taxi Trip Records Data for 2022. </br>\nCreate a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2022 Green Taxi Data??\n- 65,623,481\n- 840,402\n- 1,936,423\n- 253,647\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the estimated amount of data that will be read when this query is executed on the External Table and the Table?\n\n- 0 MB for the External Table and 6.41MB for the Materialized Table\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n- 2.14 MB for the External Table and 0MB for the Materialized Table\n\n\n## Question 3:\nHow many records have a fare_amount of 0?\n- 12,488\n- 128,219\n- 112\n- 1,622\n\n## Question 4:\nWhat is the best strategy to make an optimized table ",
+              "filename": "cohorts/2024/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 1000,
+              "content": "n external table using the Green Taxi Trip Records Data for 2022. </br>\nCreate a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2022 Green Taxi Data??\n- 65,623,481\n- 840,402\n- 1,936,423\n- 253,647\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the estimated amount of data that will be read when this query is executed on the External Table and the Table?\n\n- 0 MB for the External Table and 6.41MB for the Materialized Table\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n- 2.14 MB for the External Table and 0MB for the Materialized Table\n\n\n## Question 3:\nHow many records have a fare_amount of 0?\n- 12,488\n- 128,219\n- 112\n- 1,622\n\n## Question 4:\nWhat is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime? (Create a new table with this strategy)\n- Cluster on lpep_pickup_datetime Partition by PUlocationID\n- Partition by lpep_pickup_datetime  Cluster on PUlocationID\n- Partition by lpep_pickup_datetime and Partition by PUlocationID\n- Cluster on by lpep_pickup_datetime and Cluster on PUlocationID\n\n## Question 5:\nWrite a query to retrieve the distinct PULocationID between lpep_pickup_datetime\n06/01/2022 and 06/30/2022 (inclusive)</br>\n\nUse the materialized table you created earlier in your from clause and note the estimated bytes. Now change the table in the from clause to the partitioned table you created for question 4 and note the estimated bytes processed. What are these values? </br>\n\nChoose the answer which most closely matches.</br> \n\n- 22.82 MB for non-partitioned table and 647.87 MB for the partitioned table\n- 12.82 MB for non-partitioned table and 1.12 MB for the partit",
+              "filename": "cohorts/2024/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 2000,
+              "content": " this query is executed on the External Table and the Table?\n\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 155.12 MB for the Materialized Table\n- 2.14 GB for the External Table and 0MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n\n## Question 3:\nWrite a query to retrieve the PULocationID from the table (not the external table) in BigQuery. Now write a query to retrieve the PULocationID and DOLocationID on the same table. Why are the estimated number of Bytes different?\n- BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires \nreading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.\n- BigQuery duplicates data across multiple storage partitions, so selecting two columns instead of one requires scanning the table twice, \ndoubling the estimated bytes processed.\n- BigQuery automatically caches the first queried column, so adding a second column increases processing time but does not affect the estimated bytes scanned.\n- When selecting multiple columns, BigQuery performs an implicit join operation between them, increasing the estimated bytes processed\n\n## Question 4:\nHow many records have a fare_amount of 0?\n- 128,210\n- 546,578\n- 20,188,016\n- 8,333\n\n## Question 5:\nWhat is the best strategy to make an optimized table in Big Query if your query will always filter based on tpep_dropoff_datetime and order the results by VendorID (Create a new table with this strategy)\n- Partition by tpep_dropoff_datetime and Cluster on VendorID\n- Cluster on by tpep_dropoff_datetime and Cluster on VendorID\n- Cluster on tpep_dropoff_datetime Partition by VendorID\n- Partition by tpep_dropoff_datetime and Partition by VendorID\n\n\n## Question 6:\nWrite a query to retrieve the distinct VendorIDs between tpep_dropoff_datetime\n2024-03-01 ",
+              "filename": "cohorts/2025/03-data-warehouse/homework.md"
+            }
+          ],
+          "tool_call_id": "call_c86jzaCnPtGYVI51RF53Hi2d",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:52.842091+00:00",
+          "part_kind": "tool-return"
+        },
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Data Loading\n\nIn this document, we will outline the process of loading a Parquet file into a PostgreSQL database. This includes checking metadata, converting the file to a Pandas DataFrame, generating SQL statements, establishing a database connection, and finally inserting the data into the database. We'll also cover handling both CSV and Parquet files for flexibility.\n\n## Initial Setup \n\nTo begin, we first import the necessary libraries: `pandas`, `pyarrow`, and `SQLAlchemy`. These libraries will facilitate reading the Parquet file, manipulating data, and connecting to the SQL database.\n\n```python\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom time import time\n```\n\n## Reading Metadata from the Parquet File\n\nNext, we will read the metadata from the specified Parquet file. This step helps us understand the structure and schema of the data without loading it entirely into memory.\n\n```python\n# Read metadata \npq.read_metadata('yellow_tripdata_2023-09.parquet')\n```\n\n## Reading Data and Schema Check\n\nWe will now read the full Parquet file and check its schema. Understanding the schema ensures that we know the data types and structure before converting the data to a Pandas DataFrame.\n\n```python\n# Read file, read the table from file and check schema\nfile = pq.ParquetFile('yellow_tripdata_2023-09.parquet')\ntable = file.read()\ntable.schema\n```\n\n## Converting to Pandas DataFrame\n\nAfter reading the data, we will convert the table into a Pandas DataFrame. This allows us to utilize Pandas' powerful data manipulation capabilities, including checking the DataFrame's information and data types.\n\n```python\n# Convert to pandas and check data \ndf = table.to_pandas()\ndf.info()\n```\n\n## Establishing Database Connection\n\nBefore proceeding with inserting data, we need to establish a connection to our PostgreSQL database. This connection will allow us to execute SQL commands directly from Python.\n\n```python\n# Create an open SQL database connection object or a SQLAlchemy connectabl",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 4000,
+              "content": "ormat, it prints an error message and exits.\n\n## Creating the Database Table\n\n```python\ndf.head(0).to_sql(name=tb, con=engine, if_exists='replace')\n```\n\nBefore inserting data, the script creates a new table in the PostgreSQL database using the inferred schema from the DataFrame (with no actual data). The table is created with the name specified by the `tb` parameter, and if it already exists, it will be replaced.\n\n## Data Insertion\n\n```python\nt_start = time()\ncount = 0\nfor batch in df_iter:\n    count+=1\n\n    if '.parquet' in file_name:\n        batch_df = batch.to_pandas()\n    else:\n        batch_df = batch\n\n    print(f'inserting batch {count}...')\n\n    b_start = time()\n    batch_df.to_sql(name=tb, con=engine, if_exists='append')\n    b_end = time()\n\n    print(f'inserted! time taken {b_end-b_start:10.3f} seconds.\\n')\nt_end = time()   \nprint(f'Completed! Total time taken was {t_end-t_start:10.3f} seconds for {count} batches.')\n```\n\nIn the data insertion phase, the script measures the total time required and tracks the number of batches inserted. For each batch, the DataFrame is converted to a pandas DataFrame (if necessary) and then appended to the PostgreSQL table using the `.to_sql()` function. During each insertion, the script logs the time taken to complete that specific batch, providing a clear picture of performance.\n\n## Final Output\n\nUpon completion, the script prints a summary of the total time taken for all batches to be inserted, giving the user feedback on the overall efficiency of the data-loading process.\n\nIn summary, this script automates the entire workflow of downloading data from web sources and loading it into a PostgreSQL database, making it a valuable tool for data engineers and analysts.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            },
+            {
+              "start": 1000,
+              "content": "ta and Schema Check\n\nWe will now read the full Parquet file and check its schema. Understanding the schema ensures that we know the data types and structure before converting the data to a Pandas DataFrame.\n\n```python\n# Read file, read the table from file and check schema\nfile = pq.ParquetFile('yellow_tripdata_2023-09.parquet')\ntable = file.read()\ntable.schema\n```\n\n## Converting to Pandas DataFrame\n\nAfter reading the data, we will convert the table into a Pandas DataFrame. This allows us to utilize Pandas' powerful data manipulation capabilities, including checking the DataFrame's information and data types.\n\n```python\n# Convert to pandas and check data \ndf = table.to_pandas()\ndf.info()\n```\n\n## Establishing Database Connection\n\nBefore proceeding with inserting data, we need to establish a connection to our PostgreSQL database. This connection will allow us to execute SQL commands directly from Python.\n\n```python\n# Create an open SQL database connection object or a SQLAlchemy connectable\nfrom sqlalchemy import create_engine\n\nengine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')\nengine.connect()\n```\n\n## Generating SQL CREATE Statement\n\nTo ensure that the Pandas DataFrame translates correctly to our database table, we generate a SQL CREATE statement. This allows for validation of the schema before actually inserting the data.\n\n```python\n# Generate CREATE SQL statement from schema for validation\nprint(pd.io.sql.get_schema(df, name='yellow_taxi_data', con=engine))\n```\n\n## Inserting Data into Database\n\nWith the connection established and schema validated, we can now focus on inserting the data into the PostgreSQL database. The dataset contains 2,846,722 rows, so we'll process the file in batches of 100,000 rows using the `iter_batches` function. This method is efficient and prevents memory overload.\n\n```python\n# Creating batches of 100,000 for the parquet file\nbatches_iter = file.iter_batches(batch_size=100000)\nbatches_iter\n\n# Take the first batch for te",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Data Loading Script Documentation\n\nThis script is designed to facilitate the downloading of data files, specifically in CSV or Parquet formats, and subsequently load these files into a PostgreSQL database. It employs command-line arguments for user configuration and utilizes libraries like Pandas and SQLAlchemy to manage data operations.\n\n## Overview\n\nThe script primarily performs the following steps:\n\n1. **Argument Parsing**: It captures connection details to a PostgreSQL database and the URL of the data file through command-line arguments.\n2. **File Downloading**: It downloads a specified data file from a provided URL using `curl`.\n3. **Data Frame Creation**: It reads the downloaded file into a Pandas DataFrame, supporting both CSV and Parquet formats.\n4. **Database Connection Setup**: It establishes a connection to a PostgreSQL database using SQLAlchemy.\n5. **Table Creation and Data Insertion**: It creates a new table in the database and inserts the data in chunks, while logging the duration of each insertion batch.\n\n## Argument Parsing\n\n```python\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser(description='Loading data from .parquet file link to a Postgres database.')\n\n    parser.add_argument('--user', help='Username for Postgres.')\n    parser.add_argument('--password', help='Password to the username for Postgres.')\n    parser.add_argument('--host', help='Hostname for Postgres.')\n    parser.add_argument('--port', help='Port for Postgres connection.')\n    parser.add_argument('--db', help='Database name for Postgres')\n    parser.add_argument('--tb', help='Destination table name for Postgres.')\n    parser.add_argument('--url', help='URL for .parquet file.')\n\n    args = parser.parse_args()\n    main(args)\n```\n\nThe script begins by defining a main guard to ensure it runs as a standalone program. It uses the `argparse` module to capture various command-line arguments. These include:\n\n- `user`: Username for authenticating with the PostgreSQL database.\n",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            },
+            {
+              "start": 4000,
+              "content": " the file extension and process it accordingly, allowing for versatile data loading from different sources.\n\n```python\nfrom time import time\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom sqlalchemy import create_engine\n\nurl = 'https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv'\nurl = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet'\n\nfile_name = url.rsplit('/', 1)[-1].strip()\nfile_name\n```\n\n### Conditional Loading Based on File Type\n\nHere we implement the logic to load CSV and Parquet files. This ensures that we can adapt to different data sources while maintaining consistency in our data processing pipeline.\n\n```python\nif '.csv' in file_name:\n    print('yay') \n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    print('oh yea')\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = file.iter_batches(batch_size=100000)\nelse: \n    print('Error. Only .csv or .parquet files allowed.')\n    sys.exit() \n```\n\nThis concludes the documentation for loading data from Parquet files into a PostgreSQL database. The established workflows can be further refined and customized as per project needs.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            }
+          ],
+          "tool_call_id": "call_UpTDVN5qiFtUFkBxJGF326Ff",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:52.842189+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To create an external table using the FHV 2019 data, you can use the following SQL statement:\n\n```sql\nCREATE OR REPLACE EXTERNAL TABLE `taxi-rides-ny.nytaxi.fhv_tripdata`\nOPTIONS (\n  format = 'CSV',\n  uris = ['gs://nyc-tl-data/trip data/fhv_tripdata_2019-*.csv']\n);\n```\n\nThis statement creates an external table named `fhv_tripdata` in the `taxi-rides-ny` project within the `nytaxi` dataset. The table is designed to read CSV files stored in a Google Cloud Storage bucket based on the specified URI pattern (matching all FHV trip data files for 2019) without loading the data into a regular database table. \n\n### Tips for Loading the Table:\n1. **File Format**: Make sure you specify the correct file format when creating the external table. In this case, we are using 'CSV' as shown above.\n2. **Check Files in the Bucket**: Before querying the external table, ensure that all the expected files are present in the specified GCS bucket.\n3. **Avoid Mixing Formats**: If you are planning to swap between CSV and Parquet formats, ensure that you specify the correct options and validate that the files match the chosen format type.\n\n### What to Avoid When Loading Data:\n- **Do Not Use Incorrect File Types**: When creating an external table, ensure that the files in the GCS match the declared format (CSV in this case). This will prevent errors during the querying phase.\n- **Avoid Loading Large Data Without Validation**: Before running queries, it's advisable to validate the schema and contents of the external files to avoid running into unexpected issues.\n- **Avoid Partitions**: When creating external tables with certain formats such as CSV, be cautious with expectations around partitioning and clustering that typically apply to regular tables.\n\nFor further information, you can refer to the complete documentation in the following sources:\n\n1. [Big Query SQL Script](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/03-data-warehouse/big_query_hw.sql).\n2. [Loading Yellow Taxi Data](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/03-data-warehouse/homework.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5442,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 483,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:56+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8vUHbtIAUPYiZBrbCiFJbowiaAT",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2023/week_3_data_warehouse/homework.md",
+    "question": "How can I create an external table using the fhv 2019 data and what should I avoid doing when loading it?"
+  }
+}

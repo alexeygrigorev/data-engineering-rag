@@ -1,0 +1,135 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "When is the deadline for submitting the Week 6 homework?",
+          "timestamp": "2025-09-29T14:15:21.782612+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Week 6 homework deadline\"}",
+          "tool_call_id": "call_mAuIM16Cv5clIeZDPjEtQadA",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 218,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:25+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wvAFDVa0GrmbYOODFdXZsG8kdD",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Week 2 Homework\n\nIn this homework, we'll prepare data for the next week. We'll need\nto put these datasets to our data lake:\n\n* For the lessons, we'll need the Yellow taxi dataset (years 2019 and 2020)\n* For the homework, we'll need FHV Data (for-hire vehicles, for 2019 only)\n\nYou can find all the URLs on [the dataset page](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)\n\n\nIn this homework, we will:\n\n* Modify the DAG we created during the lessons for transferring the yellow taxi data\n* Create a new dag for transferring the FHV data\n* Create another dag for the Zones data\n\n\nIf you don't have access to GCP, you can do that locally and ingest data to Postgres \ninstead. If you have access to GCP, you don't need to do it for local Postgres -\nonly if you want.\n\nAlso note that for this homework we don't need the last step - creating a table in GCP.\nAfter putting all the files to the datalake, we'll create the tables in Week 3.\n\n\n\n## Question 1: Start date for the Yellow taxi data (1 point)\n\nYou'll need to parametrize the DAG for processing the yellow taxi data that\nwe created in the videos. \n\nWhat should be the start date for this dag?\n\n* 2019-01-01\n* 2020-01-01\n* 2021-01-01\n* days_ago(1)\n\n\n## Question 2: Frequency for the Yellow taxi data (1 point)\n\nHow often do we need to run this DAG?\n\n* Daily\n* Monthly\n* Yearly\n* Once\n\n\n## Re-running the DAGs for past dates\n\nTo execute your DAG for past dates, try this:\n\n* First, delete your DAG from the web interface (the bin icon)\n* Set the `catchup` parameter to `True`\n* Be careful with running a lot of jobs in parallel - your system may not like it. Don't set it higher than 3: `max_active_runs=3`\n* Rename the DAG to something like `data_ingestion_gcs_dag_v02` \n* Execute it from the Airflow GUI (the play button)\n\n\nAlso, there's no data for the recent months, but `curl` will exit successfully.\nTo make it fail on 404, add the `-f` flag:\n\n```bash\ncurl -sSLf { URL } > { LOCAL_PATH }\n```\n\nWhen you run this for all the da",
+              "filename": "cohorts/2022/week_2_data_ingestion/homework/homework.md"
+            },
+            {
+              "start": 2000,
+              "content": "ta, the temporary files will be saved in Docker and will consume your \ndisk space. If it causes problems for you, add another step in your DAG that cleans everything up.\nIt could be a bash operator that runs this command:\n\n```bash\nrm name-of-csv-file.csv name-of-parquet-file.parquet\n```\n\n\n## Question 3: DAG for FHV Data (2 points)\n\nNow create another DAG - for uploading the FHV data. \n\nWe will need three steps: \n\n* Download the data\n* Parquetize it \n* Upload to GCS\n\nIf you don't have a GCP account, for local ingestion you'll need two steps:\n\n* Download the data\n* Ingest to Postgres\n\nUse the same frequency and the start date as for the yellow taxi dataset\n\nQuestion: how many DAG runs are green for data in 2019 after finishing everything? \n\nNote: when processing the data for 2020-01 you probably will get an error. It's up \nto you to decide what to do with it - for Week 3 homework we won't need 2020 data.\n\n\n## Question 4: DAG for Zones (2 points)\n\n\nCreate the final DAG - for Zones:\n\n* Download it\n* Parquetize \n* Upload to GCS\n\n(Or two steps for local ingestion: download -> ingest to postgres)\n\nHow often does it need to run?\n\n* Daily\n* Monthly\n* Yearly\n* Once\n\n\n## Submitting the solutions\n\n* Form for submitting: https://forms.gle/ViWS8pDf2tZD4zSu5\n* You can submit your homework multiple times. In this case, only the last submission will be used. \n\nDeadline: February 7, 17:00 CET",
+              "filename": "cohorts/2022/week_2_data_ingestion/homework/homework.md"
+            },
+            {
+              "start": 1000,
+              "content": "data (1 point)\n\nYou'll need to parametrize the DAG for processing the yellow taxi data that\nwe created in the videos. \n\nWhat should be the start date for this dag?\n\n* 2019-01-01\n* 2020-01-01\n* 2021-01-01\n* days_ago(1)\n\n\n## Question 2: Frequency for the Yellow taxi data (1 point)\n\nHow often do we need to run this DAG?\n\n* Daily\n* Monthly\n* Yearly\n* Once\n\n\n## Re-running the DAGs for past dates\n\nTo execute your DAG for past dates, try this:\n\n* First, delete your DAG from the web interface (the bin icon)\n* Set the `catchup` parameter to `True`\n* Be careful with running a lot of jobs in parallel - your system may not like it. Don't set it higher than 3: `max_active_runs=3`\n* Rename the DAG to something like `data_ingestion_gcs_dag_v02` \n* Execute it from the Airflow GUI (the play button)\n\n\nAlso, there's no data for the recent months, but `curl` will exit successfully.\nTo make it fail on 404, add the `-f` flag:\n\n```bash\ncurl -sSLf { URL } > { LOCAL_PATH }\n```\n\nWhen you run this for all the data, the temporary files will be saved in Docker and will consume your \ndisk space. If it causes problems for you, add another step in your DAG that cleans everything up.\nIt could be a bash operator that runs this command:\n\n```bash\nrm name-of-csv-file.csv name-of-parquet-file.parquet\n```\n\n\n## Question 3: DAG for FHV Data (2 points)\n\nNow create another DAG - for uploading the FHV data. \n\nWe will need three steps: \n\n* Download the data\n* Parquetize it \n* Upload to GCS\n\nIf you don't have a GCP account, for local ingestion you'll need two steps:\n\n* Download the data\n* Ingest to Postgres\n\nUse the same frequency and the start date as for the yellow taxi dataset\n\nQuestion: how many DAG runs are green for data in 2019 after finishing everything? \n\nNote: when processing the data for 2020-01 you probably will get an error. It's up \nto you to decide what to do with it - for Week 3 homework we won't need 2020 data.\n\n\n## Question 4: DAG for Zones (2 points)\n\n\nCreate the final DAG - for Zones:\n\n* Dow",
+              "filename": "cohorts/2022/week_2_data_ingestion/homework/homework.md"
+            },
+            {
+              "start": 0,
+              "content": "## Week 6 Homework\n[Form](https://forms.gle/mSzfpPCXskWCabeu5)\n\nThe homework is mostly theoretical. In the last question you have to provide working code link, please keep in mind that this\nquestion is not scored.\n\nDeadline: 14 March, 22:00 CET",
+              "filename": "cohorts/2022/week_6_stream_processing/homework.md"
+            },
+            {
+              "start": 2000,
+              "content": "vant Columns\n\nTo focus on specific aspects of the dataset, we will filter the DataFrame to include only the columns that are relevant for our analysis.\n\n```python\ncolumns = [\n    'lpep_pickup_datetime',\n    'lpep_dropoff_datetime',\n    'PULocationID',\n    'DOLocationID',\n    'passenger_count',\n    'trip_distance',\n    'tip_amount'\n]\n\ndf = df[columns]\n```\n\nIn this block:\n- We define a list of the desired column names.\n- The DataFrame `df` is updated to include only these selected columns, refining the dataset for further processing.\n\n## Preparing Messages for Kafka\n\nBefore sending the data to Kafka, we need to convert the DataFrame into a format suitable for sending. This is done by transforming it into a list of dictionaries.\n\n```python\nfrom time import time\nfrom tqdm.auto import tqdm\n\nmessages = df.to_dict(orient='records')\nlen(messages)\n```\n\nThis section accomplishes the following:\n- We import `time` for potential timing functionalities and `tqdm` for progress visualization.\n- The DataFrame is converted to a list of dictionaries, where each dictionary represents a trip record.\n- The `len` function checks the number of messages to be sent, ensuring we know how many records are ready for processing.\n\n## Sending Messages to Kafka\n\nFinally, we send each message to the designated Kafka topic. The use of `tqdm` provides a visual progress bar indicating how many messages have been processed.\n\n```python\ntopic_name = 'green-trips'\n\nfor message in tqdm(messages):\n    producer.send(topic_name, value=message)\n\nproducer.flush()\n```\n\nIn this last block:\n- We set the topic name as 'green-trips'.\n- A loop iterates through the message list, sending each message to Kafka.\n- `producer.flush()` is called to ensure that all buffered records are transmitted before ending the session.\n\nThis documentation should guide you through using a Kafka producer to send NYC taxi trip data effectively. Each code block corresponds to essential steps required to set up the environment, process the da",
+              "code": false,
+              "filename": "cohorts/2025/06-streaming/homework/homework.ipynb"
+            }
+          ],
+          "tool_call_id": "call_mAuIM16Cv5clIeZDPjEtQadA",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:15:22.844428+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "The deadline for submitting the Week 6 homework is **March 14, at 22:00 CET**. \n\nYou can find more details about the homework and the submission process in the documentation [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2022/week_6_stream_processing/homework.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2518,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 74,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:26+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wwkVLvZ1SsvqHHDwh25o8l0I85",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2022/week_6_stream_processing/homework.md",
+    "question": "When is the deadline for submitting the Week 6 homework?"
+  }
+}

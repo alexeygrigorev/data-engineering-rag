@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are some recommended datasets for the final project in the data engineering course?",
+          "timestamp": "2025-09-29T14:15:25.313933+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"recommended datasets final project\"}",
+          "tool_call_id": "call_ncBFLanNMBcvSdv4RqDcP0Ty",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 16,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:28+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wywsgcSHSQWkaGE4kyuvAV0jJq",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Datasets\n\nHere are some datasets that you could use for the project:\n\n\n* [Kaggle](https://www.kaggle.com/datasets)\n* [AWS datasets](https://registry.opendata.aws/)\n* [UK government open data](https://data.gov.uk/)\n* [Github archive](https://www.gharchive.org)\n* [Awesome public datasets](https://github.com/awesomedata/awesome-public-datasets)\n* [Million songs dataset](http://millionsongdataset.com)\n* [Some random datasets](https://components.one/datasets/)\n* [COVID Datasets](https://www.reddit.com/r/datasets/comments/n3ph2d/coronavirus_datsets/)\n* [Datasets from Azure](https://docs.microsoft.com/en-us/azure/azure-sql/public-data-sets)\n* [Datasets from BigQuery](https://cloud.google.com/bigquery/public-data/)\n* [Dataset search engine from Google](https://datasetsearch.research.google.com/)\n* [Public datasets offered by different GCP services](https://cloud.google.com/solutions/datasets)\n* [European statistics datasets](https://ec.europa.eu/eurostat/data/database)\n* [Datasets for streaming](https://github.com/ColinEberhardt/awesome-public-streaming-datasets)\n* [Dataset for Santander bicycle rentals in London](https://cycling.data.tfl.gov.uk/)\n* [Common crawl data](https://commoncrawl.org/) (copy of the internet)\n* [NASA's EarthData](https://search.earthdata.nasa.gov/search) (May require introductory geospatial analysis)\n* Collection Of Data Repositories\n  * [part 1](https://www.kdnuggets.com/2022/04/complete-collection-data-repositories-part-1.html) (from agriculture and finance to government)\n  * [part 2](https://www.kdnuggets.com/2022/04/complete-collection-data-repositories-part-2.html) (from healthcare to transportation)\n* [Data For Good by Meta](https://dataforgood.facebook.com/dfg/tools)\n\nPRs with more datasets are welcome!\n\nIt's not mandatory that you use a dataset from this list. You can use any dataset you want.",
+              "filename": "projects/datasets.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2024/project/project1\n* Review: https://courses.datatalks.club/de-zoomcamp-2024/project/project1/eval\n\n#### Project Attempt #2\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2024/project/project2\n* Review: https://courses.datatalks.club/de-zoomcamp-2024/project/project2/eval\n\n> **Important**: update your \"Certificate name\" here: https://courses.datatalks.club/de-zoomcamp-2024/enrollment -\nthis is what we will use when generating certificates for you.\n\n### Evaluation criteria\n\nSee [here](../../week_7_project/README.md)",
+              "filename": "cohorts/2024/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2025/project/project1\n* Review: https://courses.datatalks.club/de-zoomcamp-2025/project/project1/eval\n\n#### Project Attempt #2\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2025/project/project2\n* Review: https://courses.datatalks.club/de-zoomcamp-2025/project/project2/eval\n\n> **Important**: update your \"Certificate name\" here: https://courses.datatalks.club/de-zoomcamp-2025/enrollment -\nthis is what we will use when generating certificates for you.\n\n### Evaluation criteria\n\nSee [here](../../projects/README.md)",
+              "filename": "cohorts/2025/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\nProject:\n\n* Form: https://forms.gle/zTJiVYSmCgsENj6y8\n* Deadline: 10 April, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=0&single=true) (\"project-01\" sheet)\n* Form: https://forms.gle/1bxmgR8yPwV359zb7\n* Deadline: 17 April, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vQuMt9m1XlPrCACqnsFTXTV_KGiSnsl9UjL7kdTMsLJ8DLu3jNJlPzoUKG6baxc8APeEQ8RaSP1U2VX/pubhtml?gid=27207346&single=true) (\"project-01\" sheet)\n\n#### Project Attempt #2\n\nProject:\n\n* Form: https://forms.gle/gCXUSYBm1KgMKXVm8\n* Deadline: 4 May, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=303437788&single=true) (\"project-02\" sheet)\n* Form: https://forms.gle/2x5MT4xxczR8isy37\n* Deadline: 11 May, 22:00 CET\n\nProject feedback: [link](https://docs.goog",
+              "filename": "cohorts/2023/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that, your project can't be considered compelete.\n\n\n### Submitting \n\n#### Project Cohort #2\n\nProject:\n\n* Form: https://forms.gle/JECXB9jYQ1vBXbsw6\n* Deadline: 2 May, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vShnv8T4iY_5NA8h0nySIS8Wzr-DZGGigEikIW4ZMSi9HlvhaEB4RhwmepVIuIUGaQHS90r5iHR2YXV/pubhtml?gid=964123374&single=true)\n* Form: https://forms.gle/Pb2fBwYLQ3GGFsaK6\n* Deadline: 9 May, 22:00 CET\n\n\n#### Project Cohort #1\n\nProject:\n\n* Form: https://forms.gle/6aeVcEVJipqR2BqC8\n* Deadline: 4 April, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vShnv8T4iY_5NA8h0nySIS8Wzr-DZGGigEikIW4ZMSi9HlvhaEB4RhwmepVIuIUGaQHS90r5iHR2YXV/pubhtml)\n* Form: https://forms.gle/AZ62bXMp4SGcVUmK7\n* Deadline: 11 April, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRcVCkO-jes5mbPAcikn9X_s2laJ1KhsO8aibHYQxxKqdCUYMVTEJLJQdM8C5aAUWKFl_0SJW4rme7H/pubhtml)",
+              "filename": "cohorts/2022/project.md"
+            }
+          ],
+          "tool_call_id": "call_ncBFLanNMBcvSdv4RqDcP0Ty",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:15:26.373803+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "For your final project in the data engineering course, here are some recommended datasets you can consider using:\n\n1. **Kaggle Datasets** - A large repository of datasets on various topics. \n2. **AWS Datasets** - Access open datasets hosted on Amazon Web Services.\n3. **UK Government Open Data** - A collection of datasets published by the UK government.\n4. **Github Archive** - Historical data of public GitHub events.\n5. **Awesome Public Datasets** - A curated list of high-quality datasets across multiple domains.\n6. **Million Songs Dataset** - A large-scale dataset designed for music information retrieval.\n7. **COVID Datasets** - Various datasets regarding the COVID-19 pandemic.\n8. **NASA's EarthData** - A collection of datasets related to Earth sciences.\n\nAdditionally, you may find useful datasets from various cloud platforms, European statistics, or even specific datasets like the Santander bicycle rentals in London.\n\nYou are not limited to these datasets; feel free to use any dataset that suits your project's needs.\n\nYou can find more details in the [datasets documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/projects/datasets.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2820,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 244,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:29+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wznjOttjwBQHkdj3CF8k3f97lO",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "projects/datasets.md",
+    "question": "What are some recommended datasets for the final project in the data engineering course?"
+  }
+}

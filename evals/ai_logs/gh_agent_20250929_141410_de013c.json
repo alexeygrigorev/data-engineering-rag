@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "Is there a recording available for the pre-launch Q&A stream for the Data Engineering Zoomcamp 2025 Cohort?",
+          "timestamp": "2025-09-29T14:14:06.173014+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"pre-launch Q&A stream Data Engineering Zoomcamp 2025 Cohort recording\"}",
+          "tool_call_id": "call_W0xKWP34p6de6wwzBZpLIUf1",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 230,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 27,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:09+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8vhTuNtIFg7HTlqU03P8crIxyls",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Data Engineering Zoomcamp 2025 Cohort\n\n* [Pre-launch Q&A stream](https://www.youtube.com/watch?v=DPnAOu2csYA)\n* [Launch stream with course overview](https://www.youtube.com/watch?v=X8cEEwi8DTM)\n* [Course Google calendar](https://calendar.google.com/calendar/?cid=ZXIxcjA1M3ZlYjJpcXU0dTFmaG02MzVxMG9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)\n* [FAQ](https://datatalks.club/faq/data-engineering-zoomcamp.html)\n* [Course Playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)\n* [Cohort-specific playlist: only 2025 Live videos](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJZdpLpRHp7dg6EOx828q6y)\n\n\n[**Module 1: Introduction & Prerequisites**](01-docker-terraform/)\n\n* [Homework](01-docker-terraform/homework.md)\n\n\n[**Module 2: Workflow Orchestration**](02-workflow-orchestration)\n\n* [Homework](02-workflow-orchestration/homework.md)\n* Office hours\n\n[**Workshop 1: Data Ingestion**](workshops/dlt/README.md)\n\n* Workshop with dlt\n* [Homework](workshops/dlt/README.md)\n\n\n[**Module 3: Data Warehouse**](03-data-warehouse)\n\n* [Homework](03-data-warehouse/homework.md)\n\n\n[**Module 4: Analytics Engineering**](04-analytics-engineering/)\n\n* [Homework](04-analytics-engineering/homework.md)\n\n\n[**Module 5: Batch processing**](05-batch/)\n\n* [Homework](05-batch/homework.md)\n\n\n[**Module 6: Stream Processing**](06-streaming)\n\n* [Homework](06-streaming/homework.md)\n\n\n[**Project**](project.md)\n\nMore information [here](project.md)",
+              "filename": "cohorts/2025/README.md"
+            },
+            {
+              "start": 2000,
+              "content": "oop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n- **Asynchronous Operations**: The use of async/await allows the application to handle multiple messages concurrently, improving efficiency in processing streams.\n\n- **Console Output**: The primary action taken on the incoming data is to print it to the console, which could be useful for debugging or monitoring purposes in a development context.\n\nOverall, this code serves as a foundational setup for a streaming application that can be further developed to include more sophisticated processing, error handling, or integration with other systems.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 0,
+              "content": "# Overview of the Code\n\nThis code is a simple application built using the Faust library, which is designed for stream processing with Python. The application consumes messages from a specified Kafka topic, processes these messages, and prints the contents to the console.\n\n## Components of the Application\n\n### Import Statements\n\n```python\nimport faust\nfrom taxi_rides import TaxiRide\n```\n\nThe code begins by importing the `faust` library, which is utilized for building asynchronous stream processing applications. It also imports the `TaxiRide` class from a local module called `taxi_rides`. This class is likely a data model representing the structure of a taxi ride record.\n\n### Application Initialization\n\n```python\napp = faust.App('datatalksclub.stream.v2', broker='kafka://localhost:9092')\n```\n\nAn instance of a Faust application is created using `faust.App()`. The application is named `'datatalksclub.stream.v2'` and is configured to connect to a Kafka broker running locally on port 9092. The Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous l",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 1000,
+              "content": "he Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous loop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 6000,
+              "content": "e to Data Engineering with Ellen K\u00f6nig \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e08-from-data-science-to-data-engineering.html) (podcast)\n* [Big Data Engineer vs Data Scientist with Roksolana Diachuk \u2013 DataTalks.Club](https://datatalks.club/podcast/s04e03-big-data-engineer-vs-data-scientist.html) (podcast)\n* [What Skills Do You Need to Become a Data Engineer](https://www.linkedin.com/pulse/what-skills-do-you-need-become-data-engineer-peng-wang/) (blog post) \n* [The future history of Data Engineering](https://groupby1.substack.com/p/data-engineering?s=r) (blog post) \n* [What Skills Do Data Engineers Need](https://www.theseattledataguy.com/what-skills-do-data-engineers-need/) (blog post)\n\n### Data Engineering Management \n\n* [Becoming a Data Engineering Manager with Rahul Jain \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e07-becoming-a-data-engineering-manager.html) (podcast)\n\n## Data engineering projects\n\n* [How To Start A Data Engineering Project - With Data Engineering Project Ideas](https://www.youtube.com/watch?v=WpN47Jddo7I) (video)\n* [Data Engineering Project for Beginners - Batch edition](https://www.startdataengineering.com/post/data-engineering-project-for-beginners-batch-edition/) (blog post)\n* [Building a Data Engineering Project in 20 Minutes](https://www.sspaeti.com/blog/data-engineering-project-in-twenty-minutes/) (blog post)\n* [Automating Nike Run Club Data Analysis with Python, Airflow and Google Data Studio | by Rich Martin | Medium](https://medium.com/@rich_23525/automating-nike-run-club-data-analysis-with-python-airflow-and-google-data-studio-3c9556478926) (blog post)\n\n\n## Data Engineering Resources \n\n### Blogs\n\n* [Start Data Engineering](https://www.startdataengineering.com/)\n\n### Podcasts\n\n* [The Data Engineering Podcast](https://www.dataengineeringpodcast.com/)\n* [DataTalks.Club Podcast](https://datatalks.club/podcast.html) (only some episodes are about data engineering) \n* \n\n### Communities\n\n* [DataTalks.Club](https://datatalks",
+              "filename": "awesome-data-engineering.md"
+            }
+          ],
+          "tool_call_id": "call_W0xKWP34p6de6wwzBZpLIUf1",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:07.378283+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "Yes, there is a recording available for the pre-launch Q&A stream for the Data Engineering Zoomcamp 2025 Cohort. You can view it on YouTube using the following link: [Pre-launch Q&A stream](https://www.youtube.com/watch?v=DPnAOu2csYA).\n\nFor more details about the course, you can refer to the README file for the 2025 Cohort: [Data Engineering Zoomcamp 2025 Cohort README](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2025/README.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2648,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 122,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:10+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8vi9fe3MzMn8C2HAFc14Ra6i4wc",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2025/README.md",
+    "question": "Is there a recording available for the pre-launch Q&A stream for the Data Engineering Zoomcamp 2025 Cohort?"
+  }
+}

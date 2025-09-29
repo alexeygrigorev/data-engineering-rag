@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "Can you explain the difference between batch processing and stream processing covered in the course?",
+          "timestamp": "2025-09-29T14:13:51.940858+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"batch processing vs stream processing\"}",
+          "tool_call_id": "call_ozDgYJzYLamgNfEJSswOpEFK",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 222,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:55+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8vTb0wg0nai4cAJnCGwZnhPoF5w",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 2000,
+              "content": "oop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n- **Asynchronous Operations**: The use of async/await allows the application to handle multiple messages concurrently, improving efficiency in processing streams.\n\n- **Console Output**: The primary action taken on the incoming data is to print it to the console, which could be useful for debugging or monitoring purposes in a development context.\n\nOverall, this code serves as a foundational setup for a streaming application that can be further developed to include more sophisticated processing, error handling, or integration with other systems.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 1000,
+              "content": "he Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous loop iterates over the incoming records. For each record received, it simply prints the record to the console. This represents the core functionality of the application, where it listens for new data and outputs it.\n\n### Application Entry Point\n\n```python\nif __name__ == '__main__':\n    app.main()\n```\n\nFinally, the code includes a standard Python entry point check using `if __name__ == '__main__':`. If executed as the main program, the application calls `app.main()`, which starts the Faust app and begins processing the stream of data from Kafka.\n\n## Summary of Functionality\n\n- **Stream Processing**: The application is designed to perform stream processing using Faust by consuming messages from a Kafka topic.\n\n- **Kafka Integration**: It interacts with a local Kafka broker, making it suitable for real-time data applications.\n\n- **Message Deserialization**: The incoming messages are expected to conform to the `TaxiRide` data structure, facilitating organized processing of taxi ride data.\n\n",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 0,
+              "content": "# Overview of the Code\n\nThis code is a simple application built using the Faust library, which is designed for stream processing with Python. The application consumes messages from a specified Kafka topic, processes these messages, and prints the contents to the console.\n\n## Components of the Application\n\n### Import Statements\n\n```python\nimport faust\nfrom taxi_rides import TaxiRide\n```\n\nThe code begins by importing the `faust` library, which is utilized for building asynchronous stream processing applications. It also imports the `TaxiRide` class from a local module called `taxi_rides`. This class is likely a data model representing the structure of a taxi ride record.\n\n### Application Initialization\n\n```python\napp = faust.App('datatalksclub.stream.v2', broker='kafka://localhost:9092')\n```\n\nAn instance of a Faust application is created using `faust.App()`. The application is named `'datatalksclub.stream.v2'` and is configured to connect to a Kafka broker running locally on port 9092. The Kafka broker is essential for managing the streaming data that the application will process.\n\n### Topic Definition\n\n```python\ntopic = app.topic('datatalkclub.yellow_taxi_ride.json', value_type=TaxiRide)\n```\n\nA topic is defined, which refers to a specific stream of data that the application will consume. In this case, the topic is `'datatalkclub.yellow_taxi_ride.json'`, and the messages expected in this topic are of the type `TaxiRide`. The `value_type` parameter indicates the data structure that will be used for deserialization of the incoming records.\n\n### Message Processing Agent\n\n```python\n@app.agent(topic)\nasync def start_reading(records):\n    async for record in records:\n        print(record)\n```\n\nThis section defines an asynchronous agent function called `start_reading`, which takes the records from the specified topic. The `@app.agent(topic)` decorator indicates that this function will automatically receive records from the Kafka topic.\n\nWithin the function, an asynchronous l",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/stream.py"
+            },
+            {
+              "start": 5000,
+              "content": "na-5-batch-spark)\n* [Notes by Victor Padilha](https://github.com/padilha/de-zoomcamp/tree/master/week5)\n* [Notes by Oscar Garcia](https://github.com/ozkary/Data-Engineering-Bootcamp/tree/main/Step5-Batch-Processing)\n* [Notes by HongWei](https://github.com/hwchua0209/data-engineering-zoomcamp-submission/blob/main/05-batch-processing/README.md)\n* [2024 videos transcript](https://drive.google.com/drive/folders/1XMmP4H5AMm1qCfMFxc_hqaPGw31KIVcb?usp=drive_link) by Maria Fisher \n* [2025 Notes by Manuel Guerra](https://github.com/ManuelGuerra1987/data-engineering-zoomcamp-notes/blob/main/5_Batch-Processing-Spark/README.md)\n* [2025 Notes by Gabi Fonseca](https://github.com/fonsecagabriella/data_engineering/blob/main/05_batch_processing/00_notes.md)\n* [2025 Notes on Installing Spark on MacOS (with Anaconda + brew) by Gabi Fonseca](https://github.com/fonsecagabriella/data_engineering/blob/main/05_batch_processing/01_env_setup.md)\n* [2025 Notes by Daniel Lachner](https://github.com/mossdet/dlp_data_eng/blob/main/Notes/05_01_Batch_Processing_Spark_GCP.pdf)\n* Add your notes here (above this line)",
+              "filename": "05-batch/README.md"
+            },
+            {
+              "start": 4000,
+              "content": "tps://youtu.be/osAiAYahvh8&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=65)\n\n* :movie_camera: 5.6.4 Connecting Spark to Big Query\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/HIm2BOj8C0Q)](https://youtu.be/HIm2BOj8C0Q&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=66)\n\n\n# Homework\n\n* [2025 Homework](../cohorts/2025/05-batch/homework.md)\n\n\n# Community notes\n\nDid you take notes? You can share them here.\n\n* [Notes by Alvaro Navas](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/5_batch_processing.md)\n* [Sandy's DE Learning Blog](https://learningdataengineering540969211.wordpress.com/2022/02/24/week-5-de-zoomcamp-5-2-1-installing-spark-on-linux/)\n* [Notes by Alain Boisvert](https://github.com/boisalai/de-zoomcamp-2023/blob/main/week5.md)\n* [Alternative : Using docker-compose to launch spark by rafik](https://gist.github.com/rafik-rahoui/f98df941c4ccced9c46e9ccbdef63a03) \n* [Marcos Torregrosa's blog (spanish)](https://www.n4gash.com/2023/data-engineering-zoomcamp-semana-5-batch-spark)\n* [Notes by Victor Padilha](https://github.com/padilha/de-zoomcamp/tree/master/week5)\n* [Notes by Oscar Garcia](https://github.com/ozkary/Data-Engineering-Bootcamp/tree/main/Step5-Batch-Processing)\n* [Notes by HongWei](https://github.com/hwchua0209/data-engineering-zoomcamp-submission/blob/main/05-batch-processing/README.md)\n* [2024 videos transcript](https://drive.google.com/drive/folders/1XMmP4H5AMm1qCfMFxc_hqaPGw31KIVcb?usp=drive_link) by Maria Fisher \n* [2025 Notes by Manuel Guerra](https://github.com/ManuelGuerra1987/data-engineering-zoomcamp-notes/blob/main/5_Batch-Processing-Spark/README.md)\n* [2025 Notes by Gabi Fonseca](https://github.com/fonsecagabriella/data_engineering/blob/main/05_batch_processing/00_notes.md)\n* [2025 Notes on Installing Spark on MacOS (with Anaconda + brew) by Gabi Fonseca](https://github.com/fonsecagabriella/data_engineering/blob/main/05_batch_processing/01_env_setup.md)\n* [2025 Notes by Daniel Lachner](https://github.com/mossdet/dlp_da",
+              "filename": "05-batch/README.md"
+            }
+          ],
+          "tool_call_id": "call_ozDgYJzYLamgNfEJSswOpEFK",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:52.918971+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "In the course, the differences between batch processing and stream processing are highlighted as follows:\n\n1. **Batch Processing**:\n   - Involves processing data in large blocks or batches.\n   - Data is collected over a period of time and processed all at once.\n   - Well-suited for operations where timely processing is not critical, such as end-of-day reports or historical data analysis.\n   - Technologies commonly used for batch processing include Apache Spark, which can handle large datasets and perform complex computations in structured data.\n\n2. **Stream Processing**:\n   - Involves continuous input and output of data, processing records in real-time as they arrive.\n   - Suitable for scenarios requiring immediate insights or actions, such as monitoring systems, real-time analytics, and event-driven applications.\n   - Technologies for stream processing include Apache Kafka and Faust, which allow the real-time processing of data streams.\n\n### Summary\nBatch processing handles large volumes of data at scheduled intervals, while stream processing deals with data in real-time, providing instant results and insights. \n\nFor more information on batch processing, you can refer to: [Batch Processing Documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/README.md).\n\nAnd for stream processing, you can check this resource: [Streaming Processing Documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/faust/stream.py).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2579,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 297,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:56+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8vUfwjbUKjUX2xW6ojYQ1tjjWCX",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2025/README.md",
+    "question": "Can you explain the difference between batch processing and stream processing covered in the course?"
+  }
+}

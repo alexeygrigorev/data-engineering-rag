@@ -1,0 +1,151 @@
+filepath,question
+cohorts/2022/week_2_data_ingestion/airflow/docs/1_concepts.md,Can you explain what a DAG is in Airflow and why it is important?
+cohorts/2022/week_2_data_ingestion/airflow/docs/1_concepts.md,What role does the scheduler play in the Airflow architecture?
+cohorts/2022/week_2_data_ingestion/airflow/docs/1_concepts.md,How does Airflow handle task dependencies within a DAG?
+cohorts/2022/project.md,What is the main objective of the course project?
+cohorts/2022/project.md,"How do I submit my project for Cohort #2, and what is the deadline?"
+cohorts/2022/project.md,Can you explain the peer review process and its importance for completing the project?
+06-streaming/python/avro_example/settings.py,What is the purpose of the INPUT_DATA_PATH variable in the code snippet?
+06-streaming/python/avro_example/settings.py,How do the key and value schemas work with Kafka in this context?
+06-streaming/python/avro_example/settings.py,Can you explain how to configure the Schema Registry URL for a different environment?
+cohorts/2025/README.md,What are the prerequisites for the Data Engineering Zoomcamp course?
+cohorts/2025/README.md,Can you explain the difference between batch processing and stream processing covered in the course?
+cohorts/2025/README.md,Is there a recording available for the pre-launch Q&A stream for the Data Engineering Zoomcamp 2025 Cohort?
+06-streaming/pyflink/src/producers/producer.py,How can I modify the Kafka producer script to send messages at a different rate?
+06-streaming/pyflink/src/producers/producer.py,What specific role does the json_serializer function play in the Kafka producer script?
+06-streaming/pyflink/src/producers/producer.py,Can you explain how the producer.flush() method works in this script and why it's important?
+cohorts/2022/week_2_data_ingestion/README.md,Can you explain the difference between ELT and ETL in the context of data ingestion?
+cohorts/2022/week_2_data_ingestion/README.md,What are some alternatives to using S3 or HDFS for setting up a Data Lake?
+cohorts/2022/week_2_data_ingestion/README.md,How do I set up Airflow locally using Docker-Compose?
+cohorts/2022/week_6_stream_processing/homework.md,What topics will be covered in the Week 6 homework for the data engineering course?
+cohorts/2022/week_6_stream_processing/homework.md,Is the last question of the Week 6 homework counted towards the overall score?
+cohorts/2022/week_6_stream_processing/homework.md,When is the deadline for submitting the Week 6 homework?
+cohorts/2022/week_2_data_ingestion/transfer_service/README.md,How do I generate an AWS Access Key and what important details should I keep in mind?
+cohorts/2022/week_2_data_ingestion/transfer_service/README.md,Can you explain the process of using the Transfer service in Google Cloud?
+cohorts/2022/week_2_data_ingestion/transfer_service/README.md,What should I do if I lose my AWS Access Key secret after it has been generated?
+06-streaming/java/kafka_examples/src/main/java/org/example/AvroProducer.java,What external libraries does the AvroProducer class depend on for its functionality?
+06-streaming/java/kafka_examples/src/main/java/org/example/AvroProducer.java,Can you explain the purpose of the getRides() method in the AvroProducer class?
+06-streaming/java/kafka_examples/src/main/java/org/example/AvroProducer.java,How does the publishRides() method handle errors while sending RideRecord objects to Kafka?
+06-streaming/python/json_example/producer.py,How does the JsonProducer class handle reading ride records from the CSV file?
+06-streaming/python/json_example/producer.py,What libraries does the script use to interact with Kafka and handle data formats?
+06-streaming/python/json_example/producer.py,What error handling is implemented when publishing rides to the Kafka topic in the publish_rides method?
+06-streaming/python/redpanda_example/producer.py,What is the purpose of the `JsonProducer` class in this script?
+06-streaming/python/redpanda_example/producer.py,How does the `publish_rides` method handle errors during the message sending process?
+06-streaming/python/redpanda_example/producer.py,Can you explain the role of configuration settings in establishing the Kafka producer?
+cohorts/2025/workshops/dlt/dlt_homework.md,What is the dlt installation command I need to run for using DuckDB?
+cohorts/2025/workshops/dlt/dlt_homework.md,How do I check the version of dlt after installation?
+cohorts/2025/workshops/dlt/dlt_homework.md,What is the process to extract data from the NYC Taxi API using dlt and how can I know how many tables were created in DuckDB?
+01-docker-terraform/1_terraform_gcp/2_gcp_overview.md,Can you explain the different infrastructure modules available in GCP?
+01-docker-terraform/1_terraform_gcp/2_gcp_overview.md,What steps do I need to follow to set up my GCP project for this course?
+01-docker-terraform/1_terraform_gcp/2_gcp_overview.md,What roles do I need to assign to my service account in GCP for this course?
+06-streaming/python/json_example/settings.py,What is the purpose of the INPUT_DATA_PATH constant in the code?
+06-streaming/python/json_example/settings.py,Can you explain how Kafka is configured in this code snippet?
+06-streaming/python/json_example/settings.py,How does this code set the groundwork for reading and processing ride data from a CSV file?
+05-batch/code/07_groupby_join.ipynb,What is the purpose of setting up a Spark session in the ETL process?
+05-batch/code/07_groupby_join.ipynb,How do I perform an outer join on the green and yellow taxi revenue DataFrames?
+05-batch/code/07_groupby_join.ipynb,Can you explain how to read Parquet files using Apache Spark and why Parquet is recommended for such tasks?
+06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb,What are the necessary packages to install for setting up Spark with Kafka integration?
+06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb,How do I define a schema for ride data in a Spark Structured Streaming application?
+06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb,"Can you explain the difference between the Complete, Append, and Update output modes in Spark Streaming?"
+05-batch/code/06_spark_sql.ipynb,How do I set up the PySpark environment for analyzing taxi data?
+05-batch/code/06_spark_sql.ipynb,What are the steps to load green and yellow taxi data using PySpark?
+05-batch/code/06_spark_sql.ipynb,Can you explain how to perform a revenue analysis using SQL queries on the combined taxi datasets?
+cohorts/2024/workshops/dlt_resources/data_ingestion_workshop.md,What is the purpose of data ingestion in a data engineering pipeline?
+cohorts/2024/workshops/dlt_resources/data_ingestion_workshop.md,How can I effectively extract data from a RESTful API considering potential rate limits?
+cohorts/2024/workshops/dlt_resources/data_ingestion_workshop.md,Could you explain the difference between normalizing data and filtering data in the context of data cleaning?
+projects/datasets.md,What are some recommended datasets for the final project in the data engineering course?
+projects/datasets.md,Can I use any dataset I want for my project or do I have to choose from the provided list?
+projects/datasets.md,Are there specific datasets from Kaggle or AWS that are particularly suitable for data engineering projects?
+cohorts/2022/week_2_data_ingestion/airflow/dags_local/data_ingestion_local.py,What is the schedule for the LocalIngestionDag to run?
+cohorts/2022/week_2_data_ingestion/airflow/dags_local/data_ingestion_local.py,Can you explain how the DAG uses environment variables for database connectivity?
+cohorts/2022/week_2_data_ingestion/airflow/dags_local/data_ingestion_local.py,What are the steps involved in the data ingestion process from downloading the CSV file to loading it into PostgreSQL?
+06-streaming/python/streams-example/pyspark/producer.py,What is the main function of the RideCSVProducer script?
+06-streaming/python/streams-example/pyspark/producer.py,How does the delivery_report function work in terms of error handling when sending messages to Kafka?
+06-streaming/python/streams-example/pyspark/producer.py,Can you explain how the read_records method extracts and formats ride data from a CSV file for Kafka?
+05-batch/code/cloud.md,How do I upload my data to Google Cloud Storage using gsutil?
+05-batch/code/cloud.md,What is the command to start a Spark worker in a local cluster?
+05-batch/code/cloud.md,Can you explain the process of submitting a PySpark job to Google Cloud Dataproc with input and output parameters?
+03-data-warehouse/big_query_ml.sql,What columns are selected in the SQL query for processing taxi ride data?
+03-data-warehouse/big_query_ml.sql,Can you explain the purpose of the ML table creation in the context of this script?
+03-data-warehouse/big_query_ml.sql,"How does the model evaluation process work in this SQL script, and what metrics are used to assess the model's performance?"
+01-docker-terraform/2_docker_sql/pg-test-connection.ipynb,How do you set up a connection to a PostgreSQL database using Python?
+01-docker-terraform/2_docker_sql/pg-test-connection.ipynb,What command would you use to install the necessary libraries for connecting to PostgreSQL with Pandas?
+01-docker-terraform/2_docker_sql/pg-test-connection.ipynb,Can you explain the process of loading a CSV file into a PostgreSQL database using Pandas?
+cohorts/2024/02-workflow-orchestration/README.md,Can you explain what workflow orchestration means in the context of data engineering?
+cohorts/2024/02-workflow-orchestration/README.md,What are the differences between using Mage and other orchestration tools like Airflow and Prefect?
+cohorts/2024/02-workflow-orchestration/README.md,"How do I deploy a Mage pipeline to Google Cloud using Terraform, and what prerequisites do I need to meet beforehand?"
+cohorts/2024/workshops/rising-wave.md,What are the key topics covered in the RisingWave workshop on stream processing?
+cohorts/2024/workshops/rising-wave.md,Can you explain the steps to create a materialized view for average trip time between taxi zones?
+cohorts/2024/workshops/rising-wave.md,How can I find the top three busiest zones based on the latest pickup time using the dynamic filter pattern?
+05-batch/code/05_taxi_schema.ipynb,What steps do I need to follow to set up the Spark environment for this data processing script?
+05-batch/code/05_taxi_schema.ipynb,Can you explain why the green and yellow taxi schemas are different in the PySpark script?
+05-batch/code/05_taxi_schema.ipynb,"How does the repartitioning of data work in this script, and why is it important for processing the taxi datasets?"
+cohorts/2024/02-workflow-orchestration/homework.md,What is the primary goal of the assignment for the green taxi dataset?
+cohorts/2024/02-workflow-orchestration/homework.md,How can I use Pandas to read data for the final quarter of 2020 efficiently?
+cohorts/2024/02-workflow-orchestration/homework.md,What steps should I follow to transform the data before exporting it to a database?
+cohorts/2025/02-workflow-orchestration/homework.md,What is the process to backfill taxi data for 2021 in the homework assignment?
+cohorts/2025/02-workflow-orchestration/homework.md,Can you explain what Kestra's backfill functionality does in the context of scheduled flows?
+cohorts/2025/02-workflow-orchestration/homework.md,How can I automate running data flows for both yellow and green taxis across multiple months?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStream.java,What is the purpose of the `JsonKStream` class in this Kafka Streams application?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStream.java,Can you explain the significance of the `createTopology()` method in the data processing logic?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStream.java,How does the `countPLocation()` method handle exceptions during the runtime of the application?
+04-analytics-engineering/dbt_cloud_setup.md,What are the steps to create a BigQuery service account for my dbt cloud project?
+04-analytics-engineering/dbt_cloud_setup.md,"Can I use specific roles for the service account, or do I have to use the bq admin role?"
+04-analytics-engineering/dbt_cloud_setup.md,What should I do if my development credentials schema in BigQuery doesn't match my source data's location?
+03-data-warehouse/extras/web_to_gcs.py,What Python packages do I need to install to run the Google Cloud Storage upload script?
+03-data-warehouse/extras/web_to_gcs.py,"Can you explain how the `web_to_gcs` function works in detail, especially regarding its data transformation steps?"
+03-data-warehouse/extras/web_to_gcs.py,What should I do if my CSV files exceed the 6 MB size limit when trying to upload them to Google Cloud Storage?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonProducer.java,How does the `JsonProducer` class read data from the CSV file and transform it into `Ride` objects?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonProducer.java,Can you explain the significance of the Kafka producer configurations in the `JsonProducer` class?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonProducer.java,What error handling mechanisms are in place in the `publishRides` method when sending records to Kafka?
+cohorts/2024/workshops/dlt_resources/homework_solution.ipynb,What are the advantages of using Python generators in data processing compared to loading all data at once?
+cohorts/2024/workshops/dlt_resources/homework_solution.ipynb,"How do I modify the `people_1()` generator to include an additional field for each person, such as their occupation?"
+cohorts/2024/workshops/dlt_resources/homework_solution.ipynb,Can you explain how the primary key mechanism works in DuckDB when merging data from multiple generators?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/VendorInfo.java,What is the purpose of the `VendorInfo` class in the `org.example.data` package?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/VendorInfo.java,Can you explain how the `pickupTime` and `lastDropoffTime` properties work in the `VendorInfo` class?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/VendorInfo.java,How do you create a new instance of `VendorInfo` using the parameterized constructor?
+03-data-warehouse/extras/README.md,Can you explain how to modify the `web_to_gcs.py` script to load other file types besides CSV?
+03-data-warehouse/extras/README.md,What are the prerequisites I need to install before running the `web_to_gcs.py` script?
+03-data-warehouse/extras/README.md,What does the `web_to_gcs.py` script do specifically with the CSV files it downloads from NYC TLC?
+cohorts/2023/week_1_docker_sql/homework.md,What command should I run to get help on the 'docker build' command in Docker?
+cohorts/2023/week_1_docker_sql/homework.md,How can I determine the number of Python packages installed in the python:3.9 Docker image after running it in interactive mode?
+cohorts/2023/week_1_docker_sql/homework.md,"What is the process for counting the total number of taxi trips made on January 15, and what should I consider regarding the timestamp format in PostgreSQL?"
+cohorts/2024/03-data-warehouse/homework.md,Can you explain the process of creating an external table with the 2022 Green Taxi Trip Records Data?
+cohorts/2024/03-data-warehouse/homework.md,"When querying the dataset, how can I determine the estimated amount of data that will be read from external and materialized tables?"
+cohorts/2024/03-data-warehouse/homework.md,"What are the advantages of partitioning and clustering tables in BigQuery, especially for queries that filter by specific columns?"
+01-docker-terraform/1_terraform_gcp/1_terraform_overview.md,Can you explain what Infrastructure-as-Code (IaC) is and its significance in modern cloud architectures?
+01-docker-terraform/1_terraform_gcp/1_terraform_overview.md,What are the key files used in a Terraform project and their purposes?
+01-docker-terraform/1_terraform_gcp/1_terraform_overview.md,"How does Terraform manage state, and why is it essential for infrastructure provisioning?"
+04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql,What are the main differences between the green and yellow taxi trip data tables created in the SQL script?
+04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql,Can you explain the purpose of the `ALTER TABLE` statements in this SQL script?
+04-analytics-engineering/taxi_rides_ny/analyses/hack-load-data.sql,What should I do if I encounter an error when executing the `ALTER TABLE` statements in BigQuery?
+01-docker-terraform/1_terraform_gcp/terraform/README.md,What is the purpose of `terraform init` in the setup process?
+01-docker-terraform/1_terraform_gcp/terraform/README.md,Can you explain what the `terraform plan` command does and how it helps in managing infrastructure?
+01-docker-terraform/1_terraform_gcp/terraform/README.md,How can I safely remove infrastructure created by Terraform without incurring additional costs?
+02-workflow-orchestration/README.md,What is the purpose of using Kestra in workflow orchestration?
+02-workflow-orchestration/README.md,How do we extract and load data from CSV files into Postgres using Kestra?
+02-workflow-orchestration/README.md,"What are the specific file structures we will be using in this week's coding project, and how do I ensure I have the correct PostgreSQL version to avoid syntax errors?"
+06-streaming/python/streams-example/faust/taxi_rides.py,What is the purpose of the `TaxiRide` class in a Faust application?
+06-streaming/python/streams-example/faust/taxi_rides.py,How does the `TaxiRide` class help ensure data integrity when processing taxi ride data?
+06-streaming/python/streams-example/faust/taxi_rides.py,Can you explain how the attributes of the `TaxiRide` class contribute to stream processing in real-time applications?
+cohorts/2025/05-batch/homework/solution.ipynb,How do I create a Spark session in PySpark?
+cohorts/2025/05-batch/homework/solution.ipynb,What are the steps to filter taxi trip records for a specific date using SQL in PySpark?
+cohorts/2025/05-batch/homework/solution.ipynb,Can you explain how to join two DataFrames in PySpark using SQL?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java,What are the main responsibilities of the `createTopology` method in the `JsonKStreamJoins` class?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java,Can you explain how exception handling is managed in the `joinRidesPickupLocation` method of the `JsonKStreamJoins` class?
+06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java,What are the key configurations required to connect to a Kafka cluster in the `JsonKStreamJoins` implementation?
+cohorts/2023/week_4_analytics_engineering/homework.md,How many records should I expect to see in the fact_trips model for 2019 and 2020 after running my dbt models without the test run variable?
+cohorts/2023/week_4_analytics_engineering/homework.md,What service type distribution should I look for when analyzing the taxi data for 2019 and 2020?
+cohorts/2023/week_4_analytics_engineering/homework.md,Can you guide me on how to create a staging model for the fhv data and check the record count?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/Ride.java,What is the purpose of the `Ride` class in Java?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/Ride.java,Can you explain how the `Ride` constructor initializes the object from a string array?
+06-streaming/java/kafka_examples/src/main/java/org/example/data/Ride.java,What types of data are used for handling the pickup and drop-off times in the `Ride` class?
+cohorts/2022/week_2_data_ingestion/airflow/2_setup_nofrills.md,What should I do if my Docker setup for Airflow continues to restart?
+cohorts/2022/week_2_data_ingestion/airflow/2_setup_nofrills.md,How do I modify the Dockerfile to include custom Python packages for my Airflow instance?
+cohorts/2022/week_2_data_ingestion/airflow/2_setup_nofrills.md,"I'm using WSL2, and I'm encountering performance issues; what troubleshooting steps should I take?"
+cohorts/2023/week_3_data_warehouse/homework.md,What format should I keep the files in for the Week 3 homework?
+cohorts/2023/week_3_data_warehouse/homework.md,How can I create an external table using the fhv 2019 data and what should I avoid doing when loading it?
+cohorts/2023/week_3_data_warehouse/homework.md,What are the implications of not partitioning or clustering the table in Big Query when working with the fhv 2019 data?
+01-docker-terraform/2_docker_sql/upload-data.ipynb,What libraries do I need to import in order to process NYC taxi data using Python and Pandas?
+01-docker-terraform/2_docker_sql/upload-data.ipynb,How can I check the version of Pandas that is currently installed?
+01-docker-terraform/2_docker_sql/upload-data.ipynb,What is the method to read large CSV files in chunks using Pandas while processing NYC taxi data?

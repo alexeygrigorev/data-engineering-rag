@@ -1,0 +1,211 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What libraries does the script use to interact with Kafka and handle data formats?",
+          "timestamp": "2025-09-29T14:11:31.834698+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Kafka libraries data formats\"}",
+          "tool_call_id": "call_7MTNt4d9sX3S4BiV46FxeQky",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 221,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 16,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:35+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8tDVFwNgrpr8q944VYmqC9i5EAI",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "Have you found any cool resources about data engineering? Put them here\n\n## Learning Data Engineering\n\n### Courses\n\n* [Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) by DataTalks.Club (free)\n* [Big Data Platforms, Autumn 2022: Introduction to Big Data Processing Frameworks](https://big-data-platforms-22.mooc.fi/) by the University of Helsinki (free)   \n* [Awesome Data Engineering Learning Path](https://awesomedataengineering.com/)\n\n\n### Books\n\n* [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems by Martin Kleppmann](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321)\n* [Big Data: Principles and Best Practices of Scalable Realtime Data Systems by Nathan Marz, James Warren](https://www.amazon.com/Big-Data-Principles-practices-scalable/dp/1617290343)\n* [Practical DataOps: Delivering Agile Data Science at Scale by Harvinder Atwal](https://www.amazon.com/Practical-DataOps-Delivering-Agile-Science/dp/1484251032)\n* [Data Pipelines Pocket Reference: Moving and Processing Data for Analytics by James Densmore](https://www.amazon.com/Data-Pipelines-Pocket-Reference-Processing/dp/1492087831)\n* [Best books for data engineering](https://awesomedataengineering.com/data_engineering_best_books)\n* [Fundamentals of Data Engineering: Plan and Build Robust Data Systems by Joe Reis, Matt Housley](https://www.amazon.com/Fundamentals-Data-Engineering-Robust-Systems/dp/1098108302)\n\n\n### Introduction to Data Engineering Terms\n\n* [https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html](https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html) \n\n\n### Data engineering in practice\n\nConference talks from companies, blog posts, etc\n\n* [Uber Data Archives](https://eng.uber.com/category/articles/uberdata/) (Uber engineering blog)\n* [Data Engineering Weekly (DE-focused substack)](https://www.dataengineeringweekly.com/)\n* [Seattle Data G",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 5000,
+              "content": " post)\n* [Learn the Fundamentals of Analytics Engineering with dbt](https://courses.getdbt.com/courses/fundamentals) (course)\n\n\n### Data mesh\n\n* [Data Mesh in Practice - Max Schultze](https://www.youtube.com/watch?v=ekEc8D_D3zY) (video)\n\n### Cloud\n\n* [https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910](https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910) \n\n\n### Reverse ETL\n\n* TODO: What is reverse ETL?\n* [https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html](https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html) \n* [Open-Source Spotlight - Grouparoo - Brian Leonard](https://www.youtube.com/watch?v=hswlcgQZYuw) (video) \n* [Open-Source Spotlight - Castled.io (Reverse ETL) - Arun Thulasidharan](https://www.youtube.com/watch?v=iW0XhltAUJ8) (video) \n\n## Career in Data Engineering\n\n* [From Data Science to Data Engineering with Ellen K\u00f6nig \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e08-from-data-science-to-data-engineering.html) (podcast)\n* [Big Data Engineer vs Data Scientist with Roksolana Diachuk \u2013 DataTalks.Club](https://datatalks.club/podcast/s04e03-big-data-engineer-vs-data-scientist.html) (podcast)\n* [What Skills Do You Need to Become a Data Engineer](https://www.linkedin.com/pulse/what-skills-do-you-need-become-data-engineer-peng-wang/) (blog post) \n* [The future history of Data Engineering](https://groupby1.substack.com/p/data-engineering?s=r) (blog post) \n* [What Skills Do Data Engineers Need](https://www.theseattledataguy.com/what-skills-do-data-engineers-need/) (blog post)\n\n### Data Engineering Management \n\n* [Becoming a Data Engineering Manager with Rahul Jain \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e07-becoming-a-data-engineering-manager.html) (podcast)\n\n## Data engineering projects\n\n* [How To Start A Data Engineering Project - With Data Engineerin",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 6000,
+              "content": "e to Data Engineering with Ellen K\u00f6nig \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e08-from-data-science-to-data-engineering.html) (podcast)\n* [Big Data Engineer vs Data Scientist with Roksolana Diachuk \u2013 DataTalks.Club](https://datatalks.club/podcast/s04e03-big-data-engineer-vs-data-scientist.html) (podcast)\n* [What Skills Do You Need to Become a Data Engineer](https://www.linkedin.com/pulse/what-skills-do-you-need-become-data-engineer-peng-wang/) (blog post) \n* [The future history of Data Engineering](https://groupby1.substack.com/p/data-engineering?s=r) (blog post) \n* [What Skills Do Data Engineers Need](https://www.theseattledataguy.com/what-skills-do-data-engineers-need/) (blog post)\n\n### Data Engineering Management \n\n* [Becoming a Data Engineering Manager with Rahul Jain \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e07-becoming-a-data-engineering-manager.html) (podcast)\n\n## Data engineering projects\n\n* [How To Start A Data Engineering Project - With Data Engineering Project Ideas](https://www.youtube.com/watch?v=WpN47Jddo7I) (video)\n* [Data Engineering Project for Beginners - Batch edition](https://www.startdataengineering.com/post/data-engineering-project-for-beginners-batch-edition/) (blog post)\n* [Building a Data Engineering Project in 20 Minutes](https://www.sspaeti.com/blog/data-engineering-project-in-twenty-minutes/) (blog post)\n* [Automating Nike Run Club Data Analysis with Python, Airflow and Google Data Studio | by Rich Martin | Medium](https://medium.com/@rich_23525/automating-nike-run-club-data-analysis-with-python-airflow-and-google-data-studio-3c9556478926) (blog post)\n\n\n## Data Engineering Resources \n\n### Blogs\n\n* [Start Data Engineering](https://www.startdataengineering.com/)\n\n### Podcasts\n\n* [The Data Engineering Podcast](https://www.dataengineeringpodcast.com/)\n* [DataTalks.Club Podcast](https://datatalks.club/podcast.html) (only some episodes are about data engineering) \n* \n\n### Communities\n\n* [DataTalks.Club](https://datatalks",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 3000,
+              "content": "m/airflow-prefect-and-dagster-an-inside-look-6074781c9b77) (blog post) \n* [Open-Source Spotlight - Prefect - Kevin Kho](https://www.youtube.com/watch?v=ISLV9JyqF1w) (video) \n* [Prefect as a Data Engineering Project Workflow Tool, with Mary Clair Thompson (Duke) - 11/6/2020](https://youtu.be/HuwA4wLQtCM) (video) \n\n\n### ETL and ELT\n\n* [ETL vs. ELT: What\u2019s the Difference?](https://rivery.io/blog/etl-vs-elt/) (blog post) (print version)\n\n### Data lakes\n\n* [An Introduction to Modern Data Lake Storage Layers (Hodi, Iceberg, Delta Lake)](https://dacort.dev/posts/modern-data-lake-storage-layers/) (blog post) \n* [Lake House Architecture @ Halodoc: Data Platform 2.0](https://blogs.halodoc.io/lake-house-architecture-halodoc-data-platform-2-0/amp/) (blzog post) \n\n\n### Data warehousing\n\n\n* [Guide to Data Warehousing. Short and comprehensive information\u2026 | by Tomas Peluritis](https://medium.com/towards-data-science/guide-to-data-warehousing-6fdcf30b6fbe) (blog post) \n* [Snowflake, Redshift, BigQuery, and Others: Cloud Data Warehouse Tools Compared](https://www.altexsoft.com/blog/snowflake-redshift-bigquery-data-warehouse-tools/) (blog post)\n\n\n### Streaming\n\n\n*   Building Streaming Analytics: The Journey and Learnings - Maxim Lukichev\n\n### DataOps\n\n* [DataOps 101 with Lars Albertsson \u2013 DataTalks.Club](https://datatalks.club/podcast/s02e11-dataops.html) (podcast)\n*  \n\n\n### Monitoring and observability \n\n* [Data Observability: The Next Frontier of Data Engineering with Barr Moses](https://datatalks.club/podcast/s03e03-data-observability.html) (podcast)\n\n\n### Analytics engineering\n\n* [Analytics Engineer: New Role in a Data Team with Victoria Perez Mola](https://datatalks.club/podcast/s03e11-analytics-engineer.html) (podcast)\n* [Modern Data Stack for Analytics Engineering - Kyle Shannon](https://www.youtube.com/watch?v=UmIZIkeOfi0) (video) \n* [Analytics Engineering vs Data Engineering | RudderStack Blog](https://www.rudderstack.com/blog/analytics-engineering-vs-data-engineering) (blog",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 7000,
+              "content": "g Project Ideas](https://www.youtube.com/watch?v=WpN47Jddo7I) (video)\n* [Data Engineering Project for Beginners - Batch edition](https://www.startdataengineering.com/post/data-engineering-project-for-beginners-batch-edition/) (blog post)\n* [Building a Data Engineering Project in 20 Minutes](https://www.sspaeti.com/blog/data-engineering-project-in-twenty-minutes/) (blog post)\n* [Automating Nike Run Club Data Analysis with Python, Airflow and Google Data Studio | by Rich Martin | Medium](https://medium.com/@rich_23525/automating-nike-run-club-data-analysis-with-python-airflow-and-google-data-studio-3c9556478926) (blog post)\n\n\n## Data Engineering Resources \n\n### Blogs\n\n* [Start Data Engineering](https://www.startdataengineering.com/)\n\n### Podcasts\n\n* [The Data Engineering Podcast](https://www.dataengineeringpodcast.com/)\n* [DataTalks.Club Podcast](https://datatalks.club/podcast.html) (only some episodes are about data engineering) \n* \n\n### Communities\n\n* [DataTalks.Club](https://datatalks.club/)\n* [/r/dataengineering](https://www.reddit.com/r/dataengineering) \n\n\n### Meetups\n\n* [Sydney Data Engineers](https://sydneydataengineers.github.io/) \n\n### People to follow on Twitter and LinkedIn\n\n* TODO\n\n### YouTube channels\n\n* [Karolina Sowinska - YouTube](https://www.youtube.com/channel/UCAxnMry1lETl47xQWABvH7g) x`\n* [Seattle Data Guy - YouTube](https://www.youtube.com/c/SeattleDataGuy) \n* [Andreas Kretz - YouTube](https://www.youtube.com/c/andreaskayy) \n* [DataTalksClub - YouTube](https://youtube.com/c/datatalksclub) (only some videos are about data engineering) \n\n### Resource aggregators\n\n* [Reading List](https://www.scling.com/reading-list/) by Lars Albertsson\n* [GitHub - igorbarinov/awesome-data-engineering](https://github.com/igorbarinov/awesome-data-engineering) (focus is more on tools)  \n\n\n## License\n\nThis work is licensed under a Creative Commons Attribution 4.0 International License.\n\nCC BY 4.0",
+              "filename": "awesome-data-engineering.md"
+            }
+          ],
+          "tool_call_id": "call_7MTNt4d9sX3S4BiV46FxeQky",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:11:32.992357+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Kafka libraries in Python data formats\"}",
+          "tool_call_id": "call_8FnIyigzxP6bsgUiioakdzJi",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3133,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 18,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:36+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8tEkHHCJig6KwtGjRLaWtA04mnf",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Learning in public\n\nMost people learn in private: they consume content but don't tell\nanyone about it. There's nothing wrong with it.\n\nBut we want to encourage you to document your progress and\nshare it publicly on social media.\n\nIt helps you get noticed and will lead to:\n\n* Expanding your network: meeting new people and making new friends\n* Being invited to meetups, conferences and podcasts\n* Landing a job or getting clients\n* Many other good things\n\nHere's a more comprehensive reading on why you want to do it: https://github.com/readme/guides/publishing-your-work\n\n\n## Learning in Public for Zoomcamps\n\nWhen you submit your homework or project, you can also submit\nlearning in public posts:\n\n<img src=\"https://github.com/DataTalksClub/mlops-zoomcamp/raw/main/images/learning-in-public-links.png\" />\n\nYou can watch this video to see how your learning in public posts may look like:\n\n<a href=\"https://www.loom.com/share/710e3297487b409d94df0e8da1c984ce\" target=\"_blank\">\n    <img src=\"https://github.com/DataTalksClub/mlops-zoomcamp/raw/main/images/learning-in-public.png\" height=\"240\" />\n</a>\n\n## Daily Documentation\n\n- **Post Daily Diaries**: Document what you learn each day, including the challenges faced and the methods used to overcome them.\n- **Create Quick Videos**: Make short videos showcasing your work and upload them to GitHub.\n\nSend a PR if you want to suggest improvements for this document",
+              "filename": "learning-in-public.md"
+            },
+            {
+              "start": 0,
+              "content": "### Stream-Processing with Python\n\nIn this document, you will be finding information about stream processing \nusing different Python libraries (`kafka-python`,`confluent-kafka`,`pyspark`, `faust`).\n\nThis Python module can be separated in following modules.\n\n####  1. Docker\nDocker module includes, Dockerfiles and docker-compose definitions \nto run Kafka and Spark in a docker container. Setting up required services is\nthe prerequsite step for running following modules.\n\n#### 2. Kafka Producer - Consumer Examples\n- [Json Producer-Consumer Example](json_example) using `kafka-python` library\n- [Avro Producer-Consumer Example](avro_example) using `confluent-kafka` library\n\nBoth of these examples require, up-and running Kafka services, therefore please ensure\nfollowing steps under [docker-README](docker/README.md)\n\nTo run the producer-consumer examples in the respective example folder, run following commands\n```bash\n# Start producer script\npython3 producer.py\n# Start consumer script\npython3 consumer.py\n```",
+              "filename": "06-streaming/python/README.md"
+            },
+            {
+              "start": 0,
+              "content": "# Kafka CSV Producer\n\nThis script is designed to read ride data from a CSV file and send it to a Kafka topic using a Kafka producer. It leverages the `csv`, `json`, and `kafka` libraries in Python, executing a straightforward process to facilitate the transfer of ride information.\n\n## Libraries and Dependencies\n\nThe script begins with the following imports:\n\n```python\nimport csv\nfrom json import dumps\nfrom kafka import KafkaProducer\nfrom time import sleep\n```\n\n- **csv**: This module is used for reading and parsing CSV files. It allows for ease of access to data structured in rows and columns.\n  \n- **json.dumps**: This function converts Python objects into JSON strings, making it suitable for serializing the data before sending it over Kafka.\n\n- **KafkaProducer**: This class from the `kafka` library is used to send messages to a Kafka broker. The producer will be configured later with serializers for the keys and values.\n\n- **time.sleep**: This function pauses the execution of the script for a specified amount of time, allowing for the control of message flow to the Kafka topic.\n\n## Kafka Producer Initialization\n\nA Kafka producer is initialized with specific configurations:\n\n```python\nproducer = KafkaProducer(bootstrap_servers=['localhost:9092'],\n                         key_serializer=lambda x: dumps(x).encode('utf-8'),\n                         value_serializer=lambda x: dumps(x).encode('utf-8'))\n```\n\n- **bootstrap_servers**: This parameter specifies the address of the Kafka broker. In this case, it points to a local server running on port 9092.\n\n- **key_serializer**: This lambda function serializes the key into a JSON string format and encodes it in UTF-8. The serialization allows the key to be sent as a uniform message over Kafka.\n\n- **value_serializer**: Similar to the key serializer, this function serializes the value to JSON format and encodes it to ensure compatibility with Kafka message formats.\n\n## CSV File Handling\n\nNext, the script opens the CSV file that ",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/producer_taxi_json.py"
+            },
+            {
+              "start": 0,
+              "content": "# Kafka JSON Consumer Documentation\n\nThis document provides a high-level overview of a Kafka JSON consumer implemented using Python. The code is designed to consume messages from a Kafka topic, deserialize them into Python objects, and print key-value pairs to the console. Below is a structured breakdown of the code.\n\n## Imports and Dependencies\n\nThe script begins by importing essential libraries:\n\n```python\nimport os\nfrom typing import Dict, List\nfrom json import loads\nfrom kafka import KafkaConsumer\n\nfrom ride import Ride\nfrom settings import BOOTSTRAP_SERVERS, KAFKA_TOPIC\n```\n\n1. **Standard Libraries**: \n    - `os`: Standard library for interacting with the operating system, though not explicitly used in the code.\n    - `typing`: Provides type hints for better readability and type checking. `Dict` and `List` are imported for type annotations.\n    - `json`: The `loads` function is used to deserialize JSON strings into Python objects.\n  \n2. **Kafka Library**: `KafkaConsumer` is imported from the `kafka` library for consuming messages from Kafka topics.\n\n3. **Local Modules**: \n    - `Ride`: A custom class presumably defined in a separate module, used to deserialize message values.\n    - `settings`: Contains application configuration such as bootstrap servers and Kafka topic names.\n\n## Class Definition: `JsonConsumer`\n\n### Purpose\n\nThe `JsonConsumer` class is designed to encapsulate the functionality required to create a Kafka consumer, subscribe to specified topics, and consume messages.\n\n### Constructor\n\n```python\ndef __init__(self, props: Dict):\n    self.consumer = KafkaConsumer(**props)\n```\n\n- The constructor initializes the Kafka consumer with properties passed as a `Dict`. This allows for flexible configuration.\n\n### Method: `consume_from_kafka`\n\n```python\ndef consume_from_kafka(self, topics: List[str]):\n```\n\n- This method subscribes to one or more Kafka topics and enters an infinite loop to consume messages continuously.\n\n#### Subscription and Initialization\n\n",
+              "code": false,
+              "filename": "06-streaming/python/redpanda_example/consumer.py"
+            },
+            {
+              "start": 2000,
+              "content": " service is running on the same machine.\n\n\n### Bootstrap Servers\n\n```python\nBOOTSTRAP_SERVERS = 'localhost:9092'\n```\n\nThis variable specifies the address of the Kafka broker(s) that the application will connect to for producing and consuming messages. In this case, it points to a local Kafka server running on port 9092. This is the entry point for communication with the Kafka ecosystem.\n\n\n### Kafka Topic\n\n```python\nKAFKA_TOPIC = 'rides_avro'\n```\n\nThis variable defines the Kafka topic named `rides_avro`, where the ride-sharing data will be published and consumed. Topics in Kafka serve as categories or feeds to which records are sent, and they play a critical role in how data is organized and processed.\n\n\n## Summary\n\nIn summary, this code snippet serves as a fundamental configuration block for an application that aims to process taxi ride data using Kafka and Avro for serialization. The specified file paths, schema registry URL, bootstrap servers, and Kafka topic provide the necessary parameters for the program to effectively read ride data from a CSV file, validate it against defined schemas, and interact with Kafka's messaging system for data flow.",
+              "code": false,
+              "filename": "06-streaming/python/avro_example/settings.py"
+            }
+          ],
+          "tool_call_id": "call_8FnIyigzxP6bsgUiioakdzJi",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:11:34.282807+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "The scripts and libraries utilized for interacting with Kafka and handling various data formats include:\n\n1. **Kafka Libraries**:\n   - `kafka-python`: This library is used for creating Kafka producers and consumers. It provides methods to send messages to Kafka topics and to read messages from them.\n   - `confluent-kafka`: An alternative library that also supports Kafka, often used for more advanced features and better performance compared to `kafka-python`.\n\n2. **Data Format Handling**:\n   - **CSV**: The `csv` module is used for reading and parsing CSV files.\n   - **JSON**: The `json` module (specifically `json.dumps` for serialization) is utilized to convert Python objects into JSON format before sending them over Kafka.\n   - **Avro**: This format is handled through the `confluent-kafka` library, which supports Avro serialization and can interact with a schema registry.\n\n### Example Libraries in Use\n- **CSV Producer Example**:\n    ```python\n    import csv\n    from json import dumps\n    from kafka import KafkaProducer\n    from time import sleep\n    ```\n   This script reads from a CSV file and sends the data to a Kafka topic, using the Kafka producer.\n\n- **JSON Consumer Example**:\n    ```python\n    from kafka import KafkaConsumer\n    from json import loads\n    ```\n   This script consumes messages from a Kafka topic, deserializing them from JSON.\n\n- **Avro Example**:\n   The use of Avro can be configured while setting up the environment, as indicated in the settings or producer-consumer configurations.\n\n### References\n- For more information regarding stream processing and examples, refer to the [README](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/README.md) file.\n- The CSV and JSON handling within Kafka can specifically be referenced in the scripts found [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/faust/producer_taxi_json.py) and [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/redpanda_example/consumer.py).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5009,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 3072,
+        "output_tokens": 461,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:37+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8tFIdkdXklgQRryulrc8KjTtEgy",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "06-streaming/python/json_example/producer.py",
+    "question": "What libraries does the script use to interact with Kafka and handle data formats?"
+  }
+}

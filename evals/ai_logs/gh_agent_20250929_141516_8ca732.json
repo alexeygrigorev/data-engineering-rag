@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What topics will be covered in the Week 6 homework for the data engineering course?",
+          "timestamp": "2025-09-29T14:15:11.990970+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Week 6 homework topics\"}",
+          "tool_call_id": "call_frupyTeJfkGW3y1OdViJyqeV",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 223,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:15+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wlJ1rdBthwtSUbkysTjJ6FhK3O",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Documentation for `Topics` Class\n\n## Overview\nThe `Topics` class is part of the `org.example` package and serves as a constants holder for topic names used within a broader application context, likely relating to data processing or messaging systems such as Apache Kafka. It defines three public static final string constants that represent different topics.\n\n## Purpose\nThe primary role of the `Topics` class is to centralize and manage topic names that are used in the application. By defining these topics as constants, the class helps in maintaining consistency throughout the codebase, ensuring that the same names are referenced uniformly, which minimizes errors related to string literals spread across the code.\n\n## Constants\n\n### 1. `INPUT_RIDE_TOPIC`\n```java\npublic static final String INPUT_RIDE_TOPIC = \"rides\";\n```\n- **Description**: This constant holds the name of the input topic for ride data. It suggests that the application is likely processing information related to transportation or ride-sharing services.\n- **Use Case**: Components of the application that require access to the ride data would refer to this constant to ensure they are subscribing or publishing to the correct topic without hardcoding the string \"rides\".\n\n### 2. `INPUT_RIDE_LOCATION_TOPIC`\n```java\npublic static final String INPUT_RIDE_LOCATION_TOPIC = \"rides_location\";\n```\n- **Description**: This constant contains the name of the input topic for ride location data. This indicates a focus on geographical aspects of the ride, such as starting points, destinations, or GPS coordinates.\n- **Use Case**: Similar to the previous constant, this one aids in consistently referring to the ride location data topic across the application, aiding data ingestion or processing components that rely on location-specific information.\n\n### 3. `OUTPUT_TOPIC`\n```java\npublic static final String OUTPUT_TOPIC = \"vendor_info\";\n```\n- **Description**: This constant defines the name of the output topic, seemingly for vendo",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/Topics.java"
+            },
+            {
+              "start": 0,
+              "content": "## Week 2 Homework\n\nIn this homework, we'll prepare data for the next week. We'll need\nto put these datasets to our data lake:\n\n* For the lessons, we'll need the Yellow taxi dataset (years 2019 and 2020)\n* For the homework, we'll need FHV Data (for-hire vehicles, for 2019 only)\n\nYou can find all the URLs on [the dataset page](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)\n\n\nIn this homework, we will:\n\n* Modify the DAG we created during the lessons for transferring the yellow taxi data\n* Create a new dag for transferring the FHV data\n* Create another dag for the Zones data\n\n\nIf you don't have access to GCP, you can do that locally and ingest data to Postgres \ninstead. If you have access to GCP, you don't need to do it for local Postgres -\nonly if you want.\n\nAlso note that for this homework we don't need the last step - creating a table in GCP.\nAfter putting all the files to the datalake, we'll create the tables in Week 3.\n\n\n\n## Question 1: Start date for the Yellow taxi data (1 point)\n\nYou'll need to parametrize the DAG for processing the yellow taxi data that\nwe created in the videos. \n\nWhat should be the start date for this dag?\n\n* 2019-01-01\n* 2020-01-01\n* 2021-01-01\n* days_ago(1)\n\n\n## Question 2: Frequency for the Yellow taxi data (1 point)\n\nHow often do we need to run this DAG?\n\n* Daily\n* Monthly\n* Yearly\n* Once\n\n\n## Re-running the DAGs for past dates\n\nTo execute your DAG for past dates, try this:\n\n* First, delete your DAG from the web interface (the bin icon)\n* Set the `catchup` parameter to `True`\n* Be careful with running a lot of jobs in parallel - your system may not like it. Don't set it higher than 3: `max_active_runs=3`\n* Rename the DAG to something like `data_ingestion_gcs_dag_v02` \n* Execute it from the Airflow GUI (the play button)\n\n\nAlso, there's no data for the recent months, but `curl` will exit successfully.\nTo make it fail on 404, add the `-f` flag:\n\n```bash\ncurl -sSLf { URL } > { LOCAL_PATH }\n```\n\nWhen you run this for all the da",
+              "filename": "cohorts/2022/week_2_data_ingestion/homework/homework.md"
+            },
+            {
+              "start": 2000,
+              "content": "r information. This suggests that the application processes ride data to generate or utilize information pertinent to vendors, potentially involving analytics, reporting, or integration with third-party services.\n- **Use Case**: Components that need to publish processed results or aggregated vendor information would utilize this constant to guarantee that the data is sent to the correct output topic.\n\n## Section Summary\nThe design choice to encapsulate topic names in a dedicated class promotes code clarity and reduces the risk of runtime errors caused by typos or inconsistent topic naming. By using constants, developers can easily modify topic names in one place without needing to scour through the codebase for every instance where a topic name might appear. This enhances maintainability, readability, and structural integrity of the code.\n\n## Conclusion\nIn summary, the `Topics` class is a simple yet effective means for managing topic names within an application that likely deals with ride data and vendor information. Its constants enhance code safety, making the integration and messaging aspects of the application easier to manage and understand. This setup is particularly beneficial in distributed systems where communication between services relies heavily on standardized identifiers like topic names.",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/Topics.java"
+            },
+            {
+              "start": 0,
+              "content": "## Week 6 Homework\n[Form](https://forms.gle/mSzfpPCXskWCabeu5)\n\nThe homework is mostly theoretical. In the last question you have to provide working code link, please keep in mind that this\nquestion is not scored.\n\nDeadline: 14 March, 22:00 CET",
+              "filename": "cohorts/2022/week_6_stream_processing/homework.md"
+            },
+            {
+              "start": 1000,
+              "content": "ion or ride-sharing services.\n- **Use Case**: Components of the application that require access to the ride data would refer to this constant to ensure they are subscribing or publishing to the correct topic without hardcoding the string \"rides\".\n\n### 2. `INPUT_RIDE_LOCATION_TOPIC`\n```java\npublic static final String INPUT_RIDE_LOCATION_TOPIC = \"rides_location\";\n```\n- **Description**: This constant contains the name of the input topic for ride location data. This indicates a focus on geographical aspects of the ride, such as starting points, destinations, or GPS coordinates.\n- **Use Case**: Similar to the previous constant, this one aids in consistently referring to the ride location data topic across the application, aiding data ingestion or processing components that rely on location-specific information.\n\n### 3. `OUTPUT_TOPIC`\n```java\npublic static final String OUTPUT_TOPIC = \"vendor_info\";\n```\n- **Description**: This constant defines the name of the output topic, seemingly for vendor information. This suggests that the application processes ride data to generate or utilize information pertinent to vendors, potentially involving analytics, reporting, or integration with third-party services.\n- **Use Case**: Components that need to publish processed results or aggregated vendor information would utilize this constant to guarantee that the data is sent to the correct output topic.\n\n## Section Summary\nThe design choice to encapsulate topic names in a dedicated class promotes code clarity and reduces the risk of runtime errors caused by typos or inconsistent topic naming. By using constants, developers can easily modify topic names in one place without needing to scour through the codebase for every instance where a topic name might appear. This enhances maintainability, readability, and structural integrity of the code.\n\n## Conclusion\nIn summary, the `Topics` class is a simple yet effective means for managing topic names within an application that likely deals with r",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/Topics.java"
+            }
+          ],
+          "tool_call_id": "call_frupyTeJfkGW3y1OdViJyqeV",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:15:13.073420+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "The Week 6 homework for the data engineering course focuses primarily on theoretical concepts. The main tasks include:\n\n1. **Theoretical Questions**: The homework is mostly theoretical in nature. \n2. **Working Code Link**: For the last question, you will need to provide a link to a repository or a working code example. Please note that this portion of the homework is not scored.\n\n**Deadline**: The assignment is due on **14 March, 22:00 CET**.\n\nFor more detailed guidance and instructions, please refer to the official homework documentation [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2022/week_6_stream_processing/homework.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2084,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 148,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:16+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wmt8eckkLdZ4mWXxHG0W5uFkwM",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2022/week_6_stream_processing/homework.md",
+    "question": "What topics will be covered in the Week 6 homework for the data engineering course?"
+  }
+}

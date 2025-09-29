@@ -1,0 +1,139 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How do the key and value schemas work with Kafka in this context?",
+          "timestamp": "2025-09-29T14:13:26.343340+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Kafka key and value schemas\"}",
+          "tool_call_id": "call_Ew9uicOM6H5Z9t5q2cveDp3M",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 220,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:29+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8v3oPej5gUpPIZvJBcuY1Gs2Lw4",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 8000,
+              "content": "ta.\n\n### Kafka Sink\n\nFor publishing stream results back to a Kafka topic, the DataFrame must include a column named `value`. \n\n```python\ndef prepare_dataframe_to_kafka_sink(df, value_columns, key_column=None):\n    columns = df.columns\n    df = df.withColumn(\"value\", F.concat_ws(', ', *value_columns))    \n    if key_column:\n        df = df.withColumnRenamed(key_column, \"key\")\n        df = df.withColumn(\"key\", df.key.cast('string'))\n    return df.select(['key', 'value'])\n    \ndef sink_kafka(df, topic, output_mode='append'):\n    write_query = df.writeStream \\\n        .format(\"kafka\") \\\n        .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n        .outputMode(output_mode) \\\n        .option(\"topic\", topic) \\\n        .option(\"checkpointLocation\", \"checkpoint\") \\\n        .start()\n    return write_query\n```\n\nThe `prepare_dataframe_to_kafka_sink` function constructs the appropriate DataFrame by concatenating specified value columns into a single 'value' column, and optionally renaming a key column. The `sink_kafka` function writes the DataFrame to a specified Kafka topic using the streaming write method.\n\n### Conclusion\n\nThis documentation provided a structured overview of setting up Spark with Kafka for processing ride data, as well as how to read from Kafka streams and write to different sinks. The choice of output sinks and modes can greatly influence how you manage and analyze your streaming data.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Documentation for the `Secrets` Class\n\n## Overview\n\nThe `Secrets` class is part of the package `org.example`. It is designed to store sensitive information such as credentials that are crucial for connecting to external services like a Kafka cluster and a schema registry. This class provides a centralized place to define constants for these keys and secrets.\n\n## Class Structure\n\n### Constant Fields\n\nThe class contains four public static final fields, which are constants used to hold the key and secret for both Kafka and the schema registry. Each of these constants needs to be replaced with actual values before use. Here\u2019s a breakdown of the fields:\n\n1. **KAFKA_CLUSTER_KEY**\n   - Purpose: This constant is intended to store the key required to authenticate against a Kafka cluster.\n   - Default Value: `\"REPLACE_WITH_YOUR_KAFKA_CLUSTER_KEY\"` indicates that this placeholder should be replaced with the actual Kafka cluster key at the time of implementation.\n\n2. **KAFKA_CLUSTER_SECRET**\n   - Purpose: This constant is designed to hold the secret associated with the Kafka cluster key for authentication purposes.\n   - Default Value: `\"REPLACE_WITH_YOUR_KAFKA_CLUSTER_SECRET\"` also serves as a placeholder needing to be replaced with the actual Kafka cluster secret.\n\n3. **SCHEMA_REGISTRY_KEY**\n   - Purpose: This constant is used to store the key for accessing a schema registry, which is essential for managing schemas when using systems like Kafka.\n   - Default Value: `\"REPLACE_WITH_SCHEMA_REGISTRY_KEY\"` is a reminder to substitute this with the actual schema registry key.\n\n4. **SCHEMA_REGISTRY_SECRET**\n   - Purpose: Similar to the above constants, this field stores the secret corresponding to the schema registry key for secure authentication.\n   - Default Value: `\"REPLACE_WITH_SCHEMA_REGISTRY_SECRET\"` emphasizes that the user must input an actual secret value.\n\n## Usage\n\n### Security Considerations\n\n- **Hardcoding Secrets**: It is important to note that hardcoding sensitive in",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/Secrets.java"
+            },
+            {
+              "start": 8000,
+              "content": "ming.StreamingQuery\nwrite_query.status\n```\n\nWe check the type and status of the write query to ensure that it is active and streaming correctly.\n\n```python\ndf_vendor_id_counts.show()\n```\n\nWe display the results of our SQL query, which gives us the count of distinct vendor IDs from the ride data.\n\n```python\nwrite_query.stop()\n```\n\nFinally, we stop the streaming query to end the stream when it is no longer needed.\n\n### Kafka Sink\n\nTo send streaming results back into a Kafka topic, we prepare the DataFrame to meet Kafka's expected structure.\n\n```python\ndef prepare_dataframe_to_kafka_sink(df, value_columns, key_column=None):\n    columns = df.columns\n    df = df.withColumn(\"value\", F.concat_ws(', ', *value_columns))    \n    if key_column:\n        df = df.withColumnRenamed(key_column, \"key\")\n        df = df.withColumn(\"key\", df.key.cast('string'))\n    return df.select(['key', 'value'])\n\ndef sink_kafka(df, topic, output_mode='append'):\n    write_query = df.writeStream \\\n        .format(\"kafka\") \\\n        .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n        .outputMode(output_mode) \\\n        .option(\"topic\", topic) \\\n        .option(\"checkpointLocation\", \"checkpoint\") \\\n        .start()\n    return write_query\n```\n\nIn these functions, we define how to prepare the DataFrame for Kafka by concatenating value columns into a single \"value\" column and optionally setting a \"key\" column. The `sink_kafka` function sends the structured DataFrame to a specified Kafka topic.\n\n---\nThis concludes the setup for reading from Kafka, structuring the data, and deploying it to various sinks, including console and Kafka. Each step is geared toward ensuring efficient handling of streaming data within a Spark application.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Documentation for RideAvroProducer Script\n\n## Overview\n\nThis script is designed as a Kafka producer that sends ride record data to a specified Kafka topic using Avro serialization. It reads records from a CSV file, serializes them according to predefined schemas, and publishes them to a Kafka topic, providing a delivery report on the success or failure of each message sent.\n\n## Key Imports\n\n1. **OS and CSV Libraries**: Used for file handling and parsing CSV files.\n2. **Confluent Kafka Library**: This library provides the necessary tools for producing messages to Kafka and for Avro serialization.\n3. **Custom Modules**: \n   - `ride_record_key` and `ride_record`: These modules define the data structures for the ride records and their keys.\n   - `settings`: Configuration parameters for Kafka, schema paths, and input data paths.\n\n## Delivery Report Function\n\n```python\ndef delivery_report(err, msg):\n    ...\n```\n\nThis function is called after attempting to send a message to Kafka. It checks for errors during the delivery process:\n- If an error occurred, it outputs an error message indicating which record failed.\n- If successful, it logs the details of the successfully produced record, including the topic, partition, and offset.\n\n## RideAvroProducer Class\n\n### Initialization\n\n```python\nclass RideAvroProducer:\n    def __init__(self, props: Dict):\n        ...\n```\n\nUpon instantiation, the `RideAvroProducer` class synchronizes with the schema registry and initializes the necessary serializers. It does the following:\n1. Loads the key and value schemas from the provided schema paths.\n2. Configures the Schema Registry client.\n3. Initializes Avro serializers for both keys and values.\n4. Sets up a Kafka producer with the provided bootstrap servers.\n\n### Load Schema\n\n```python\n@staticmethod\ndef load_schema(schema_path: str):\n    ...\n```\n\nThis static method reads and returns the content of a schema file given its path. It ensures that the producer can utilize appropriate serializati",
+              "code": false,
+              "filename": "06-streaming/python/avro_example/producer.py"
+            },
+            {
+              "start": 3000,
+              "content": "e = {\"vendorId\": int(row[0]), \"passenger_count\": int(row[3]), \"trip_distance\": float(row[4]), \"payment_type\": int(row[9]), \"total_amount\": float(row[16])}\n```\n\n- **key**: Created as a dictionary with the vendor ID (assumed to be in the first column of the CSV).\n\n- **value**: Constructed as another dictionary containing multiple fields relevant to the taxi ride:\n  - *vendorId*: Vendor ID cast to an integer.\n  - *passenger_count*: Number of passengers, also an integer.\n  - *trip_distance*: Distance of the trip, converted to a float.\n  - *payment_type*: Payment method stored as an integer.\n  - *total_amount*: Total fare for the ride, represented as a float.\n\n## Sending Data to Kafka\n\nThe constructed key and value are sent to the Kafka topic:\n\n```python\nproducer.send('datatalkclub.yellow_taxi_ride.json', value=value, key=key)\n```\n\n- The topic specified is `datatalkclub.yellow_taxi_ride.json`. This indicates that the script is targeting a predefined topic for the storage and analysis of yellow taxi ride data.\n\n## Feedback and Flow Control\n\nAfter sending the message, the script prints a confirmation message and pauses for a second:\n\n```python\nprint(\"producing\")\nsleep(1)\n```\n\n- **Print Statement**: Outputs \"producing\" to the console, indicating successful message production.\n\n- **sleep(1)**: Introduces a one-second delay between messages, which helps manage the load on the Kafka broker and allows for controlled throughput of messages.\n\n## Conclusion\n\nIn summary, this script effectively captures essential ride-related data from a CSV file and streams it to a Kafka topic. The use of Kafka allows for scalable and reliable message handling, making it suitable for real-time data processing applications. The methodology of key and value construction provides a structured approach for organizing the taxi ride information efficiently.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/faust/producer_taxi_json.py"
+            }
+          ],
+          "tool_call_id": "call_Ew9uicOM6H5Z9t5q2cveDp3M",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:27.272059+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "In the context of Kafka, the key and value schemas are essential for structuring the data sent to Kafka topics, especially when working with Spark or Avro serialization. Here\u2019s how they work:\n\n1. **Key Schema**:\n   - The key is often used to determine the partition the message will go to, which can help with load balancing and message order. For example, in a ride data scenario, the key could be the `vendorId` which uniquely identifies the taxi service provider.\n   - When preparing a DataFrame for sending to Kafka, you can rename a specified key column to \"key\", which is then cast to a string for proper handling:\n     ```python\n     if key_column:\n         df = df.withColumnRenamed(key_column, \"key\")\n         df = df.withColumn(\"key\", df.key.cast('string'))\n     ```\n\n2. **Value Schema**:\n   - The value contains the actual data you want to send to the Kafka topic. It can include multiple fields combined into a single column named \"value\". This is usually done by concatenating relevant columns together, which allows you to send structured data efficiently.\n   - For instance, a function could concatenate fields from a DataFrame into a single 'value' column:\n     ```python\n     df = df.withColumn(\"value\", F.concat_ws(', ', *value_columns))\n     ```\n\n3. **Integration with Avro**:\n   - When using Avro serialization with Kafka, both key and value schemas are defined to ensure data compatibility. This typically involves loading the schemas from a schema registry. The schemas define the structure and types of the data being exchanged, ensuring that both the producers and consumers understand the message format.\n   - For example, you might have Avro schemas defining the structure for both the key (e.g., vendor ID) and the value (e.g., trip details), with the producer setting this up as follows:\n     ```python\n     self.key_schema = self.load_schema(\"path/to/key/schema\")\n     self.value_schema = self.load_schema(\"path/to/value/schema\")\n     ```\n\n### Conclusion\nThe key and value schemas in Kafka help in organizing data effectively, enabling efficient processing and communication between producers and consumers. By specifying which data constitutes the key and which is the value, developers can control partitioning and structure the information being processed or analyzed.\n\nFor more practical examples and code snippets, you can refer to the specific source files:\n- [Streaming notebook example for Kafka](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb)\n- [RideAvroProducer script with Avro](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/avro_example/producer.py)",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2537,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 580,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:30+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8v4S64IAG65WKuPwfMqSDb6fpOP",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "06-streaming/python/avro_example/settings.py",
+    "question": "How do the key and value schemas work with Kafka in this context?"
+  }
+}

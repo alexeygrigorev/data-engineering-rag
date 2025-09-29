@@ -1,0 +1,178 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How do I deploy a Mage pipeline to Google Cloud using Terraform, and what prerequisites do I need to meet beforehand?",
+          "timestamp": "2025-09-29T14:13:19.413929+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"Mage pipeline Google Cloud Terraform deployment\"}",
+          "tool_call_id": "call_pDHYxkYfGG6BOaRHUpoO4RIc",
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"prerequisites deploy Mage pipeline\"}",
+          "tool_call_id": "call_R8C75oR4zBOI3coTMfLw6Ji8",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 229,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 52,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:22+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8uwiG0kdjSd4CIYoQ7ouccIQV64",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Overview of the Code\n\nThis script is a simple command-line Python application that utilizes pandas, a popular data analysis library, to perform operations based on input received from the command line. The main function of the script is to process data for a specific day, which is indicated by a command-line argument. \n\n## Importing Required Libraries\n\n```python\nimport sys\nimport pandas as pd\n```\n\nThe script begins by importing two essential libraries:\n- **sys**: This library is used to interact with the Python interpreter. It allows access to command-line arguments and system-specific parameters.\n- **pandas**: A powerful data manipulation and analysis library. While the script notes \"some fancy stuff with pandas,\" the specific operations are not detailed in the provided code.\n\n## Command-Line Arguments\n\n```python\nprint(sys.argv)\n```\n\nThe script prints the list of command-line arguments passed to it when executed. This list includes the name of the script itself as the first element, followed by any arguments provided by the user.\n\n## Day Variable Extraction\n\n```python\nday = sys.argv[1]\n```\n\nHere, the script assigns the first command-line argument (after the script name) to the variable `day`. This variable is expected to represent the specific day's data that the script is intended to process. The script currently lacks error handling, so if the user does not supply an argument, this line will raise an `IndexError`.\n\n## Suggestive Placeholder for Data Processing\n\n```python\n# some fancy stuff with pandas\n```\n\nThis line serves as a placeholder where the script is presumably intended to perform data manipulation or analysis using pandas. The specifics of this operation are not provided in the code snippet. The comment suggests room for adding various data processing tasks, such as reading from a CSV file, filtering data, performing calculations, or generating reports based on the `day` variable.\n\n## Completion Message\n\n```python\nprint(f'job finished successfully for",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pipeline.py"
+            },
+            {
+              "start": 1000,
+              "content": " followed by any arguments provided by the user.\n\n## Day Variable Extraction\n\n```python\nday = sys.argv[1]\n```\n\nHere, the script assigns the first command-line argument (after the script name) to the variable `day`. This variable is expected to represent the specific day's data that the script is intended to process. The script currently lacks error handling, so if the user does not supply an argument, this line will raise an `IndexError`.\n\n## Suggestive Placeholder for Data Processing\n\n```python\n# some fancy stuff with pandas\n```\n\nThis line serves as a placeholder where the script is presumably intended to perform data manipulation or analysis using pandas. The specifics of this operation are not provided in the code snippet. The comment suggests room for adding various data processing tasks, such as reading from a CSV file, filtering data, performing calculations, or generating reports based on the `day` variable.\n\n## Completion Message\n\n```python\nprint(f'job finished successfully for day = {day}')\n```\n\nThe script concludes by printing a success message that includes the value of the `day` variable. This output informs the user that the processing has finished successfully, assuming no errors occurred prior.\n\n## Conclusion\n\nIn conclusion, this script is structured primarily to take user input for a specific day via command-line arguments, with an integration point for pandas for data handling. The absence of detailed data manipulation in the provided code suggests it might be a work in progress or serve as a template for further extension. The overall flow is straightforward, allowing for easy modification to incorporate specific data analysis tasks relevant to the provided `day` input.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pipeline.py"
+            },
+            {
+              "start": 2000,
+              "content": "tc_data_lake_de-zoomcamp-nytaxi/report-2021`\n\n\nUsing Google Cloud SDK for submitting to dataproc\n([link](https://cloud.google.com/dataproc/docs/guides/submit-job#dataproc-submit-job-gcloud))\n\n```bash\ngcloud dataproc jobs submit pyspark \\\n    --cluster=de-zoomcamp-cluster \\\n    --region=europe-west6 \\\n    gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql.py \\\n    -- \\\n        --input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2020/*/ \\\n        --input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2020/*/ \\\n        --output=gs://dtc_data_lake_de-zoomcamp-nytaxi/report-2020\n```\n\n### Big Query\n\nUpload the script to GCS:\n\n```bash\ngsutil -m cp -r 06_spark_sql_big_query.py gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql_big_query.py\n```\n\nWrite results to big query ([docs](https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark)):\n\n```bash\ngcloud dataproc jobs submit pyspark \\\n    --cluster=de-zoomcamp-cluster \\\n    --region=europe-west6 \\\n    --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \\\n    gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql_big_query.py \\\n    -- \\\n        --input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2020/*/ \\\n        --input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2020/*/ \\\n        --output=trips_data_all.reports-2020\n```\n\nThere can be issue with latest Spark version and the Big query connector. Download links to the jar file for respective Spark versions can be found at:\n[Spark and Big query connector](https://github.com/GoogleCloudDataproc/spark-bigquery-connector)\n\n**Note**: Dataproc on GCE 2.1+ images pre-install Spark BigQquery connector: [DataProc Release 2.2](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-release-2.2). Therefore, no need to include the jar file in the job submission.",
+              "filename": "05-batch/code/cloud.md"
+            },
+            {
+              "start": 0,
+              "content": "## Running Spark in the Cloud\n\n### Connecting to Google Cloud Storage \n\nUploading data to GCS:\n\n```bash\ngsutil -m cp -r pq/ gs://dtc_data_lake_de-zoomcamp-nytaxi/pq\n```\n\nDownload the jar for connecting to GCS to any location (e.g. the `lib` folder):\n\n**Note**: For other versions of GCS connector for Hadoop see [Cloud Storage connector ](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage#connector-setup-on-non-dataproc-clusters).\n\n```bash\ngsutil cp gs://hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar ./lib/\n```\n\nSee the notebook with configuration in [09_spark_gcs.ipynb](09_spark_gcs.ipynb)\n\n(Thanks Alvin Do for the instructions!)\n\n\n### Local Cluster and Spark-Submit\n\nCreating a stand-alone cluster ([docs](https://spark.apache.org/docs/latest/spark-standalone.html)):\n\n```bash\n./sbin/start-master.sh\n```\n\nCreating a worker:\n\n```bash\nURL=\"spark://de-zoomcamp.europe-west1-b.c.de-zoomcamp-nytaxi.internal:7077\"\n./sbin/start-slave.sh ${URL}\n\n# for newer versions of spark use that:\n#./sbin/start-worker.sh ${URL}\n```\n\nTurn the notebook into a script:\n\n```bash\njupyter nbconvert --to=script 06_spark_sql.ipynb\n```\n\nEdit the script and then run it:\n\n```bash \npython 06_spark_sql.py \\\n    --input_green=data/pq/green/2020/*/ \\\n    --input_yellow=data/pq/yellow/2020/*/ \\\n    --output=data/report-2020\n```\n\nUse `spark-submit` for running the script on the cluster\n\n```bash\nURL=\"spark://de-zoomcamp.europe-west1-b.c.de-zoomcamp-nytaxi.internal:7077\"\n\nspark-submit \\\n    --master=\"${URL}\" \\\n    06_spark_sql.py \\\n        --input_green=data/pq/green/2021/*/ \\\n        --input_yellow=data/pq/yellow/2021/*/ \\\n        --output=data/report-2021\n```\n\n### Data Proc\n\nUpload the script to GCS:\n\n```bash\ngsutil -m cp -r 06_spark_sql.py gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql.py\n```\n\nParams for the job:\n\n* `--input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2021/*/`\n* `--input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2021/*/`\n* `--output=gs://d",
+              "filename": "05-batch/code/cloud.md"
+            },
+            {
+              "start": 1000,
+              "content": "se that:\n#./sbin/start-worker.sh ${URL}\n```\n\nTurn the notebook into a script:\n\n```bash\njupyter nbconvert --to=script 06_spark_sql.ipynb\n```\n\nEdit the script and then run it:\n\n```bash \npython 06_spark_sql.py \\\n    --input_green=data/pq/green/2020/*/ \\\n    --input_yellow=data/pq/yellow/2020/*/ \\\n    --output=data/report-2020\n```\n\nUse `spark-submit` for running the script on the cluster\n\n```bash\nURL=\"spark://de-zoomcamp.europe-west1-b.c.de-zoomcamp-nytaxi.internal:7077\"\n\nspark-submit \\\n    --master=\"${URL}\" \\\n    06_spark_sql.py \\\n        --input_green=data/pq/green/2021/*/ \\\n        --input_yellow=data/pq/yellow/2021/*/ \\\n        --output=data/report-2021\n```\n\n### Data Proc\n\nUpload the script to GCS:\n\n```bash\ngsutil -m cp -r 06_spark_sql.py gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql.py\n```\n\nParams for the job:\n\n* `--input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2021/*/`\n* `--input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2021/*/`\n* `--output=gs://dtc_data_lake_de-zoomcamp-nytaxi/report-2021`\n\n\nUsing Google Cloud SDK for submitting to dataproc\n([link](https://cloud.google.com/dataproc/docs/guides/submit-job#dataproc-submit-job-gcloud))\n\n```bash\ngcloud dataproc jobs submit pyspark \\\n    --cluster=de-zoomcamp-cluster \\\n    --region=europe-west6 \\\n    gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql.py \\\n    -- \\\n        --input_green=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/green/2020/*/ \\\n        --input_yellow=gs://dtc_data_lake_de-zoomcamp-nytaxi/pq/yellow/2020/*/ \\\n        --output=gs://dtc_data_lake_de-zoomcamp-nytaxi/report-2020\n```\n\n### Big Query\n\nUpload the script to GCS:\n\n```bash\ngsutil -m cp -r 06_spark_sql_big_query.py gs://dtc_data_lake_de-zoomcamp-nytaxi/code/06_spark_sql_big_query.py\n```\n\nWrite results to big query ([docs](https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark)):\n\n```bash\ngcloud dataproc jobs submit pyspark \\\n    --cluster=de-zoomcamp-cluster \\\n    --region=eu",
+              "filename": "05-batch/code/cloud.md"
+            }
+          ],
+          "tool_call_id": "call_pDHYxkYfGG6BOaRHUpoO4RIc",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:21.412271+00:00",
+          "part_kind": "tool-return"
+        },
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 1000,
+              "content": " followed by any arguments provided by the user.\n\n## Day Variable Extraction\n\n```python\nday = sys.argv[1]\n```\n\nHere, the script assigns the first command-line argument (after the script name) to the variable `day`. This variable is expected to represent the specific day's data that the script is intended to process. The script currently lacks error handling, so if the user does not supply an argument, this line will raise an `IndexError`.\n\n## Suggestive Placeholder for Data Processing\n\n```python\n# some fancy stuff with pandas\n```\n\nThis line serves as a placeholder where the script is presumably intended to perform data manipulation or analysis using pandas. The specifics of this operation are not provided in the code snippet. The comment suggests room for adding various data processing tasks, such as reading from a CSV file, filtering data, performing calculations, or generating reports based on the `day` variable.\n\n## Completion Message\n\n```python\nprint(f'job finished successfully for day = {day}')\n```\n\nThe script concludes by printing a success message that includes the value of the `day` variable. This output informs the user that the processing has finished successfully, assuming no errors occurred prior.\n\n## Conclusion\n\nIn conclusion, this script is structured primarily to take user input for a specific day via command-line arguments, with an integration point for pandas for data handling. The absence of detailed data manipulation in the provided code suggests it might be a work in progress or serve as a template for further extension. The overall flow is straightforward, allowing for easy modification to incorporate specific data analysis tasks relevant to the provided `day` input.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pipeline.py"
+            },
+            {
+              "start": 0,
+              "content": "# Overview of the Code\n\nThis script is a simple command-line Python application that utilizes pandas, a popular data analysis library, to perform operations based on input received from the command line. The main function of the script is to process data for a specific day, which is indicated by a command-line argument. \n\n## Importing Required Libraries\n\n```python\nimport sys\nimport pandas as pd\n```\n\nThe script begins by importing two essential libraries:\n- **sys**: This library is used to interact with the Python interpreter. It allows access to command-line arguments and system-specific parameters.\n- **pandas**: A powerful data manipulation and analysis library. While the script notes \"some fancy stuff with pandas,\" the specific operations are not detailed in the provided code.\n\n## Command-Line Arguments\n\n```python\nprint(sys.argv)\n```\n\nThe script prints the list of command-line arguments passed to it when executed. This list includes the name of the script itself as the first element, followed by any arguments provided by the user.\n\n## Day Variable Extraction\n\n```python\nday = sys.argv[1]\n```\n\nHere, the script assigns the first command-line argument (after the script name) to the variable `day`. This variable is expected to represent the specific day's data that the script is intended to process. The script currently lacks error handling, so if the user does not supply an argument, this line will raise an `IndexError`.\n\n## Suggestive Placeholder for Data Processing\n\n```python\n# some fancy stuff with pandas\n```\n\nThis line serves as a placeholder where the script is presumably intended to perform data manipulation or analysis using pandas. The specifics of this operation are not provided in the code snippet. The comment suggests room for adding various data processing tasks, such as reading from a CSV file, filtering data, performing calculations, or generating reports based on the `day` variable.\n\n## Completion Message\n\n```python\nprint(f'job finished successfully for",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pipeline.py"
+            },
+            {
+              "start": 7000,
+              "content": "https://markdown-videos-api.jorgenkh.no/youtube/0YExsb2HgLI)](https://youtu.be/0YExsb2HgLI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=31)\n\nResources\n- [Installing Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)\n- [Installing `gcloud` CLI](https://cloud.google.com/sdk/docs/install)\n- [Mage Terraform Templates](https://github.com/mage-ai/mage-ai-terraform-templates)\n\nAdditional Mage Guides\n- [Terraform](https://docs.mage.ai/production/deploying-to-cloud/using-terraform)\n- [Deploying to GCP with Terraform](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup)\n\n### 2.2.8 - \ud83d\uddd2\ufe0f Homework \n\nWe've prepared a short exercise to test you on what you've learned this week. You can find the homework [here](../cohorts/2024/02-workflow-orchestration/homework.md). This follows closely from the contents of the course and shouldn't take more than an hour or two to complete. \ud83d\ude04\n\n### 2.2.9 - \ud83d\udc63 Next Steps\n\nCongratulations! You've completed Week 2 of the Data Engineering Zoomcamp. We hope you've enjoyed learning about Mage and that you're excited to use it in your final project. If you have any questions, feel free to reach out to us on Slack. Be sure to check out our \"Next Steps\" video for some inspiration for the rest of your journey \ud83d\ude04.\n\nVideos\n- 2.2.9 - Next Steps\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/uUtj7N0TleQ)](https://youtu.be/uUtj7N0TleQ&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=32)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/1yN-e22VNwezmPfKrZkgXQVrX5owDb285I2HxHWgmAEQ/edit#slide=id.g262fb0d2905_0_12)\n\n### \ud83d\udcd1 Additional Resources\n\n- [Mage Docs](https://docs.mage.ai/)\n- [Mage Guides](https://docs.mage.ai/guides)\n- [Mage Slack](https://www.mage.ai/chat)\n\n\n# Community notes\n\nDid you take notes? You can share them here:\n\n## 2024 notes\n\n* [2024 Videos transcripts week 2](https://drive.google.com/drive/folders/1yxT0uMMYKa6YOxanh91wGqmQUMS7yYW7?usp=sharing) by Maria Fisher\n* [Notes from Jonah Olive",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 1000,
+              "content": " GCS](#224----etl-api-to-gcs)\n* [2.2.5 - \ud83d\udd0d ETL: GCS to BigQuery](#225----etl-gcs-to-bigquery)\n* [2.2.6 - \ud83d\udc68\u200d\ud83d\udcbb Parameterized Execution](#226----parameterized-execution)\n* [2.2.7 - \ud83e\udd16 Deployment (Optional)](#227----deployment-optional)\n* [2.2.8 - \ud83d\uddd2\ufe0f Homework](#228---\ufe0f-homework)\n* [2.2.9 - \ud83d\udc63 Next Steps](#229----next-steps)\n\n## \ud83d\udcd5 Course Resources\n\n### 2.2.1 - \ud83d\udcef Intro to Orchestration\n\nIn this section, we'll cover the basics of workflow orchestration. We'll discuss what it is, why it's important, and how it can be used to build data pipelines.\n\nVideos\n- 2.2.1a - What is Orchestration?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/Li8-MWHhTbo)](https://youtu.be/Li8-MWHhTbo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=17)\n\nResources\n- [Slides](https://docs.google.com/presentation/d/17zSxG5Z-tidmgY-9l7Al1cPmz4Slh4VPK6o2sryFYvw/)\n\n### 2.2.2 - \ud83e\uddd9\u200d\u2642\ufe0f Intro to Mage\n\nIn this section, we'll introduce the Mage platform. We'll cover what makes Mage different from other orchestrators, the fundamental concepts behind Mage, and how to get started. To cap it off, we'll spin Mage up via Docker \ud83d\udc33 and run a simple pipeline.\n\nVideos\n- 2.2.2a - What is Mage?\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/AicKRcK3pa4)](https://youtu.be/AicKRcK3pa4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=18)\n\n- 2.2.2b - Configuring Mage\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/tNiV7Wp08XE)](https://youtu.be/tNiV7Wp08XE&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19)\n\n- 2.2.2c - A Simple Pipeline\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/stI-gg4QBnI)](https://youtu.be/stI-gg4QBnI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=20)\n\nResources\n- [Getting Started Repo](https://github.com/mage-ai/mage-zoomcamp)\n- [Slides](https://docs.google.com/presentation/d/1y_5p3sxr6Xh1RqE6N8o2280gUzAdiic2hPhYUUD6l88/)\n\n### 2.2.3 - \ud83d\udc18 ETL: API to Postgres\n\nHooray! Mage is up and running. Now, let's build a _real_ pipeline. In this section, we'll build a simple ETL pipeline that loads ",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 5000,
+              "content": "Kp_uzM-XsM)](https://youtu.be/JKp_uzM-XsM&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=25)\n\n### 2.2.6 - \ud83d\udc68\u200d\ud83d\udcbb Parameterized Execution\n\nBy now you're familiar with building pipelines, but what about adding parameters? In this video, we'll discuss some built-in runtime variables that exist in Mage and show you how to define your own! We'll also cover how to use these variables to parameterize your pipelines. Finally, we'll talk about what it means to *backfill* a pipeline and how to do it in Mage.\n\nVideos\n- 2.2.6a - Parameterized Execution\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/H0hWjWxB-rg)](https://youtu.be/H0hWjWxB-rg&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=26)\n\n\n- 2.2.6b - Backfills\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/ZoeC6Ag5gQc)](https://youtu.be/ZoeC6Ag5gQc&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=27)\n\nResources\n- [Mage Variables Overview](https://docs.mage.ai/development/variables/overview)\n- [Mage Runtime Variables](https://docs.mage.ai/getting-started/runtime-variable)\n\n### 2.2.7 - \ud83e\udd16 Deployment (Optional)\n\nIn this section, we'll cover deploying Mage using Terraform and Google Cloud. This section is optional\u2014 it's not *necessary* to learn Mage, but it might be helpful if you're interested in creating a fully deployed project. If you're using Mage in your final project, you'll need to deploy it to the cloud.\n\nVideos\n- 2.2.7a - Deployment Prerequisites\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/zAwAX5sxqsg)](https://youtu.be/zAwAX5sxqsg&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=28)\n\n- 2.2.7b - Google Cloud Permissions\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/O_H7DCmq2rA)](https://youtu.be/O_H7DCmq2rA&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=29)\n\n- 2.2.7c - Deploying to Google Cloud - Part 1\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/9A872B5hb_0)](https://youtu.be/9A872B5hb_0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=30)\n\n- 2.2.7d - Deploying to Google Cloud - Part 2\n\n[![](",
+              "filename": "cohorts/2024/02-workflow-orchestration/README.md"
+            }
+          ],
+          "tool_call_id": "call_R8C75oR4zBOI3coTMfLw6Ji8",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:13:21.412201+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To deploy a Mage pipeline to Google Cloud using Terraform, you will need to follow specific steps and meet certain prerequisites. \n\n### Steps for Deployment\n1. **Install Necessary Tools**: Ensure that you have Terraform and the Google Cloud SDK installed. You can find the installation guides here:\n   - [Installing Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)\n   - [Installing `gcloud` CLI](https://cloud.google.com/sdk/docs/install)\n\n2. **Set Up Google Cloud Project**: You need to have a Google Cloud project set up where you will deploy your Mage pipelines.\n\n3. **Write Terraform Templates**: You can utilize [Mage Terraform Templates](https://github.com/mage-ai/mage-ai-terraform-templates) to create the necessary infrastructure.\n\n4. **Configure Your Pipeline**: Make sure your Mage pipeline is configured to work with Google Cloud.\n\n5. **Deploy Using Terraform**: Run the Terraform scripts to provision the necessary resources in your Google Cloud project.\n\nFor detailed guidance on the deployment process, refer to the Mage documentation on [Deploying to GCP with Terraform](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup).\n\n### Prerequisites\nBefore embarking on the deployment, you need to meet the following prerequisites:\n\n- **Google Cloud Account**: You need an active Google Cloud account.\n- **Access Permissions**: Make sure you have the appropriate permissions to create resources in the Google Cloud project. This often includes roles like Editor or specific IAM roles for managing services.\n- **Enable Required APIs**: Enable necessary Google Cloud APIs, such as those for Cloud Storage, Compute Engine, etc.\n- **Terraform Setup**: Ensure that Terraform is set up correctly and configured to use your Google Cloud credentials.\n\nFor more information, you can refer to the Mage Terraform documentation [here](https://docs.mage.ai/production/deploying-to-cloud/using-terraform).\n\nFor additional details and resources, check the following links:\n- [Mage Documentation](https://docs.mage.ai/)\n- [Mage Slack for Community Support](https://www.mage.ai/chat)\n\nYou can find more about the deployment process in [this GitHub repository](https://github.com/mage-ai/mage-ai-terraform-templates).\n\nIf you have further questions or specific areas you want to explore more, feel free to ask!",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6456,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 487,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:24+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8uyrCB7E1m1Gj2fowt1NYBi69I9",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2024/02-workflow-orchestration/README.md",
+    "question": "How do I deploy a Mage pipeline to Google Cloud using Terraform, and what prerequisites do I need to meet beforehand?"
+  }
+}

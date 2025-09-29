@@ -8,7 +8,7 @@ from rich.text import Text
 
 from zc_agent import search_agent 
 from zc_agent import load_data
-from zc_agent import logs
+from zc_agent.logs import ConversationJsonLogger
 
 
 def prettier_code_blocks():
@@ -36,7 +36,10 @@ def prettier_code_blocks():
 
 def initialize_index():
     print("Initializing data ingestion...")
-    index = load_data.index_data()
+    index = load_data.index_data(
+        chunk=True,
+        chunking_params={'size': 2000, 'step': 1000},
+    )
     print("Data indexing completed successfully!")
     return index
 
@@ -66,13 +69,16 @@ async def main():
 
         console.log(f"Processing: {question}...", style='cyan')
         
+        log_dir = 'evals/logs'
+        conversation_logger = ConversationJsonLogger(log_dir)
+
         with Live('', console=console, vertical_overflow='visible') as live:
             async with agent.run_stream(user_prompt=question) as result:
                 async for message in result.stream_output():
                     live.update(Markdown(message))
-        
+
         # Log the interaction
-        logs.log_interaction_to_file(agent, result.new_messages())
+        conversation_logger.log(agent, result.new_messages())
         
         console.log("\n" + "="*50, style='dim')
 

@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What is the purpose of using Kestra in workflow orchestration?",
+          "timestamp": "2025-09-29T14:15:33.840400+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Kestra workflow orchestration\"}",
+          "tool_call_id": "call_QEZRfSVLS90YauEGgE5lFiFv",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 219,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:37+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8x7H1nnq4lV83guRZfFvBkGbuA6",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Workflow Orchestration\n\nWelcome to Module 2 of the Data Engineering Zoomcamp! This week, we\u2019ll dive into workflow orchestration using [Kestra](https://go.kestra.io/de-zoomcamp/github). \n\nKestra is an open-source, event-driven orchestration platform that simplifies building both scheduled and event-driven workflows. By adopting Infrastructure as Code practices for data and process orchestration, Kestra enables you to build reliable workflows with just a few lines of YAML.\n\n> [!NOTE]  \n>You can find all videos for this week in this [YouTube Playlist](https://go.kestra.io/de-zoomcamp/yt-playlist).\n\n---\n\n# Course Structure\n\n## 1. Conceptual Material: Introduction to Orchestration and Kestra\n\nIn this section, you\u2019ll learn the foundations of workflow orchestration, its importance, and how Kestra fits into the orchestration landscape.\n\n### Videos\n- **2.2.1 - Introduction to Workflow Orchestration**  \n  [![2.2.1 - Workflow Orchestration Introduction](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FNp6QmmcgLCs)](https://youtu.be/Np6QmmcgLCs)\n\n- **2.2.2 - Learn the Concepts of Kestra**  \n  [![Learn Kestra](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fo79n-EVpics)](https://youtu.be/o79n-EVpics)\n\n### Resources\n- [Quickstart Guide](https://go.kestra.io/de-zoomcamp/quickstart)\n- [Install Kestra with Docker Compose](https://go.kestra.io/de-zoomcamp/docker-compose)\n- [Tutorial](https://go.kestra.io/de-zoomcamp/tutorial)\n- [What is an Orchestrator?](https://go.kestra.io/de-zoomcamp/what-is-an-orchestrator)\n\n---\n\n## 2. Hands-On Coding Project: Build Data Pipelines with Kestra\n\nThis week, we're gonna build ETL pipelines for Yellow and Green Taxi data from NYC\u2019s Taxi and Limousine Commission (TLC). You will:\n1. Extract data from [CSV files](https://github.com/DataTalksClub/nyc-tlc-data/releases).\n2. Load it into Postgres or Google Cloud (GCS + BigQuery).\n3. Explore scheduling and backfilling workflows.\n\n>[!NOTE] \nIf you\u2019re using th",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 1000,
+              "content": "rl?url=https%3A%2F%2Fyoutu.be%2FNp6QmmcgLCs)](https://youtu.be/Np6QmmcgLCs)\n\n- **2.2.2 - Learn the Concepts of Kestra**  \n  [![Learn Kestra](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fo79n-EVpics)](https://youtu.be/o79n-EVpics)\n\n### Resources\n- [Quickstart Guide](https://go.kestra.io/de-zoomcamp/quickstart)\n- [Install Kestra with Docker Compose](https://go.kestra.io/de-zoomcamp/docker-compose)\n- [Tutorial](https://go.kestra.io/de-zoomcamp/tutorial)\n- [What is an Orchestrator?](https://go.kestra.io/de-zoomcamp/what-is-an-orchestrator)\n\n---\n\n## 2. Hands-On Coding Project: Build Data Pipelines with Kestra\n\nThis week, we're gonna build ETL pipelines for Yellow and Green Taxi data from NYC\u2019s Taxi and Limousine Commission (TLC). You will:\n1. Extract data from [CSV files](https://github.com/DataTalksClub/nyc-tlc-data/releases).\n2. Load it into Postgres or Google Cloud (GCS + BigQuery).\n3. Explore scheduling and backfilling workflows.\n\n>[!NOTE] \nIf you\u2019re using the PostgreSQL and PgAdmin docker setup from Module 1 for this week\u2019s Kestra Workflow Orchestration exercise, ensure your PostgreSQL image version is 15 or later (preferably the latest). The MERGE statement, introduced in PostgreSQL 15, won\u2019t work on earlier versions and will likely cause syntax errors in your kestra flows.\n\n### File Structure\n\nThe project is organized as follows:\n```\n.\n\u251c\u2500\u2500 flows/\n\u2502   \u251c\u2500\u2500 01_getting_started_data_pipeline.yaml\n\u2502   \u251c\u2500\u2500 02_postgres_taxi.yaml\n\u2502   \u251c\u2500\u2500 02_postgres_taxi_scheduled.yaml\n\u2502   \u251c\u2500\u2500 03_postgres_dbt.yaml\n\u2502   \u251c\u2500\u2500 04_gcp_kv.yaml\n\u2502   \u251c\u2500\u2500 05_gcp_setup.yaml\n\u2502   \u251c\u2500\u2500 06_gcp_taxi.yaml\n\u2502   \u251c\u2500\u2500 06_gcp_taxi_scheduled.yaml\n\u2502   \u2514\u2500\u2500 07_gcp_dbt.yaml\n```\n\n### Setup Kestra\n\nWe'll set up Kestra using Docker Compose containing one container for the Kestra server and another for the Postgres database:\n\n```bash\ncd 02-workflow-orchestration/docker/combined\ndocker compose up -d\n```\n\nOnce the container starts, you can access the Kestra UI at [http://localhost:8080](http://loc",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 14000,
+              "content": "kflows to the Cloud with Git](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fl-wC71tI3co)](https://youtu.be/l-wC71tI3co)\n\nResources\n\n- [Install Kestra on Google Cloud](https://go.kestra.io/de-zoomcamp/gcp-install)\n- [Moving from Development to Production](https://go.kestra.io/de-zoomcamp/dev-to-prod)\n- [Using Git in Kestra](https://go.kestra.io/de-zoomcamp/git)\n- [Deploy Flows with GitHub Actions](https://go.kestra.io/de-zoomcamp/deploy-github-actions)\n\n## 6. Additional Resources \ud83d\udcda\n\n- Check [Kestra Docs](https://go.kestra.io/de-zoomcamp/docs)\n- Explore our [Blueprints](https://go.kestra.io/de-zoomcamp/blueprints) library\n- Browse over 600 [plugins](https://go.kestra.io/de-zoomcamp/plugins) available in Kestra\n- Give us a star on [GitHub](https://go.kestra.io/de-zoomcamp/github)\n- Join our [Slack community](https://go.kestra.io/de-zoomcamp/slack) if you have any questions\n- Find all the videos in this [YouTube Playlist](https://go.kestra.io/de-zoomcamp/yt-playlist)\n\n\n### Troubleshooting tips\n\nIf you face any issues with Kestra flows in Module 2, make sure to use the following Docker images/ports:\n- `kestra/kestra:latest` is correct = latest stable release, while `kestra/kestra:develop` is incorrect as this is a bleeding-edge development version that might contain bugs\n- `postgres:latest` \u2014 make sure to use Postgres image, which uses **PostgreSQL 15** or higher\n- If you run `pgAdmin` or something else on port 8080, you can adjust Kestra docker-compose to use a different port, e.g. change port mapping to 18080 instead of 8080, and then access Kestra UI in your browser from http://localhost:18080/ instead of from http://localhost:8080/\n\nIf you're using Linux, you might encounter `Connection Refused` errors when connecting to the Postgres DB from within Kestra. This is because `host.docker.internal` works differently on Linux. Using the modified Docker Compose file below, you can run both Kestra and its dedicated Postgres DB, as well as the Post",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 17000,
+              "content": "es:\n    image: postgres\n    volumes:\n      - postgres-data:/var/lib/postgresql/data\n    environment:\n      POSTGRES_DB: kestra\n      POSTGRES_USER: kestra\n      POSTGRES_PASSWORD: k3str4\n    healthcheck:\n      test: [\"CMD-SHELL\", \"pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}\"]\n      interval: 30s\n      timeout: 10s\n      retries: 10\n\n  kestra:\n    image: kestra/kestra:latest\n    pull_policy: always\n    # Note that this setup with a root user is intended for development purpose.\n    # Our base image runs without root, but the Docker Compose implementation needs root to access the Docker socket\n    # To run Kestra in a rootless mode in production, see: https://kestra.io/docs/installation/podman-compose\n    user: \"root\"\n    command: server standalone\n    volumes:\n      - kestra-data:/app/storage\n      - /var/run/docker.sock:/var/run/docker.sock\n      - /tmp/kestra-wd:/tmp/kestra-wd\n    environment:\n      KESTRA_CONFIGURATION: |\n        datasources:\n          postgres:\n            url: jdbc:postgresql://postgres:5432/kestra\n            driverClassName: org.postgresql.Driver\n            username: kestra\n            password: k3str4\n        kestra:\n          server:\n            basicAuth:\n              enabled: false\n              username: \"admin@kestra.io\" # it must be a valid email address\n              password: kestra\n          repository:\n            type: postgres\n          storage:\n            type: local\n            local:\n              basePath: \"/app/storage\"\n          queue:\n            type: postgres\n          tasks:\n            tmpDir:\n              path: /tmp/kestra-wd/tmp\n          url: http://localhost:8080/\n    ports:\n      - \"8080:8080\"\n      - \"8081:8081\"\n    depends_on:\n      postgres:\n        condition: service_started\n    \n  postgres_zoomcamp:\n    image: postgres\n    environment:\n      POSTGRES_USER: kestra\n      POSTGRES_PASSWORD: k3str4\n      POSTGRES_DB: postgres-zoomcamp\n    ports:\n      - \"5432:5432\"\n    volumes:\n      - zoomcamp-data:/va",
+              "filename": "02-workflow-orchestration/README.md"
+            },
+            {
+              "start": 13000,
+              "content": "u a quick showcase of dbt inside of Kestra so the homework tasks do not depend on it. The course will go into more detail of dbt in [Week 4](../04-analytics-engineering).\n\nThe flow code: [`07_gcp_dbt.yaml`](flows/07_gcp_dbt.yaml).\n\n---\n\n## 5. Bonus: Deploy to the Cloud (Optional)\n\nNow that we've got our ETL pipeline working both locally and in the cloud, we can deploy Kestra to the cloud so it can continue to orchestrate our ETL pipelines monthly with our configured schedules, We'll cover how you can install Kestra on Google Cloud in Production, and automatically sync and deploy your workflows from a Git repository.\n\nNote: When committing your workflows to Kestra, make sure your workflow doesn't contain any sensitive information. You can use [Secrets](https://go.kestra.io/de-zoomcamp/secret) and the [KV Store](https://go.kestra.io/de-zoomcamp/kv-store) to keep sensitive data out of your workflow logic.\n\n### Videos\n\n- **2.2.9 - Deploy Workflows to the Cloud with Git**   \n  [![Deploy Workflows to the Cloud with Git](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fl-wC71tI3co)](https://youtu.be/l-wC71tI3co)\n\nResources\n\n- [Install Kestra on Google Cloud](https://go.kestra.io/de-zoomcamp/gcp-install)\n- [Moving from Development to Production](https://go.kestra.io/de-zoomcamp/dev-to-prod)\n- [Using Git in Kestra](https://go.kestra.io/de-zoomcamp/git)\n- [Deploy Flows with GitHub Actions](https://go.kestra.io/de-zoomcamp/deploy-github-actions)\n\n## 6. Additional Resources \ud83d\udcda\n\n- Check [Kestra Docs](https://go.kestra.io/de-zoomcamp/docs)\n- Explore our [Blueprints](https://go.kestra.io/de-zoomcamp/blueprints) library\n- Browse over 600 [plugins](https://go.kestra.io/de-zoomcamp/plugins) available in Kestra\n- Give us a star on [GitHub](https://go.kestra.io/de-zoomcamp/github)\n- Join our [Slack community](https://go.kestra.io/de-zoomcamp/slack) if you have any questions\n- Find all the videos in this [YouTube Playlist](https://go.kestra.io/de-zoomcamp/yt-playl",
+              "filename": "02-workflow-orchestration/README.md"
+            }
+          ],
+          "tool_call_id": "call_QEZRfSVLS90YauEGgE5lFiFv",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:15:35.294420+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "Kestra is utilized in workflow orchestration for several key reasons:\n\n1. **Simplified Workflow Creation**: Kestra is an open-source, event-driven orchestration platform that simplifies the building of both scheduled and event-driven workflows. It allows users to adopt Infrastructure as Code practices, enabling the creation of reliable workflows using just a few lines of YAML code.\n\n2. **Event-Driven Capabilities**: This feature facilitates the automation of tasks based on specific events rather than being purely time-scheduled, providing flexibility in managing various workflows.\n\n3. **Support for ETL Pipelines**: Within the context of the Data Engineering Zoomcamp, for example, Kestra is used to build ETL (Extract, Transform, Load) pipelines, making it easier to manage data workflow processes from extraction to loading into databases or cloud storage solutions.\n\n4. **User-Friendly Interface**: Kestra provides a user interface for monitoring and managing workflows, which enhances usability and helps users to quickly grasp the orchestration processes.\n\nYou can learn more about Kestra and its role in workflow orchestration in the course material [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/02-workflow-orchestration/README.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3216,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 250,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:15:38+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8x8E9dxY8eKtXWZdA8qzVC6ewAt",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "02-workflow-orchestration/README.md",
+    "question": "What is the purpose of using Kestra in workflow orchestration?"
+  }
+}

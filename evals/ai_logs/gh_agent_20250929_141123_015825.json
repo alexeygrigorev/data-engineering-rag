@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How do I create a Spark session in PySpark?",
+          "timestamp": "2025-09-29T14:11:19.598872+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"create Spark session PySpark\"}",
+          "tool_call_id": "call_SUdcXS31AYMWOit7Spdhr2dO",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 217,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 17,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:23+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8t12oRSaqy2xVYaZO6xqjq9AyLD",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## 0. Spark Setup\n\nTo begin using Apache Spark with Kafka and Avro data formats, we need to configure the environment and establish a Spark session. This is essential for executing our data processing tasks.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code sets the necessary loading parameters for PySpark, including packages for Kafka and Avro support required during runtime.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we create a `SparkSession`, which is the entry point for using the DataFrame and SQL API in PySpark. The application is named \"Spark-Notebook\" for easy identification in Spark's UI.\n\n## 1. Reading from Kafka Stream\n\nWe will now read data from a Kafka stream using PySpark's `readStream` method. This provides a way to continuously read streaming data into a DataFrame.\n\n### 1.1 Raw Kafka Stream\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nThis block reads from a Kafka topic named \"rides_csv\". The `startingOffsets` option is set to \"earliest\", meaning data will be read from the beginning of the topic, and a checkpoint location is set to enable fault tolerance.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nWe print the schema of the raw Kafka DataFrame for verification. This will show the structure of the data we are reading, including key-value pairs.\n\n### 1.2 Encoded Kafka Stream\n\n```python\ndf_kafka_encoded = df_kafka_raw.selectExpr(\"CAST(key AS STRING)\",\"CAST(valu",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Streaming Data Processing with PySpark\n\nThis document provides an overview of a PySpark script designed for streaming data processing from Kafka. The script includes functions for reading data from a Kafka topic, parsing it, and performing various aggregation operations before writing the processed data back to the console or Kafka.\n\n## Imports and Dependencies\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.functions as F\nfrom settings import RIDE_SCHEMA, CONSUME_TOPIC_RIDES_CSV, TOPIC_WINDOWED_VENDOR_ID_COUNT\n```\n\nThe script begins by importing necessary libraries:\n- `SparkSession` is the entry point for using Spark SQL.\n- `pyspark.sql.functions` is imported as `F` for utilizing various built-in functions.\n- Configuration variables such as `RIDE_SCHEMA`, `CONSUME_TOPIC_RIDES_CSV`, and `TOPIC_WINDOWED_VENDOR_ID_COUNT` are imported from a `settings` module.\n\n## Kafka Data Reading\n\n```python\ndef read_from_kafka(consume_topic: str):\n    # Spark Streaming DataFrame, connect to Kafka topic served at host in bootrap.servers option\n    ...\n    return df_stream\n```\n\nThe `read_from_kafka` function establishes a connection to a specified Kafka topic. It uses the Spark Streaming API to create a streaming DataFrame, which allows real-time ingestion of data. The DataFrame's starting offsets are set to 'earliest', ensuring it captures all available messages. The function returns the streaming DataFrame for further processing.\n\n## Parsing Kafka Messages\n\n```python\ndef parse_ride_from_kafka_message(df, schema):\n    \"\"\" take a Spark Streaming df and parse value col based on <schema>, return streaming df cols in schema \"\"\"\n    ...\n    return df.select([field.name for field in schema])\n```\n\nThe `parse_ride_from_kafka_message` function takes in a streaming DataFrame and a schema. It converts the 'value' column from Kafka messages into multiple columns based on the provided schema. The function utilizes Spark SQL expressions to cast the relevant fields and returns ",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming.py"
+            },
+            {
+              "start": 0,
+              "content": "# Running PySpark Streaming \n\n#### Prerequisite\n\nEnsure your Kafka and Spark services up and running by following the [docker setup readme](./../../docker/README.md). \nIt is important to create network and volume as described in the document. Therefore please ensure, your volume and network are created correctly\n\n```bash\ndocker volume ls # should list hadoop-distributed-file-system\ndocker network ls # should list kafka-spark-network \n```\n\n\n### Running Producer and Consumer\n```bash\n# Run producer\npython3 producer.py\n\n# Run consumer with default settings\npython3 consumer.py\n# Run consumer for specific topic\npython3 consumer.py --topic <topic-name>\n```\n\n### Running Streaming Script\n\nspark-submit script ensures installation of necessary jars before running the streaming.py\n\n```bash\n./spark-submit.sh streaming.py \n```\n\n### Additional Resources\n- [Structured Streaming Programming Guide](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#structured-streaming-programming-guide)\n- [Structured Streaming + Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html#structured-streaming-kafka-integration-guide-kafka-broker-versio)",
+              "filename": "06-streaming/python/streams-example/pyspark/README.md"
+            },
+            {
+              "start": 4000,
+              "content": "roupby` aggregates data based on a time window, allowing for more complex time-based analyses. It uses sliding windows to create aggregated counts of trips per vendor.\n\n## Main Execution Workflow\n\n```python\nif __name__ == \"__main__\":\n    spark = SparkSession.builder.appName('streaming-examples').getOrCreate()\n    spark.sparkContext.setLogLevel('WARN')\n\n    # read_streaming data\n    ...\n    sink_console(df_rides, output_mode='append')\n\n    df_trip_count_by_vendor_id = op_groupby(df_rides, ['vendor_id'])\n    df_trip_count_by_pickup_date_vendor_id = op_windowed_groupby(df_rides, window_duration=\"10 minutes\", slide_duration='5 minutes')\n\n    # write the output out to the console for debugging / testing\n    sink_console(df_trip_count_by_vendor_id)\n    # write the output to the kafka topic\n    df_trip_count_messages = prepare_df_to_kafka_sink(df=df_trip_count_by_pickup_date_vendor_id, value_columns=['count'], key_column='vendor_id')\n    kafka_sink_query = sink_kafka(df=df_trip_count_messages, topic=TOPIC_WINDOWED_VENDOR_ID_COUNT)\n\n    spark.streams.awaitAnyTermination()\n```\n\nThe `__main__` block initializes a Spark session, reads streaming data from Kafka, and processes it through defined functions. It performs several operations, including parsing, aggregation, and outputting results to both the console and Kafka. This ensures that the transform and actions of the DataFrame are continuously processed, with termination conditions managed by Spark's streaming capabilities.\n\n## Summary\n\nOverall, this script forms a complete pipeline for streaming data ingestion, transformation, and output using PySpark and Kafka. It captures real-time rides data, processes it with aggregation functions, and allows for output verification through console logs and further propagation to Kafka for downstream consumers. This architecture is commonly employed in scenarios requiring real-time analytics and operational monitoring.",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming.py"
+            },
+            {
+              "start": 0,
+              "content": "## PySpark\n\nThis document assumes you already have python.\n\nTo run PySpark, we first need to add it to `PYTHONPATH`:\n\n```bash\nexport PYTHONPATH=\"${SPARK_HOME}/python/:$PYTHONPATH\"\nexport PYTHONPATH=\"${SPARK_HOME}/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH\"\n```\n\nMake sure that the version under `${SPARK_HOME}/python/lib/` matches the filename of py4j or you will\nencounter `ModuleNotFoundError: No module named 'py4j'` while executing `import pyspark`.\n\nFor example, if the file under `${SPARK_HOME}/python/lib/` is `py4j-0.10.9.3-src.zip`, then the\n`export PYTHONPATH` statement above should be changed to\n\n```bash\nexport PYTHONPATH=\"${SPARK_HOME}/python/lib/py4j-0.10.9.3-src.zip:$PYTHONPATH\"\n```\n\nOn Windows, you may have to do path conversion from unix-style to windows-style:\n\n```bash\nSPARK_WIN=`cygpath -w ${SPARK_HOME}`\n\nexport PYTHONPATH=\"${SPARK_WIN}\\\\python\\\\\"\nexport PYTHONPATH=\"${SPARK_WIN}\\\\python\\\\lib\\\\py4j-0.10.9-src.zip;$PYTHONPATH\"\n```\n\nNow you can run Jupyter or IPython to test if things work. Go to some other directory, e.g. `~/tmp`.\n\nDownload a CSV file that we'll use for testing:\n\n```bash\nwget https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv\n```\n\nNow let's run `ipython` (or `jupyter notebook`) and execute:\n\n```python\nimport pyspark\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .master(\"local[*]\") \\\n    .appName('test') \\\n    .getOrCreate()\n\ndf = spark.read \\\n    .option(\"header\", \"true\") \\\n    .csv('taxi_zone_lookup.csv')\n\ndf.show()\n```\n\nTest that writing works as well:\n\n```python\ndf.write.parquet('zones')\n```",
+              "filename": "05-batch/setup/pyspark.md"
+            }
+          ],
+          "tool_call_id": "call_SUdcXS31AYMWOit7Spdhr2dO",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:11:20.575405+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To create a Spark session in PySpark, you can use the following code snippet:\n\n```python\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .appName(\"YourAppName\") \\\n    .getOrCreate()\n```\n\n### Explanation:\n- `SparkSession` is the entry point for using the DataFrame and SQL API in PySpark.\n- The `.builder` method is used to create a `SparkSession`.\n- The `.appName(\"YourAppName\")` method allows you to specify an application name, which will be useful for identifying your application in the Spark UI.\n- The `.getOrCreate()` method either retrieves an existing Spark session or creates a new one if none exists.\n\n### Example:\nHere is an example that includes setting up the environment variables if necessary:\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nThis code configures the environment for Kafka and Avro support before creating the Spark session.\n\nFor more details, you can refer to the source document in the PySpark section of the course material:\n- [Detailed Spark Session Creation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb)",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2601,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 343,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:23+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8t13U8iGY6ME9nuhKSWWhyqieth",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2025/05-batch/homework/solution.ipynb",
+    "question": "How do I create a Spark session in PySpark?"
+  }
+}

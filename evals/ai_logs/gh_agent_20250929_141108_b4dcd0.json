@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What should I do if my development credentials schema in BigQuery doesn't match my source data's location?",
+          "timestamp": "2025-09-29T14:11:03.394105+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"BigQuery development credentials schema source data location mismatch\"}",
+          "tool_call_id": "call_GcCQix3zUL1H6YfW7caZxGN7",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 226,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 21,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:07+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8slo7mh2MH8F0S30nBjob4cGAfV",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Data Warehouse and BigQuery\n\n- [Slides](https://docs.google.com/presentation/d/1a3ZoBAXFk8-EhUsd7rAZd-5p_HpltkzSeujjRGB2TAI/edit?usp=sharing)  \n- [Big Query basic SQL](big_query.sql)\n\n# Videos\n\n## Data Warehouse\n\n- Data Warehouse and BigQuery\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/jrHljAoD6nM)](https://youtu.be/jrHljAoD6nM&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=34)\n\n## :movie_camera: Partitioning and clustering\n\n- Partitioning vs Clustering\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/-CqXf7vhhDs)](https://youtu.be/-CqXf7vhhDs?si=p1sYQCAs8dAa7jIm&t=193&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=35)\n\n## :movie_camera: Best practices\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/k81mLJVX08w)](https://youtu.be/k81mLJVX08w&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=36)\n\n## :movie_camera: Internals of BigQuery\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/eduHi1inM4s)](https://youtu.be/eduHi1inM4s&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=37)\n\n## Advanced topics\n\n### :movie_camera: Machine Learning in Big Query\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/B-WtpB0PuG4)](https://youtu.be/B-WtpB0PuG4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=34)\n\n* [SQL for ML in BigQuery](big_query_ml.sql)\n\n**Important links**\n\n- [BigQuery ML Tutorials](https://cloud.google.com/bigquery-ml/docs/tutorials)\n- [BigQuery ML Reference Parameter](https://cloud.google.com/bigquery-ml/docs/analytics-reference-patterns)\n- [Hyper Parameter tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create-glm)\n- [Feature preprocessing](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-preprocess-overview)\n\n### :movie_camera: Deploying Machine Learning model from BigQuery\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/BjARzEWaznU)](https://youtu.be/BjARzEWaznU&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=39)\n\n- [Steps to extract and deploy model with docker](",
+              "filename": "03-data-warehouse/README.md"
+            },
+            {
+              "start": 1000,
+              "content": "&index=37)\n\n## Advanced topics\n\n### :movie_camera: Machine Learning in Big Query\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/B-WtpB0PuG4)](https://youtu.be/B-WtpB0PuG4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=34)\n\n* [SQL for ML in BigQuery](big_query_ml.sql)\n\n**Important links**\n\n- [BigQuery ML Tutorials](https://cloud.google.com/bigquery-ml/docs/tutorials)\n- [BigQuery ML Reference Parameter](https://cloud.google.com/bigquery-ml/docs/analytics-reference-patterns)\n- [Hyper Parameter tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create-glm)\n- [Feature preprocessing](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-preprocess-overview)\n\n### :movie_camera: Deploying Machine Learning model from BigQuery\n\n[![](https://markdown-videos-api.jorgenkh.no/youtube/BjARzEWaznU)](https://youtu.be/BjARzEWaznU&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=39)\n\n- [Steps to extract and deploy model with docker](extract_model.md)  \n\n\n\n# Homework\n\n* [2025 Homework](../cohorts/2025/03-data-warehouse/homework.md)\n\n\n# Community notes\n\nDid you take notes? You can share them here.\n\n* [Notes by Alvaro Navas](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/3_data_warehouse.md)\n* [Isaac Kargar's blog post](https://kargarisaac.github.io/blog/data%20engineering/jupyter/2022/01/30/data-engineering-w3.html)\n* [Marcos Torregrosa's blog post](https://www.n4gash.com/2023/data-engineering-zoomcamp-semana-3/) \n* [Notes by Victor Padilha](https://github.com/padilha/de-zoomcamp/tree/master/week3)\n* [Notes from Xia He-Bleinagel](https://xiahe-bleinagel.com/2023/02/week-3-data-engineering-zoomcamp-notes-data-warehouse-and-bigquery/)\n* [Bigger picture summary on Data Lakes, Data Warehouses, and tooling](https://medium.com/@verazabeida/zoomcamp-week-4-b8bde661bf98), by Vera\n* [Notes by froukje](https://github.com/froukje/de-zoomcamp/blob/main/week_3_data_warehouse/notes/notes_week_03.md)\n* [Notes by Ala",
+              "filename": "03-data-warehouse/README.md"
+            },
+            {
+              "start": 5000,
+              "content": " post)\n* [Learn the Fundamentals of Analytics Engineering with dbt](https://courses.getdbt.com/courses/fundamentals) (course)\n\n\n### Data mesh\n\n* [Data Mesh in Practice - Max Schultze](https://www.youtube.com/watch?v=ekEc8D_D3zY) (video)\n\n### Cloud\n\n* [https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910](https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910) \n\n\n### Reverse ETL\n\n* TODO: What is reverse ETL?\n* [https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html](https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html) \n* [Open-Source Spotlight - Grouparoo - Brian Leonard](https://www.youtube.com/watch?v=hswlcgQZYuw) (video) \n* [Open-Source Spotlight - Castled.io (Reverse ETL) - Arun Thulasidharan](https://www.youtube.com/watch?v=iW0XhltAUJ8) (video) \n\n## Career in Data Engineering\n\n* [From Data Science to Data Engineering with Ellen K\u00f6nig \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e08-from-data-science-to-data-engineering.html) (podcast)\n* [Big Data Engineer vs Data Scientist with Roksolana Diachuk \u2013 DataTalks.Club](https://datatalks.club/podcast/s04e03-big-data-engineer-vs-data-scientist.html) (podcast)\n* [What Skills Do You Need to Become a Data Engineer](https://www.linkedin.com/pulse/what-skills-do-you-need-become-data-engineer-peng-wang/) (blog post) \n* [The future history of Data Engineering](https://groupby1.substack.com/p/data-engineering?s=r) (blog post) \n* [What Skills Do Data Engineers Need](https://www.theseattledataguy.com/what-skills-do-data-engineers-need/) (blog post)\n\n### Data Engineering Management \n\n* [Becoming a Data Engineering Manager with Rahul Jain \u2013 DataTalks.Club](https://datatalks.club/podcast/s07e07-becoming-a-data-engineering-manager.html) (podcast)\n\n## Data engineering projects\n\n* [How To Start A Data Engineering Project - With Data Engineerin",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 4000,
+              "content": ", and Others: Cloud Data Warehouse Tools Compared](https://www.altexsoft.com/blog/snowflake-redshift-bigquery-data-warehouse-tools/) (blog post)\n\n\n### Streaming\n\n\n*   Building Streaming Analytics: The Journey and Learnings - Maxim Lukichev\n\n### DataOps\n\n* [DataOps 101 with Lars Albertsson \u2013 DataTalks.Club](https://datatalks.club/podcast/s02e11-dataops.html) (podcast)\n*  \n\n\n### Monitoring and observability \n\n* [Data Observability: The Next Frontier of Data Engineering with Barr Moses](https://datatalks.club/podcast/s03e03-data-observability.html) (podcast)\n\n\n### Analytics engineering\n\n* [Analytics Engineer: New Role in a Data Team with Victoria Perez Mola](https://datatalks.club/podcast/s03e11-analytics-engineer.html) (podcast)\n* [Modern Data Stack for Analytics Engineering - Kyle Shannon](https://www.youtube.com/watch?v=UmIZIkeOfi0) (video) \n* [Analytics Engineering vs Data Engineering | RudderStack Blog](https://www.rudderstack.com/blog/analytics-engineering-vs-data-engineering) (blog post)\n* [Learn the Fundamentals of Analytics Engineering with dbt](https://courses.getdbt.com/courses/fundamentals) (course)\n\n\n### Data mesh\n\n* [Data Mesh in Practice - Max Schultze](https://www.youtube.com/watch?v=ekEc8D_D3zY) (video)\n\n### Cloud\n\n* [https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910](https://acceldataio.medium.com/data-engineering-best-practices-how-netflix-keeps-its-data-infrastructure-cost-effective-dee310bcc910) \n\n\n### Reverse ETL\n\n* TODO: What is reverse ETL?\n* [https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html](https://datatalks.club/podcast/s05e02-data-engineering-acronyms.html) \n* [Open-Source Spotlight - Grouparoo - Brian Leonard](https://www.youtube.com/watch?v=hswlcgQZYuw) (video) \n* [Open-Source Spotlight - Castled.io (Reverse ETL) - Arun Thulasidharan](https://www.youtube.com/watch?v=iW0XhltAUJ8) (video) \n\n## Career in Data Engineering\n\n* [From Data Scienc",
+              "filename": "awesome-data-engineering.md"
+            },
+            {
+              "start": 3000,
+              "content": "m/airflow-prefect-and-dagster-an-inside-look-6074781c9b77) (blog post) \n* [Open-Source Spotlight - Prefect - Kevin Kho](https://www.youtube.com/watch?v=ISLV9JyqF1w) (video) \n* [Prefect as a Data Engineering Project Workflow Tool, with Mary Clair Thompson (Duke) - 11/6/2020](https://youtu.be/HuwA4wLQtCM) (video) \n\n\n### ETL and ELT\n\n* [ETL vs. ELT: What\u2019s the Difference?](https://rivery.io/blog/etl-vs-elt/) (blog post) (print version)\n\n### Data lakes\n\n* [An Introduction to Modern Data Lake Storage Layers (Hodi, Iceberg, Delta Lake)](https://dacort.dev/posts/modern-data-lake-storage-layers/) (blog post) \n* [Lake House Architecture @ Halodoc: Data Platform 2.0](https://blogs.halodoc.io/lake-house-architecture-halodoc-data-platform-2-0/amp/) (blzog post) \n\n\n### Data warehousing\n\n\n* [Guide to Data Warehousing. Short and comprehensive information\u2026 | by Tomas Peluritis](https://medium.com/towards-data-science/guide-to-data-warehousing-6fdcf30b6fbe) (blog post) \n* [Snowflake, Redshift, BigQuery, and Others: Cloud Data Warehouse Tools Compared](https://www.altexsoft.com/blog/snowflake-redshift-bigquery-data-warehouse-tools/) (blog post)\n\n\n### Streaming\n\n\n*   Building Streaming Analytics: The Journey and Learnings - Maxim Lukichev\n\n### DataOps\n\n* [DataOps 101 with Lars Albertsson \u2013 DataTalks.Club](https://datatalks.club/podcast/s02e11-dataops.html) (podcast)\n*  \n\n\n### Monitoring and observability \n\n* [Data Observability: The Next Frontier of Data Engineering with Barr Moses](https://datatalks.club/podcast/s03e03-data-observability.html) (podcast)\n\n\n### Analytics engineering\n\n* [Analytics Engineer: New Role in a Data Team with Victoria Perez Mola](https://datatalks.club/podcast/s03e11-analytics-engineer.html) (podcast)\n* [Modern Data Stack for Analytics Engineering - Kyle Shannon](https://www.youtube.com/watch?v=UmIZIkeOfi0) (video) \n* [Analytics Engineering vs Data Engineering | RudderStack Blog](https://www.rudderstack.com/blog/analytics-engineering-vs-data-engineering) (blog",
+              "filename": "awesome-data-engineering.md"
+            }
+          ],
+          "tool_call_id": "call_GcCQix3zUL1H6YfW7caZxGN7",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:11:04.993032+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "If your development credentials schema in BigQuery does not match your source data\u2019s location, you should consider the following steps:\n\n1. **Check your BigQuery Dataset Location**: Ensure that your dataset is created in the same geographic location as your source data. BigQuery has data residency requirements depending on the region.\n\n2. **Update Schema**: If your schema is not aligned with the source data, you may need to modify your BigQuery tables. This can involve altering the table schema to match the incoming data types and structure or creating a new table with the correct schema.\n\n3. **Validate Source Data**: Review the source data to ensure it contains the fields and types expected by your BigQuery schema. Any discrepancy could lead to errors during data loading.\n\n4. **Re-Authenticate Credentials**: If credentials are causing issues (e.g., due to permissions), you may need to ensure that your service account has the necessary permissions to access the locations of your source data.\n\n5. **Testing**: After making adjustments, perform tests to confirm that data can be successfully loaded into BigQuery without errors.\n\nFor detailed information regarding managing schemas in BigQuery, you might want to check the BigQuery documentation directly, as the materials I searched did not provide specific guidance on this issue. You can access the official documentation [here](https://cloud.google.com/bigquery/docs).\n\nIf you need further assistance with a specific part of the process or additional context, feel free to ask!",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3494,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 298,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:11:08+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8smqaYZqS2C1v2oUhooYqH2mwdL",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "04-analytics-engineering/dbt_cloud_setup.md",
+    "question": "What should I do if my development credentials schema in BigQuery doesn't match my source data's location?"
+  }
+}

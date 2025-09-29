@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How do I submit my project for Cohort #2, and what is the deadline?",
+          "timestamp": "2025-09-29T14:12:57.090017+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Cohort #2 project submission deadline\"}",
+          "tool_call_id": "call_xfM026UKR69X8kQQMkFZslAu",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 224,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 20,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:00+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8uaXTF1DvBrFPdMvDqt1rlpHJvO",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that, your project can't be considered compelete.\n\n\n### Submitting \n\n#### Project Cohort #2\n\nProject:\n\n* Form: https://forms.gle/JECXB9jYQ1vBXbsw6\n* Deadline: 2 May, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vShnv8T4iY_5NA8h0nySIS8Wzr-DZGGigEikIW4ZMSi9HlvhaEB4RhwmepVIuIUGaQHS90r5iHR2YXV/pubhtml?gid=964123374&single=true)\n* Form: https://forms.gle/Pb2fBwYLQ3GGFsaK6\n* Deadline: 9 May, 22:00 CET\n\n\n#### Project Cohort #1\n\nProject:\n\n* Form: https://forms.gle/6aeVcEVJipqR2BqC8\n* Deadline: 4 April, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vShnv8T4iY_5NA8h0nySIS8Wzr-DZGGigEikIW4ZMSi9HlvhaEB4RhwmepVIuIUGaQHS90r5iHR2YXV/pubhtml)\n* Form: https://forms.gle/AZ62bXMp4SGcVUmK7\n* Deadline: 11 April, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRcVCkO-jes5mbPAcikn9X_s2laJ1KhsO8aibHYQxxKqdCUYMVTEJLJQdM8C5aAUWKFl_0SJW4rme7H/pubhtml)",
+              "filename": "cohorts/2022/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\nProject:\n\n* Form: https://forms.gle/zTJiVYSmCgsENj6y8\n* Deadline: 10 April, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=0&single=true) (\"project-01\" sheet)\n* Form: https://forms.gle/1bxmgR8yPwV359zb7\n* Deadline: 17 April, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vQuMt9m1XlPrCACqnsFTXTV_KGiSnsl9UjL7kdTMsLJ8DLu3jNJlPzoUKG6baxc8APeEQ8RaSP1U2VX/pubhtml?gid=27207346&single=true) (\"project-01\" sheet)\n\n#### Project Attempt #2\n\nProject:\n\n* Form: https://forms.gle/gCXUSYBm1KgMKXVm8\n* Deadline: 4 May, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=303437788&single=true) (\"project-02\" sheet)\n* Form: https://forms.gle/2x5MT4xxczR8isy37\n* Deadline: 11 May, 22:00 CET\n\nProject feedback: [link](https://docs.goog",
+              "filename": "cohorts/2023/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2024/project/project1\n* Review: https://courses.datatalks.club/de-zoomcamp-2024/project/project1/eval\n\n#### Project Attempt #2\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2024/project/project2\n* Review: https://courses.datatalks.club/de-zoomcamp-2024/project/project2/eval\n\n> **Important**: update your \"Certificate name\" here: https://courses.datatalks.club/de-zoomcamp-2024/enrollment -\nthis is what we will use when generating certificates for you.\n\n### Evaluation criteria\n\nSee [here](../../week_7_project/README.md)",
+              "filename": "cohorts/2024/project.md"
+            },
+            {
+              "start": 0,
+              "content": "## Course Project\n\nThe goal of this project is to apply everything we learned\nin this course and build an end-to-end data pipeline.\n\nYou will have two attempts to submit your project. If you don't have \ntime to submit your project by the end of attempt #1 (you started the \ncourse late, you have vacation plans, life/work got in the way, etc.)\nor you fail your first attempt, \nthen you will have a second chance to submit your project as attempt\n#2. \n\nThere are only two attempts.\n\nRemember that to pass the project, you must evaluate 3 peers. If you don't do that,\nyour project can't be considered complete.\n\nTo find the projects assigned to you, use the peer review assignments link \nand find your hash in the first column. You will see three rows: you need to evaluate \neach of these projects. For each project, you need to submit the form once,\nso in total, you will make three submissions. \n\n\n### Submitting\n\n#### Project Attempt #1\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2025/project/project1\n* Review: https://courses.datatalks.club/de-zoomcamp-2025/project/project1/eval\n\n#### Project Attempt #2\n\n* Project: https://courses.datatalks.club/de-zoomcamp-2025/project/project2\n* Review: https://courses.datatalks.club/de-zoomcamp-2025/project/project2/eval\n\n> **Important**: update your \"Certificate name\" here: https://courses.datatalks.club/de-zoomcamp-2025/enrollment -\nthis is what we will use when generating certificates for you.\n\n### Evaluation criteria\n\nSee [here](../../projects/README.md)",
+              "filename": "cohorts/2025/project.md"
+            },
+            {
+              "start": 1000,
+              "content": "ine: 10 April, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=0&single=true) (\"project-01\" sheet)\n* Form: https://forms.gle/1bxmgR8yPwV359zb7\n* Deadline: 17 April, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vQuMt9m1XlPrCACqnsFTXTV_KGiSnsl9UjL7kdTMsLJ8DLu3jNJlPzoUKG6baxc8APeEQ8RaSP1U2VX/pubhtml?gid=27207346&single=true) (\"project-01\" sheet)\n\n#### Project Attempt #2\n\nProject:\n\n* Form: https://forms.gle/gCXUSYBm1KgMKXVm8\n* Deadline: 4 May, 22:00 CET\n\nPeer reviewing:\n\n* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vRYQ0A9C7AkRK-YPSFhqaRMmuPR97QPfl2PjI8n11l5jntc6YMHIJXVVS0GQNqAYIGwzyevyManDB08/pubhtml?gid=303437788&single=true) (\"project-02\" sheet)\n* Form: https://forms.gle/2x5MT4xxczR8isy37\n* Deadline: 11 May, 22:00 CET\n\nProject feedback: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vQuMt9m1XlPrCACqnsFTXTV_KGiSnsl9UjL7kdTMsLJ8DLu3jNJlPzoUKG6baxc8APeEQ8RaSP1U2VX/pubhtml?gid=246029638&single=true)\n\n### Evaluation criteria\n\nSee [here](../../week_7_project/README.md)\n\n\n### Misc\n\nTo get the hash for your project, use this function to hash your email:\n\n```python\nfrom hashlib import sha1\n\ndef compute_hash(email):\n    return sha1(email.lower().encode('utf-8')).hexdigest()\n```\n\nOr use [this website](http://www.sha1-online.com/).",
+              "filename": "cohorts/2023/project.md"
+            }
+          ],
+          "tool_call_id": "call_xfM026UKR69X8kQQMkFZslAu",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:12:58.262937+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "For Cohort #2, you can submit your project using the following link:\n\n- **Project Submission Form**: [Project Submission Form](https://forms.gle/JECXB9jYQ1vBXbsw6)\n- **Deadline**: 2 May at 22:00 CET\n\nAdditionally, remember that in order to complete the project requirements, you must evaluate 3 peers and submit your peer evaluations by the following deadline:\n\n- **Peer Review Submission Form**: [Peer Review Form](https://forms.gle/Pb2fBwYLQ3GGFsaK6)\n- **Peer Review Deadline**: 9 May at 22:00 CET\n\nMake sure to adhere to these deadlines to ensure your project is considered complete. For further details, you can refer to the [Cohort #2 Project Documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2022/project.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2949,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 2816,
+        "output_tokens": 198,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:13:01+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8ubPrkbo2KXOUIskggXyQNeq1el",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2022/project.md",
+    "question": "How do I submit my project for Cohort #2, and what is the deadline?"
+  }
+}

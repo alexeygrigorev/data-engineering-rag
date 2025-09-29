@@ -1,0 +1,137 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "How do I set up the PySpark environment for analyzing taxi data?",
+          "timestamp": "2025-09-29T14:14:40.375991+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"set up PySpark environment for analyzing taxi data\"}",
+          "tool_call_id": "call_bIMAzqBSygvzdEG5SxNinpAz",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 220,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 21,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:43+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wFGLdxy2qd8kMgVU4J0E1m6G2L",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Thank you!\n\nThanks for signing up for the course.\n\nThe process of adding you to the mailing list is not automated yet, \nbut you will hear from us closer to the course start. \n\nTo make sure you don't miss any announcements\n\n- Register in [DataTalks.Club's Slack](https://datatalks.club/slack.html) and\n  join the [`#course-data-engineering`](https://app.slack.com/client/T01ATQK62F8/C01FABYF2RG) channel\n- Join the [course Telegram channel with announcements](https://t.me/dezoomcamp)\n- Subscribe to [DataTalks.Club's YouTube channel](https://www.youtube.com/c/DataTalksClub) and check \n  [the course playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)\n- Subscribe to our [public Google Calendar](https://calendar.google.com/calendar/?cid=ZXIxcjA1M3ZlYjJpcXU0dTFmaG02MzVxMG9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) (it works from Desktop only)\n\nSee you in January!",
+              "filename": "after-sign-up.md"
+            },
+            {
+              "start": 0,
+              "content": "## 0. Spark Setup\n\nTo begin using Apache Spark with Kafka and Avro data formats, we need to configure the environment and establish a Spark session. This is essential for executing our data processing tasks.\n\n```python\nimport os\nos.environ['PYSPARK_SUBMIT_ARGS'] = '--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1,org.apache.spark:spark-avro_2.12:3.3.1 pyspark-shell'\n```\n\nThis code sets the necessary loading parameters for PySpark, including packages for Kafka and Avro support required during runtime.\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.types as T\nimport pyspark.sql.functions as F\n\nspark = SparkSession \\\n    .builder \\\n    .appName(\"Spark-Notebook\") \\\n    .getOrCreate()\n```\n\nHere, we create a `SparkSession`, which is the entry point for using the DataFrame and SQL API in PySpark. The application is named \"Spark-Notebook\" for easy identification in Spark's UI.\n\n## 1. Reading from Kafka Stream\n\nWe will now read data from a Kafka stream using PySpark's `readStream` method. This provides a way to continuously read streaming data into a DataFrame.\n\n### 1.1 Raw Kafka Stream\n\n```python\n# default for startingOffsets is \"latest\"\ndf_kafka_raw = spark \\\n    .readStream \\\n    .format(\"kafka\") \\\n    .option(\"kafka.bootstrap.servers\", \"localhost:9092,broker:29092\") \\\n    .option(\"subscribe\", \"rides_csv\") \\\n    .option(\"startingOffsets\", \"earliest\") \\\n    .option(\"checkpointLocation\", \"checkpoint\") \\\n    .load()\n```\n\nThis block reads from a Kafka topic named \"rides_csv\". The `startingOffsets` option is set to \"earliest\", meaning data will be read from the beginning of the topic, and a checkpoint location is set to enable fault tolerance.\n\n```python\ndf_kafka_raw.printSchema()\n```\n\nWe print the schema of the raw Kafka DataFrame for verification. This will show the structure of the data we are reading, including key-value pairs.\n\n### 1.2 Encoded Kafka Stream\n\n```python\ndf_kafka_encoded = df_kafka_raw.selectExpr(\"CAST(key AS STRING)\",\"CAST(valu",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "# Streaming Data Processing with PySpark\n\nThis document provides an overview of a PySpark script designed for streaming data processing from Kafka. The script includes functions for reading data from a Kafka topic, parsing it, and performing various aggregation operations before writing the processed data back to the console or Kafka.\n\n## Imports and Dependencies\n\n```python\nfrom pyspark.sql import SparkSession\nimport pyspark.sql.functions as F\nfrom settings import RIDE_SCHEMA, CONSUME_TOPIC_RIDES_CSV, TOPIC_WINDOWED_VENDOR_ID_COUNT\n```\n\nThe script begins by importing necessary libraries:\n- `SparkSession` is the entry point for using Spark SQL.\n- `pyspark.sql.functions` is imported as `F` for utilizing various built-in functions.\n- Configuration variables such as `RIDE_SCHEMA`, `CONSUME_TOPIC_RIDES_CSV`, and `TOPIC_WINDOWED_VENDOR_ID_COUNT` are imported from a `settings` module.\n\n## Kafka Data Reading\n\n```python\ndef read_from_kafka(consume_topic: str):\n    # Spark Streaming DataFrame, connect to Kafka topic served at host in bootrap.servers option\n    ...\n    return df_stream\n```\n\nThe `read_from_kafka` function establishes a connection to a specified Kafka topic. It uses the Spark Streaming API to create a streaming DataFrame, which allows real-time ingestion of data. The DataFrame's starting offsets are set to 'earliest', ensuring it captures all available messages. The function returns the streaming DataFrame for further processing.\n\n## Parsing Kafka Messages\n\n```python\ndef parse_ride_from_kafka_message(df, schema):\n    \"\"\" take a Spark Streaming df and parse value col based on <schema>, return streaming df cols in schema \"\"\"\n    ...\n    return df.select([field.name for field in schema])\n```\n\nThe `parse_ride_from_kafka_message` function takes in a streaming DataFrame and a schema. It converts the 'value' column from Kafka messages into multiple columns based on the provided schema. The function utilizes Spark SQL expressions to cast the relevant fields and returns ",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming.py"
+            },
+            {
+              "start": 0,
+              "content": "# Setting Up PySpark Environment\n\nThis section outlines the process of setting up a PySpark environment, importing necessary modules, and initializing a Spark session. It also demonstrates how to download a dataset for analysis and the subsequent steps to read, display, and save the data.\n\n## Importing the PySpark Library\n\n```python\nimport pyspark\n```\n\nIn this code block, the `pyspark` library is imported, which is essential for working with Apache Spark in a Python environment. PySpark allows users to leverage Spark's distributed computing capabilities directly from Python.\n\n## Verifying PySpark Installation\n\n```python\npyspark.__file__\n```\n\nThis command checks and retrieves the file path of the installed PySpark library. It can be helpful for confirming that PySpark has been set up correctly in your Python environment.\n\n## Creating a Spark Session\n\n```python\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .master(\"local[*]\") \\\n    .appName('test') \\\n    .getOrCreate()\n```\n\nHere, the `SparkSession` class is imported from `pyspark.sql`, which serves as the entry point for working with DataFrames and executing Spark SQL queries. The session is initialized with the following configurations:\n- `.master(\"local[*]\")`: This indicates that Spark should run locally with as many worker threads as there are logical cores on the machine. \n- `.appName('test')`: This sets the name of the Spark application; it can be useful for monitoring and debugging.\n- `.getOrCreate()`: This method either retrieves an existing SparkSession or creates a new one.\n\n## Downloading a Dataset\n\n```python\n!wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv\n```\n\nThis code uses the `wget` command to download a CSV file containing taxi zone lookup information from a public URL. Using the command shell via the exclamation mark (`!`) allows executing shell commands within a Jupyter notebook.\n\n## Inspecting the Downloaded File\n\n```python\n!head taxi+_zone_lookup.csv\n```\n",
+              "code": false,
+              "filename": "05-batch/code/03_test.ipynb"
+            },
+            {
+              "start": 0,
+              "content": "## PySpark\n\nThis document assumes you already have python.\n\nTo run PySpark, we first need to add it to `PYTHONPATH`:\n\n```bash\nexport PYTHONPATH=\"${SPARK_HOME}/python/:$PYTHONPATH\"\nexport PYTHONPATH=\"${SPARK_HOME}/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH\"\n```\n\nMake sure that the version under `${SPARK_HOME}/python/lib/` matches the filename of py4j or you will\nencounter `ModuleNotFoundError: No module named 'py4j'` while executing `import pyspark`.\n\nFor example, if the file under `${SPARK_HOME}/python/lib/` is `py4j-0.10.9.3-src.zip`, then the\n`export PYTHONPATH` statement above should be changed to\n\n```bash\nexport PYTHONPATH=\"${SPARK_HOME}/python/lib/py4j-0.10.9.3-src.zip:$PYTHONPATH\"\n```\n\nOn Windows, you may have to do path conversion from unix-style to windows-style:\n\n```bash\nSPARK_WIN=`cygpath -w ${SPARK_HOME}`\n\nexport PYTHONPATH=\"${SPARK_WIN}\\\\python\\\\\"\nexport PYTHONPATH=\"${SPARK_WIN}\\\\python\\\\lib\\\\py4j-0.10.9-src.zip;$PYTHONPATH\"\n```\n\nNow you can run Jupyter or IPython to test if things work. Go to some other directory, e.g. `~/tmp`.\n\nDownload a CSV file that we'll use for testing:\n\n```bash\nwget https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv\n```\n\nNow let's run `ipython` (or `jupyter notebook`) and execute:\n\n```python\nimport pyspark\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .master(\"local[*]\") \\\n    .appName('test') \\\n    .getOrCreate()\n\ndf = spark.read \\\n    .option(\"header\", \"true\") \\\n    .csv('taxi_zone_lookup.csv')\n\ndf.show()\n```\n\nTest that writing works as well:\n\n```python\ndf.write.parquet('zones')\n```",
+              "filename": "05-batch/setup/pyspark.md"
+            }
+          ],
+          "tool_call_id": "call_bIMAzqBSygvzdEG5SxNinpAz",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:41.453087+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To set up a PySpark environment for analyzing taxi data, follow these steps outlined in the documentation:\n\n### 1. Install PySpark\nEnsure you have Python installed, then you can set up PySpark. You need to add the necessary paths to your `PYTHONPATH`. Here\u2019s how you can do it:\n\n```bash\nexport PYTHONPATH=\"${SPARK_HOME}/python/:$PYTHONPATH\"\nexport PYTHONPATH=\"${SPARK_HOME}/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH\"\n```\n\nMake sure that the version number in the path corresponds with the Py4j installation.\n\n### 2. Create a Spark Session\nStart by creating a Spark session. Here\u2019s a code snippet for initializing the Spark session:\n\n```python\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .master(\"local[*]\") \\\n    .appName('TaxiDataAnalysis') \\\n    .getOrCreate()\n```\n\n- This starts a local Spark application named \"TaxiDataAnalysis\".\n\n### 3. Download Taxi Data\nYou can download a taxi dataset using `wget`:\n\n```bash\n!wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv\n```\n\n### 4. Read and Inspect the Data\nOnce you have the dataset, you can read it into a DataFrame and display its contents:\n\n```python\ndf = spark.read \\\n    .option(\"header\", \"true\") \\\n    .csv('taxi_zone_lookup.csv')\n\ndf.show()\n```\n\n### 5. Writing Data Back\nYou can also write the DataFrame back into a different format (like Parquet):\n\n```python\ndf.write.parquet('zones')\n```\n\n### 6. Verifying Your Setup\nTo confirm your setup, run the following command in a Jupyter notebook or another Python environment:\n\n```python\nimport pyspark\npyspark.__file__\n```\n\nThis checks if PySpark is correctly installed.\n\n### Summary\nThis setup allows you to leverage PySpark for analyzing taxi data efficiently. Ensure you have the Spark binaries downloaded and configured in your environment variables.\n\nFor further details and a complete guide, refer to the [PySpark Setup Documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/pyspark.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2668,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 489,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:44+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wGMNEP2jIVwNJRsla6Lt8HtrAn",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "05-batch/code/06_spark_sql.ipynb",
+    "question": "How do I set up the PySpark environment for analyzing taxi data?"
+  }
+}

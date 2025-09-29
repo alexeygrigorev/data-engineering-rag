@@ -1,0 +1,184 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "Can you explain how to read Parquet files using Apache Spark and why Parquet is recommended for such tasks?",
+          "timestamp": "2025-09-29T14:14:00.150103+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"read Parquet files using Apache Spark\"}",
+          "tool_call_id": "call_U7OuUT1LjYqCJGHRJUwdP6cy",
+          "part_kind": "tool-call"
+        },
+        {
+          "tool_name": "search",
+          "args": "{\"query\": \"why Parquet is recommended for Apache Spark\"}",
+          "tool_call_id": "call_EZAaDPht66WfjqSmw4BvUbMo",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 228,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 55,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:03+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8vbuLMW7OjIKTY1jFinXXzNimr4",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Data Loading\n\nIn this document, we will outline the process of loading a Parquet file into a PostgreSQL database. This includes checking metadata, converting the file to a Pandas DataFrame, generating SQL statements, establishing a database connection, and finally inserting the data into the database. We'll also cover handling both CSV and Parquet files for flexibility.\n\n## Initial Setup \n\nTo begin, we first import the necessary libraries: `pandas`, `pyarrow`, and `SQLAlchemy`. These libraries will facilitate reading the Parquet file, manipulating data, and connecting to the SQL database.\n\n```python\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom time import time\n```\n\n## Reading Metadata from the Parquet File\n\nNext, we will read the metadata from the specified Parquet file. This step helps us understand the structure and schema of the data without loading it entirely into memory.\n\n```python\n# Read metadata \npq.read_metadata('yellow_tripdata_2023-09.parquet')\n```\n\n## Reading Data and Schema Check\n\nWe will now read the full Parquet file and check its schema. Understanding the schema ensures that we know the data types and structure before converting the data to a Pandas DataFrame.\n\n```python\n# Read file, read the table from file and check schema\nfile = pq.ParquetFile('yellow_tripdata_2023-09.parquet')\ntable = file.read()\ntable.schema\n```\n\n## Converting to Pandas DataFrame\n\nAfter reading the data, we will convert the table into a Pandas DataFrame. This allows us to utilize Pandas' powerful data manipulation capabilities, including checking the DataFrame's information and data types.\n\n```python\n# Convert to pandas and check data \ndf = table.to_pandas()\ndf.info()\n```\n\n## Establishing Database Connection\n\nBefore proceeding with inserting data, we need to establish a connection to our PostgreSQL database. This connection will allow us to execute SQL commands directly from Python.\n\n```python\n# Create an open SQL database connection object or a SQLAlchemy connectabl",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 4000,
+              "content": " the file extension and process it accordingly, allowing for versatile data loading from different sources.\n\n```python\nfrom time import time\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom sqlalchemy import create_engine\n\nurl = 'https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv'\nurl = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet'\n\nfile_name = url.rsplit('/', 1)[-1].strip()\nfile_name\n```\n\n### Conditional Loading Based on File Type\n\nHere we implement the logic to load CSV and Parquet files. This ensures that we can adapt to different data sources while maintaining consistency in our data processing pipeline.\n\n```python\nif '.csv' in file_name:\n    print('yay') \n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    print('oh yea')\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = file.iter_batches(batch_size=100000)\nelse: \n    print('Error. Only .csv or .parquet files allowed.')\n    sys.exit() \n```\n\nThis concludes the documentation for loading data from Parquet files into a PostgreSQL database. The established workflows can be further refined and customized as per project needs.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 1000,
+              "content": "ta and Schema Check\n\nWe will now read the full Parquet file and check its schema. Understanding the schema ensures that we know the data types and structure before converting the data to a Pandas DataFrame.\n\n```python\n# Read file, read the table from file and check schema\nfile = pq.ParquetFile('yellow_tripdata_2023-09.parquet')\ntable = file.read()\ntable.schema\n```\n\n## Converting to Pandas DataFrame\n\nAfter reading the data, we will convert the table into a Pandas DataFrame. This allows us to utilize Pandas' powerful data manipulation capabilities, including checking the DataFrame's information and data types.\n\n```python\n# Convert to pandas and check data \ndf = table.to_pandas()\ndf.info()\n```\n\n## Establishing Database Connection\n\nBefore proceeding with inserting data, we need to establish a connection to our PostgreSQL database. This connection will allow us to execute SQL commands directly from Python.\n\n```python\n# Create an open SQL database connection object or a SQLAlchemy connectable\nfrom sqlalchemy import create_engine\n\nengine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')\nengine.connect()\n```\n\n## Generating SQL CREATE Statement\n\nTo ensure that the Pandas DataFrame translates correctly to our database table, we generate a SQL CREATE statement. This allows for validation of the schema before actually inserting the data.\n\n```python\n# Generate CREATE SQL statement from schema for validation\nprint(pd.io.sql.get_schema(df, name='yellow_taxi_data', con=engine))\n```\n\n## Inserting Data into Database\n\nWith the connection established and schema validated, we can now focus on inserting the data into the PostgreSQL database. The dataset contains 2,846,722 rows, so we'll process the file in batches of 100,000 rows using the `iter_batches` function. This method is efficient and prevents memory overload.\n\n```python\n# Creating batches of 100,000 for the parquet file\nbatches_iter = file.iter_batches(batch_size=100000)\nbatches_iter\n\n# Take the first batch for te",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 3000,
+              "content": "gine that establishes a connection to the specified PostgreSQL database. This engine will be used for all subsequent database operations, allowing data manipulation within the defined constraints of the database.\n\n## Reading the Data File\n\n```python\nif '.csv' in file_name:\n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = file.iter_batches(batch_size=100000)\nelse: \n    print('Error. Only .csv or .parquet files allowed.')\n    sys.exit()\n```\n\nThe script checks the file extension to determine the format of the downloaded file. If the file is a `.csv`, it reads the first 10 rows to infer the structure and creates an iterator to read the remainder in chunks of 100,000 rows. For a `.parquet` file, it initializes a `ParquetFile` object and performs the same operations. If the file is neither format, it prints an error message and exits.\n\n## Creating the Database Table\n\n```python\ndf.head(0).to_sql(name=tb, con=engine, if_exists='replace')\n```\n\nBefore inserting data, the script creates a new table in the PostgreSQL database using the inferred schema from the DataFrame (with no actual data). The table is created with the name specified by the `tb` parameter, and if it already exists, it will be replaced.\n\n## Data Insertion\n\n```python\nt_start = time()\ncount = 0\nfor batch in df_iter:\n    count+=1\n\n    if '.parquet' in file_name:\n        batch_df = batch.to_pandas()\n    else:\n        batch_df = batch\n\n    print(f'inserting batch {count}...')\n\n    b_start = time()\n    batch_df.to_sql(name=tb, con=engine, if_exists='append')\n    b_end = time()\n\n    print(f'inserted! time taken {b_end-b_start:10.3f} seconds.\\n')\nt_end = time()   \nprint(f'Completed! Total time taken was {t_end-t_start:10.3f} seconds for {count} batches.')\n```\n\nIn the data insertion phase, the script measures the tota",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            },
+            {
+              "start": 0,
+              "content": "# Data Loading Script Documentation\n\nThis script is designed to facilitate the downloading of data files, specifically in CSV or Parquet formats, and subsequently load these files into a PostgreSQL database. It employs command-line arguments for user configuration and utilizes libraries like Pandas and SQLAlchemy to manage data operations.\n\n## Overview\n\nThe script primarily performs the following steps:\n\n1. **Argument Parsing**: It captures connection details to a PostgreSQL database and the URL of the data file through command-line arguments.\n2. **File Downloading**: It downloads a specified data file from a provided URL using `curl`.\n3. **Data Frame Creation**: It reads the downloaded file into a Pandas DataFrame, supporting both CSV and Parquet formats.\n4. **Database Connection Setup**: It establishes a connection to a PostgreSQL database using SQLAlchemy.\n5. **Table Creation and Data Insertion**: It creates a new table in the database and inserts the data in chunks, while logging the duration of each insertion batch.\n\n## Argument Parsing\n\n```python\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser(description='Loading data from .parquet file link to a Postgres database.')\n\n    parser.add_argument('--user', help='Username for Postgres.')\n    parser.add_argument('--password', help='Password to the username for Postgres.')\n    parser.add_argument('--host', help='Hostname for Postgres.')\n    parser.add_argument('--port', help='Port for Postgres connection.')\n    parser.add_argument('--db', help='Database name for Postgres')\n    parser.add_argument('--tb', help='Destination table name for Postgres.')\n    parser.add_argument('--url', help='URL for .parquet file.')\n\n    args = parser.parse_args()\n    main(args)\n```\n\nThe script begins by defining a main guard to ensure it runs as a standalone program. It uses the `argparse` module to capture various command-line arguments. These include:\n\n- `user`: Username for authenticating with the PostgreSQL database.\n",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            }
+          ],
+          "tool_call_id": "call_U7OuUT1LjYqCJGHRJUwdP6cy",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:02.180115+00:00",
+          "part_kind": "tool-return"
+        },
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "# Data Loading\n\nIn this document, we will outline the process of loading a Parquet file into a PostgreSQL database. This includes checking metadata, converting the file to a Pandas DataFrame, generating SQL statements, establishing a database connection, and finally inserting the data into the database. We'll also cover handling both CSV and Parquet files for flexibility.\n\n## Initial Setup \n\nTo begin, we first import the necessary libraries: `pandas`, `pyarrow`, and `SQLAlchemy`. These libraries will facilitate reading the Parquet file, manipulating data, and connecting to the SQL database.\n\n```python\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom time import time\n```\n\n## Reading Metadata from the Parquet File\n\nNext, we will read the metadata from the specified Parquet file. This step helps us understand the structure and schema of the data without loading it entirely into memory.\n\n```python\n# Read metadata \npq.read_metadata('yellow_tripdata_2023-09.parquet')\n```\n\n## Reading Data and Schema Check\n\nWe will now read the full Parquet file and check its schema. Understanding the schema ensures that we know the data types and structure before converting the data to a Pandas DataFrame.\n\n```python\n# Read file, read the table from file and check schema\nfile = pq.ParquetFile('yellow_tripdata_2023-09.parquet')\ntable = file.read()\ntable.schema\n```\n\n## Converting to Pandas DataFrame\n\nAfter reading the data, we will convert the table into a Pandas DataFrame. This allows us to utilize Pandas' powerful data manipulation capabilities, including checking the DataFrame's information and data types.\n\n```python\n# Convert to pandas and check data \ndf = table.to_pandas()\ndf.info()\n```\n\n## Establishing Database Connection\n\nBefore proceeding with inserting data, we need to establish a connection to our PostgreSQL database. This connection will allow us to execute SQL commands directly from Python.\n\n```python\n# Create an open SQL database connection object or a SQLAlchemy connectabl",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 4000,
+              "content": " the file extension and process it accordingly, allowing for versatile data loading from different sources.\n\n```python\nfrom time import time\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom sqlalchemy import create_engine\n\nurl = 'https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv'\nurl = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet'\n\nfile_name = url.rsplit('/', 1)[-1].strip()\nfile_name\n```\n\n### Conditional Loading Based on File Type\n\nHere we implement the logic to load CSV and Parquet files. This ensures that we can adapt to different data sources while maintaining consistency in our data processing pipeline.\n\n```python\nif '.csv' in file_name:\n    print('yay') \n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    print('oh yea')\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = file.iter_batches(batch_size=100000)\nelse: \n    print('Error. Only .csv or .parquet files allowed.')\n    sys.exit() \n```\n\nThis concludes the documentation for loading data from Parquet files into a PostgreSQL database. The established workflows can be further refined and customized as per project needs.",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 3000,
+              "content": "sting\ndf = next(batches_iter).to_pandas()\ndf\n\n# Creating just the table in postgres\n#df.head(0).to_sql(name='ny_taxi_data',con=engine, if_exists='replace')\n```\n\n### Batch Insertion Process\n\nIn this section, we will iterate through each batch and insert it into the database. This process includes timing each insertion for performance evaluation.\n\n```python\n# Insert values into the table \nt_start = time()\ncount = 0\nfor batch in file.iter_batches(batch_size=100000):\n    count += 1\n    batch_df = batch.to_pandas()\n    print(f'inserting batch {count}...')\n    b_start = time()\n    \n    batch_df.to_sql(name='ny_taxi_data', con=engine, if_exists='append')\n    b_end = time()\n    print(f'inserted! time taken {b_end-b_start:10.3f} seconds.\\n')\n    \nt_end = time()\nprint(f'Completed! Total time taken was {t_end-t_start:10.3f} seconds for {count} batches.')    \n```\n\n## Handling Multiple File Formats\n\nFor future flexibility, we may also need to handle both CSV and Parquet file formats. Here, we check the file extension and process it accordingly, allowing for versatile data loading from different sources.\n\n```python\nfrom time import time\nimport pandas as pd \nimport pyarrow.parquet as pq\nfrom sqlalchemy import create_engine\n\nurl = 'https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv'\nurl = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet'\n\nfile_name = url.rsplit('/', 1)[-1].strip()\nfile_name\n```\n\n### Conditional Loading Based on File Type\n\nHere we implement the logic to load CSV and Parquet files. This ensures that we can adapt to different data sources while maintaining consistency in our data processing pipeline.\n\n```python\nif '.csv' in file_name:\n    print('yay') \n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    print('oh yea')\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = fi",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb"
+            },
+            {
+              "start": 3000,
+              "content": "gine that establishes a connection to the specified PostgreSQL database. This engine will be used for all subsequent database operations, allowing data manipulation within the defined constraints of the database.\n\n## Reading the Data File\n\n```python\nif '.csv' in file_name:\n    df = pd.read_csv(file_name, nrows=10)\n    df_iter = pd.read_csv(file_name, iterator=True, chunksize=100000)\nelif '.parquet' in file_name:\n    file = pq.ParquetFile(file_name)\n    df = next(file.iter_batches(batch_size=10)).to_pandas()\n    df_iter = file.iter_batches(batch_size=100000)\nelse: \n    print('Error. Only .csv or .parquet files allowed.')\n    sys.exit()\n```\n\nThe script checks the file extension to determine the format of the downloaded file. If the file is a `.csv`, it reads the first 10 rows to infer the structure and creates an iterator to read the remainder in chunks of 100,000 rows. For a `.parquet` file, it initializes a `ParquetFile` object and performs the same operations. If the file is neither format, it prints an error message and exits.\n\n## Creating the Database Table\n\n```python\ndf.head(0).to_sql(name=tb, con=engine, if_exists='replace')\n```\n\nBefore inserting data, the script creates a new table in the PostgreSQL database using the inferred schema from the DataFrame (with no actual data). The table is created with the name specified by the `tb` parameter, and if it already exists, it will be replaced.\n\n## Data Insertion\n\n```python\nt_start = time()\ncount = 0\nfor batch in df_iter:\n    count+=1\n\n    if '.parquet' in file_name:\n        batch_df = batch.to_pandas()\n    else:\n        batch_df = batch\n\n    print(f'inserting batch {count}...')\n\n    b_start = time()\n    batch_df.to_sql(name=tb, con=engine, if_exists='append')\n    b_end = time()\n\n    print(f'inserted! time taken {b_end-b_start:10.3f} seconds.\\n')\nt_end = time()   \nprint(f'Completed! Total time taken was {t_end-t_start:10.3f} seconds for {count} batches.')\n```\n\nIn the data insertion phase, the script measures the tota",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            },
+            {
+              "start": 0,
+              "content": "# Data Loading Script Documentation\n\nThis script is designed to facilitate the downloading of data files, specifically in CSV or Parquet formats, and subsequently load these files into a PostgreSQL database. It employs command-line arguments for user configuration and utilizes libraries like Pandas and SQLAlchemy to manage data operations.\n\n## Overview\n\nThe script primarily performs the following steps:\n\n1. **Argument Parsing**: It captures connection details to a PostgreSQL database and the URL of the data file through command-line arguments.\n2. **File Downloading**: It downloads a specified data file from a provided URL using `curl`.\n3. **Data Frame Creation**: It reads the downloaded file into a Pandas DataFrame, supporting both CSV and Parquet formats.\n4. **Database Connection Setup**: It establishes a connection to a PostgreSQL database using SQLAlchemy.\n5. **Table Creation and Data Insertion**: It creates a new table in the database and inserts the data in chunks, while logging the duration of each insertion batch.\n\n## Argument Parsing\n\n```python\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser(description='Loading data from .parquet file link to a Postgres database.')\n\n    parser.add_argument('--user', help='Username for Postgres.')\n    parser.add_argument('--password', help='Password to the username for Postgres.')\n    parser.add_argument('--host', help='Hostname for Postgres.')\n    parser.add_argument('--port', help='Port for Postgres connection.')\n    parser.add_argument('--db', help='Database name for Postgres')\n    parser.add_argument('--tb', help='Destination table name for Postgres.')\n    parser.add_argument('--url', help='URL for .parquet file.')\n\n    args = parser.parse_args()\n    main(args)\n```\n\nThe script begins by defining a main guard to ensure it runs as a standalone program. It uses the `argparse` module to capture various command-line arguments. These include:\n\n- `user`: Username for authenticating with the PostgreSQL database.\n",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/data-loading-parquet.py"
+            }
+          ],
+          "tool_call_id": "call_EZAaDPht66WfjqSmw4BvUbMo",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:02.178535+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "### Reading Parquet Files Using Apache Spark\n\nTo read Parquet files using Apache Spark, you typically utilize the `spark.read` method, which provides a straightforward interface for loading data. Below is a general outline of how this works:\n\n1. **Initialization**: Ensure you have a Spark session initiated.\n   ```python\n   from pyspark.sql import SparkSession\n\n   spark = SparkSession.builder \\\n       .appName(\"Read Parquet Example\") \\\n       .getOrCreate()\n   ```\n\n2. **Reading the Parquet File**: Use the `read.parquet()` method of the Spark session to read the Parquet file.\n   ```python\n   df = spark.read.parquet(\"path/to/yourfile.parquet\")\n   ```\n\n3. **Displaying Data**: You can display the contents using the `show()` method.\n   ```python\n   df.show()\n   ```\n\n4. **Schema Information**: To view the schema of the DataFrame created from the Parquet file:\n   ```python\n   df.printSchema()\n   ```\n\nThese steps will allow you to load and explore data stored in Parquet format using Apache Spark.\n\n### Why Parquet is Recommended\n\nParquet is a columnar storage file format, which brings several advantages over traditional row-based formats:\n\n1. **Efficiency**: Parquet files are highly efficient in both storage space and query speed. Since it stores data column-wise, it allows Spark to read only the necessary columns, reducing the amount of data read from disk.\n\n2. **Compression**: Parquet supports various compression algorithms (e.g., Snappy, Gzip) that help in significantly reducing the file size without losing data accuracy. This results in lower storage costs and better I/O performance.\n\n3. **Schema Evolution and Data Types**: Parquet files include metadata about the schema, which allows for easier evolution over time without requiring a complete data refresh.\n\n4. **Compatibility**: It's supported by various data processing frameworks, making it a common choice in big data applications and modern data pipelines.\n\n5. **Optimized for Performance**: It includes features like predicate pushdown and vectorized reads which enhance performance for analytical workloads.\n\nThese attributes make Parquet a preferred choice for data storage, especially in environments involving processing with Apache Spark and other big data technologies.\n\nFor more details and examples regarding reading Parquet files in Spark, you can check the data loading documentation [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/2_docker_sql/data-loading-parquet.ipynb).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5339,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 529,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:05+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8vdE9gcxUje6Ht8vNZnhtzgxXpQ",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "05-batch/code/07_groupby_join.ipynb",
+    "question": "Can you explain how to read Parquet files using Apache Spark and why Parquet is recommended for such tasks?"
+  }
+}

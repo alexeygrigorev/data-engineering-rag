@@ -1,0 +1,134 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What is the process to backfill taxi data for 2021 in the homework assignment?",
+          "timestamp": "2025-09-29T14:14:53.762332+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"backfill taxi data 2021 homework assignment\"}",
+          "tool_call_id": "call_hKyErTZ1xazgBxD5XTEVCPAT",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 224,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 21,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:57+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8wTO8xD9VRi4CVCqDaDyKiZmL67",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 0,
+              "content": "## Module 3 Homework\n\nSolution: https://www.youtube.com/watch?v=8g_lRKaC9ro\n\nATTENTION: At the end of the submission form, you will be required to include a link to your GitHub repository or other public code-hosting site. This repository should contain your code for solving the homework. If your solution includes code that is not in file format (such as SQL queries or shell commands), please include these directly in the README file of your repository.\n\n<b><u>Important Note:</b></u> <p> For this homework we will be using the 2022 Green Taxi Trip Record Parquet Files from the New York\nCity Taxi Data found here: </br> https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page </br>\nIf you are using orchestration such as Mage, Airflow or Prefect do not load the data into Big Query using the orchestrator.</br> \nStop with loading the files into a bucket. </br></br>\n<u>NOTE:</u> You will need to use the PARQUET option files when creating an External Table</br>\n\n<b>SETUP:</b></br>\nCreate an external table using the Green Taxi Trip Records Data for 2022. </br>\nCreate a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2022 Green Taxi Data??\n- 65,623,481\n- 840,402\n- 1,936,423\n- 253,647\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the estimated amount of data that will be read when this query is executed on the External Table and the Table?\n\n- 0 MB for the External Table and 6.41MB for the Materialized Table\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n- 2.14 MB for the External Table and 0MB for the Materialized Table\n\n\n## Question 3:\nHow many records have a fare_amount of 0?\n- 12,488\n- 128,219\n- 112\n- 1,622\n\n## Question 4:\nWhat is the best strategy to make an optimized table ",
+              "filename": "cohorts/2024/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 0,
+              "content": "## Module 3 Homework\n\nATTENTION: At the end of the submission form, you will be required to include a link to your GitHub repository or other public code-hosting site. \nThis repository should contain your code for solving the homework. If your solution includes code that is not in file format (such as SQL queries or \nshell commands), please include these directly in the README file of your repository.\n\n<b><u>Important Note:</b></u> <p> For this homework we will be using the Yellow Taxi Trip Records for **January 2024 - June 2024 NOT the entire year of data** \nParquet Files from the New York\nCity Taxi Data found here: </br> https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page </br>\nIf you are using orchestration such as Kestra, Mage, Airflow or Prefect etc. do not load the data into Big Query using the orchestrator.</br> \nStop with loading the files into a bucket. </br></br>\n\n**Load Script:** You can manually download the parquet files and upload them to your GCS Bucket or you can use the linked script [here](./load_yellow_taxi_data.py):<br>\nYou will simply need to generate a Service Account with GCS Admin Priveleges or be authenticated with the Google SDK and update the bucket name in the script to the name of your bucket<br>\nNothing is fool proof so make sure that all 6 files show in your GCS Bucket before begining.</br><br>\n\n<u>NOTE:</u> You will need to use the PARQUET option files when creating an External Table</br>\n\n<b>BIG QUERY SETUP:</b></br>\nCreate an external table using the Yellow Taxi Trip Records. </br>\nCreate a (regular/materialized) table in BQ using the Yellow Taxi Trip Records (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2024 Yellow Taxi Data?\n- 65,623\n- 840,402\n- 20,332,093\n- 85,431,289\n\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the **estimated amount** of data that will be read when",
+              "filename": "cohorts/2025/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 0,
+              "content": "## Week 2 Homework\n\nIn this homework, we'll prepare data for the next week. We'll need\nto put these datasets to our data lake:\n\n* For the lessons, we'll need the Yellow taxi dataset (years 2019 and 2020)\n* For the homework, we'll need FHV Data (for-hire vehicles, for 2019 only)\n\nYou can find all the URLs on [the dataset page](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)\n\n\nIn this homework, we will:\n\n* Modify the DAG we created during the lessons for transferring the yellow taxi data\n* Create a new dag for transferring the FHV data\n* Create another dag for the Zones data\n\n\nIf you don't have access to GCP, you can do that locally and ingest data to Postgres \ninstead. If you have access to GCP, you don't need to do it for local Postgres -\nonly if you want.\n\nAlso note that for this homework we don't need the last step - creating a table in GCP.\nAfter putting all the files to the datalake, we'll create the tables in Week 3.\n\n\n\n## Question 1: Start date for the Yellow taxi data (1 point)\n\nYou'll need to parametrize the DAG for processing the yellow taxi data that\nwe created in the videos. \n\nWhat should be the start date for this dag?\n\n* 2019-01-01\n* 2020-01-01\n* 2021-01-01\n* days_ago(1)\n\n\n## Question 2: Frequency for the Yellow taxi data (1 point)\n\nHow often do we need to run this DAG?\n\n* Daily\n* Monthly\n* Yearly\n* Once\n\n\n## Re-running the DAGs for past dates\n\nTo execute your DAG for past dates, try this:\n\n* First, delete your DAG from the web interface (the bin icon)\n* Set the `catchup` parameter to `True`\n* Be careful with running a lot of jobs in parallel - your system may not like it. Don't set it higher than 3: `max_active_runs=3`\n* Rename the DAG to something like `data_ingestion_gcs_dag_v02` \n* Execute it from the Airflow GUI (the play button)\n\n\nAlso, there's no data for the recent months, but `curl` will exit successfully.\nTo make it fail on 404, add the `-f` flag:\n\n```bash\ncurl -sSLf { URL } > { LOCAL_PATH }\n```\n\nWhen you run this for all the da",
+              "filename": "cohorts/2022/week_2_data_ingestion/homework/homework.md"
+            },
+            {
+              "start": 1000,
+              "content": "n external table using the Green Taxi Trip Records Data for 2022. </br>\nCreate a table in BQ using the Green Taxi Trip Records for 2022 (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2022 Green Taxi Data??\n- 65,623,481\n- 840,402\n- 1,936,423\n- 253,647\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the estimated amount of data that will be read when this query is executed on the External Table and the Table?\n\n- 0 MB for the External Table and 6.41MB for the Materialized Table\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n- 2.14 MB for the External Table and 0MB for the Materialized Table\n\n\n## Question 3:\nHow many records have a fare_amount of 0?\n- 12,488\n- 128,219\n- 112\n- 1,622\n\n## Question 4:\nWhat is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime? (Create a new table with this strategy)\n- Cluster on lpep_pickup_datetime Partition by PUlocationID\n- Partition by lpep_pickup_datetime  Cluster on PUlocationID\n- Partition by lpep_pickup_datetime and Partition by PUlocationID\n- Cluster on by lpep_pickup_datetime and Cluster on PUlocationID\n\n## Question 5:\nWrite a query to retrieve the distinct PULocationID between lpep_pickup_datetime\n06/01/2022 and 06/30/2022 (inclusive)</br>\n\nUse the materialized table you created earlier in your from clause and note the estimated bytes. Now change the table in the from clause to the partitioned table you created for question 4 and note the estimated bytes processed. What are these values? </br>\n\nChoose the answer which most closely matches.</br> \n\n- 22.82 MB for non-partitioned table and 647.87 MB for the partitioned table\n- 12.82 MB for non-partitioned table and 1.12 MB for the partit",
+              "filename": "cohorts/2024/03-data-warehouse/homework.md"
+            },
+            {
+              "start": 1000,
+              "content": "an use the linked script [here](./load_yellow_taxi_data.py):<br>\nYou will simply need to generate a Service Account with GCS Admin Priveleges or be authenticated with the Google SDK and update the bucket name in the script to the name of your bucket<br>\nNothing is fool proof so make sure that all 6 files show in your GCS Bucket before begining.</br><br>\n\n<u>NOTE:</u> You will need to use the PARQUET option files when creating an External Table</br>\n\n<b>BIG QUERY SETUP:</b></br>\nCreate an external table using the Yellow Taxi Trip Records. </br>\nCreate a (regular/materialized) table in BQ using the Yellow Taxi Trip Records (do not partition or cluster this table). </br>\n</p>\n\n## Question 1:\nQuestion 1: What is count of records for the 2024 Yellow Taxi Data?\n- 65,623\n- 840,402\n- 20,332,093\n- 85,431,289\n\n\n## Question 2:\nWrite a query to count the distinct number of PULocationIDs for the entire dataset on both the tables.</br> \nWhat is the **estimated amount** of data that will be read when this query is executed on the External Table and the Table?\n\n- 18.82 MB for the External Table and 47.60 MB for the Materialized Table\n- 0 MB for the External Table and 155.12 MB for the Materialized Table\n- 2.14 GB for the External Table and 0MB for the Materialized Table\n- 0 MB for the External Table and 0MB for the Materialized Table\n\n## Question 3:\nWrite a query to retrieve the PULocationID from the table (not the external table) in BigQuery. Now write a query to retrieve the PULocationID and DOLocationID on the same table. Why are the estimated number of Bytes different?\n- BigQuery is a columnar database, and it only scans the specific columns requested in the query. Querying two columns (PULocationID, DOLocationID) requires \nreading more data than querying one column (PULocationID), leading to a higher estimated number of bytes processed.\n- BigQuery duplicates data across multiple storage partitions, so selecting two columns instead of one requires scanning the table twice, \ndou",
+              "filename": "cohorts/2025/03-data-warehouse/homework.md"
+            }
+          ],
+          "tool_call_id": "call_hKyErTZ1xazgBxD5XTEVCPAT",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:54.740089+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To backfill taxi data for 2021 in the homework assignment, you typically need to follow the instructions as given in the specific homework details. Here\u2019s a general outline of the steps you would follow based on the available documentation:\n\n1. **Data Preparation**:\n   - Download the relevant taxi trip records for 2021 from the New York City Taxi Data website. Specifically, you'll want to gather the Yellow Taxi Trip Records for the specified months, if applicable.\n   - Ensure that you have access to the necessary file formats, and if you're required to use Parquet files, ensure those are selected.\n\n2. **Data Ingestion**:\n   - Depending on your environment (GCP, local, etc.), you may need to write a data ingestion script. You might be provided with a sample script, or you will need to create one that uploads the data files to your Google Cloud Storage (GCS) bucket.\n   - Ensure you have properly configured permissions for your Service Account or have authenticated with the Google SDK.\n\n3. **BigQuery Setup**:\n   - Create an **External Table** in BigQuery using the downloaded taxi data. This will allow you to query the data without it being loaded into a regular table immediately.\n   - Optionally, create a **Materialized Table** or another type of regular table from the external data for more efficient query performance.\n\n4. **DAG Configuration** (if using orchestration tools like Airflow):\n   - Configure a Directed Acyclic Graph (DAG) for your data pipeline to handle the data ingestion process.\n   - Consider setting the `catchup` parameter to `True`, so your DAG can execute for past dates. Be cautious with the `max_active_runs` parameter to avoid overwhelming your system.\n\n5. **Cleaning and Validating Data**:\n   - After ingestion, perform any necessary data cleaning and validation checks to ensure that the data quality meets the required standards.\n   - You might run queries to check the count of records or other specific attributes (e.g., fare amount validation).\n\n6. **Submission**:\n   - Ensure your code is included in a GitHub repository or another public code-hosting site as required by the assignment. Include any SQL queries or shell commands in your README.\n\nFor more detailed actions specific to your case, please check the module instructions or template provided in your course materials, as they may vary from assignment to assignment. \n\nFor additional information, you can refer to the homework assignment documentation [here](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/03-data-warehouse/homework.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3128,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 535,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:58+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8wUal5ulputeTzRvQJ4Yp40uMo1",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "cohorts/2025/02-workflow-orchestration/homework.md",
+    "question": "What is the process to backfill taxi data for 2021 in the homework assignment?"
+  }
+}

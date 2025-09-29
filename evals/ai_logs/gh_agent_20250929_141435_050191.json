@@ -1,0 +1,139 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "Can you explain the difference between the Complete, Append, and Update output modes in Spark Streaming?",
+          "timestamp": "2025-09-29T14:14:30.625762+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"Complete Append Update output modes Spark Streaming\"}",
+          "tool_call_id": "call_10Jes0iC8woccyrB4qyME76u",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 225,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 19,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:34+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8w659J4apgZF38iMsxCYJFrOuQp",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 5000,
+              "content": ": Writes output data to files.\n- **Kafka Sink**: Publishes data to Kafka topics.\n- **Foreach Sink**: Allows custom handling of each row.\n- **Console Sink**: For debugging, outputs data to the console.\n\nFor more details, refer to the [Output Sinks documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-sinks).\n\n---\nThere are three types of **Output Modes** for streaming queries:\n\n- **Complete**: Outputs the entire Result Table after every trigger.\n- **Append** (default): Only new rows are added.\n- **Update**: Only updated rows are outputted.\n\nThe choice of output mode depends on transformations applied to the streaming data. Further information on output modes can be found [here](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-modes).\n\n---\n**Triggers**  \nTriggers in Spark Streaming define how often the streaming data is processed. Options include:\n\n- Default micro-batch mode.\n- Fixed interval micro-batch mode.\n- One-time micro-batch mode.\n- Available-now micro-batch mode.\n\nRefer to the [Trigger settings documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#triggers) for more information.\n\n### Console and Memory Sink\n\nTo visualize or remember the streaming data, we can set up console and memory sinks.\n\n```python\ndef sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):\n    write_query = df.writeStream \\\n        .outputMode(output_mode) \\\n        .trigger(processingTime=processing_time) \\\n        .format(\"console\") \\\n        .option(\"truncate\", False) \\\n        .start()\n    return write_query # pyspark.sql.streaming.StreamingQuery\n```\n\nThis function sets up a console sink that outputs the streaming DataFrame. It allows defining an output mode and the processing time for how often to update the console.\n\n```python\nwrite_query = sink_console(df_rides, output_mode='append')\n```\n\nWe initialize the console sink using",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb"
+            },
+            {
+              "start": 4000,
+              "content": "()),\n     ])\n```\n\nWe define a schema for ride data using `StructType`. This schema specifies the expected fields and their types, which will later be used to transform the incoming data.\n\n```python\ndf_rides = parse_ride_from_kafka_message(df_raw=df_kafka_raw, schema=ride_schema)\n```\n\nWith the function and schema defined, we parse the raw Kafka DataFrame to create a structured DataFrame containing the specific ride data.\n\n```python\ndf_rides.printSchema()\n```\n\nAs before, we check the structure of the ride DataFrame to ensure that it matches our expected schema.\n\n```python\ndf_rides.show()\n```\n\nFinally, we display the contents of the DataFrame, which shows the processed ride data.\n\n## Sink Operation & Streaming Query\n\nOnce the data is read and structured, the next step is to write the streaming results to a sink. This section provides details on how to implement different sink operations.\n\n---\n**Output Sinks**  \nThe key types of sinks in Spark Structured Streaming include:\n\n- **File Sink**: Writes output data to files.\n- **Kafka Sink**: Publishes data to Kafka topics.\n- **Foreach Sink**: Allows custom handling of each row.\n- **Console Sink**: For debugging, outputs data to the console.\n\nFor more details, refer to the [Output Sinks documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-sinks).\n\n---\nThere are three types of **Output Modes** for streaming queries:\n\n- **Complete**: Outputs the entire Result Table after every trigger.\n- **Append** (default): Only new rows are added.\n- **Update**: Only updated rows are outputted.\n\nThe choice of output mode depends on transformations applied to the streaming data. Further information on output modes can be found [here](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-modes).\n\n---\n**Triggers**  \nTriggers in Spark Streaming define how often the streaming data is processed. Options include:\n\n- Default micro-batch mode.\n- Fixed interval micro-ba",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb"
+            },
+            {
+              "start": 4000,
+              "content": "ed format according to the defined schema.\n\n```python\ndf_rides.printSchema()\n```\n\nFinally, we print the schema of the structured rides DataFrame to verify that the parsing was successful and the data conforms to the specified structure.\n\n## 2. Sink Operation & Streaming Query\n\nTo persist or analyze the data processed through our streaming DataFrame, we can utilize various sink operations. \n\n---\n### Output Sinks\n\nIn structured streaming, we have several output sinks available:\n- **File Sink**: Saves data to a specified directory.\n- **Kafka Sink**: Publishes output to Kafka topics.\n- **Foreach Sink**: Allows custom operations on each row.\n- **Console Sink**: Outputs content directly to the console, useful for debugging.\n- **Memory Sink**: Stores outputs in memory for quick access.\n\nFor further details, refer to the [Output Sinks documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-sinks).\n\n---\n### Output Modes\n\nThere are three types of output modes that define how results are written to the sinks:\n- **Complete**: Outputs the entire result table after every trigger.\n- **Append**: Only new rows are added to the result table.\n- **Update**: Outputs only updated rows in the result.\n\nFor more information, see the [Output Modes documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-modes).\n\n---\n### Triggers\n\nThe following trigger settings define how often streaming queries are processed:\n- **default-micro-batch-mode**\n- **fixed-interval-micro-batch-mode**\n- **one-time-micro-batch-mode**\n- **available-now-micro-batch-mode**\n\nMore on triggers can be found in the [Triggers documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#triggers).\n\n### Console and Memory Sink\n\n```python\ndef sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):\n    write_query = df.writeStream \\\n        .outputMode(output_mode) \\\n        ",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 5000,
+              "content": "tput modes that define how results are written to the sinks:\n- **Complete**: Outputs the entire result table after every trigger.\n- **Append**: Only new rows are added to the result table.\n- **Update**: Outputs only updated rows in the result.\n\nFor more information, see the [Output Modes documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-modes).\n\n---\n### Triggers\n\nThe following trigger settings define how often streaming queries are processed:\n- **default-micro-batch-mode**\n- **fixed-interval-micro-batch-mode**\n- **one-time-micro-batch-mode**\n- **available-now-micro-batch-mode**\n\nMore on triggers can be found in the [Triggers documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#triggers).\n\n### Console and Memory Sink\n\n```python\ndef sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):\n    write_query = df.writeStream \\\n        .outputMode(output_mode) \\\n        .trigger(processingTime=processing_time) \\\n        .format(\"console\") \\\n        .option(\"truncate\", False) \\\n        .start()\n    return write_query # pyspark.sql.streaming.StreamingQuery\n```\n\nThe `sink_console` function sets up a console sink to display the streaming DataFrame output. This function allows customization of the output mode and processing time.\n\n```python\nwrite_query = sink_console(df_rides, output_mode='append')\n```\n\nHere, the `write_query` object is created for the streaming DataFrame in append mode, meaning only new incoming ride data will be displayed at the console.\n\n```python\ndef sink_memory(df, query_name, query_template):\n    write_query = df \\\n        .writeStream \\\n        .queryName(query_name) \\\n        .format('memory') \\\n        .start()\n    query_str = query_template.format(table_name=query_name)\n    query_results = spark.sql(query_str)\n    return write_query, query_results\n```\n\nThis function creates a memory sink for quick access to the streaming DataFram",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming-notebook.ipynb"
+            },
+            {
+              "start": 1000,
+              "content": "onnect to Kafka topic served at host in bootrap.servers option\n    ...\n    return df_stream\n```\n\nThe `read_from_kafka` function establishes a connection to a specified Kafka topic. It uses the Spark Streaming API to create a streaming DataFrame, which allows real-time ingestion of data. The DataFrame's starting offsets are set to 'earliest', ensuring it captures all available messages. The function returns the streaming DataFrame for further processing.\n\n## Parsing Kafka Messages\n\n```python\ndef parse_ride_from_kafka_message(df, schema):\n    \"\"\" take a Spark Streaming df and parse value col based on <schema>, return streaming df cols in schema \"\"\"\n    ...\n    return df.select([field.name for field in schema])\n```\n\nThe `parse_ride_from_kafka_message` function takes in a streaming DataFrame and a schema. It converts the 'value' column from Kafka messages into multiple columns based on the provided schema. The function utilizes Spark SQL expressions to cast the relevant fields and returns a new DataFrame structured according to the schema.\n\n## Writing Data to Console\n\n```python\ndef sink_console(df, output_mode: str = 'complete', processing_time: str = '5 seconds'):\n    ...\n    return write_query  # pyspark.sql.streaming.StreamingQuery\n```\n\nThe `sink_console` function prints a DataFrame to the console for debugging purposes. It supports different output modes, such as 'complete' or 'append', and specifies the processing time interval for updates. This function is particularly useful for monitoring the data as it flows through the various transformations.\n\n## Memory and Kafka Sinks\n\n```python\ndef sink_memory(df, query_name, query_template):\n    ...\n    return query_results, query_df\n\ndef sink_kafka(df, topic):\n    ...\n    return write_query\n```\n\nTwo additional functions handle data storage:\n- `sink_memory` function stores the processed DataFrame in memory for query access. It executes a SQL query against this temporary table to retrieve results.\n- `sink_kafka` function wr",
+              "code": false,
+              "filename": "06-streaming/python/streams-example/pyspark/streaming.py"
+            }
+          ],
+          "tool_call_id": "call_10Jes0iC8woccyrB4qyME76u",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:14:31.678122+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "In Spark Streaming, there are three main output modes that define how results from streaming queries are written to sinks:\n\n1. **Complete**: This mode outputs the entire result table after every trigger. It is suitable when you need to maintain a complete view of the data, regardless of whether the underlying dataset has changed.\n\n2. **Append**: This is the default output mode. It only outputs new rows that are added to the result since the last trigger. This mode is efficient for scenarios where you only care about new data being processed and not about existing data.\n\n3. **Update**: In this mode, only rows that have been updated in the result table are outputted. This is useful for cases where you need to know which data has changed but do not want to output the entire table again.\n\nThese output modes allow for flexibility based on the kind of transformations applied to the streaming data and the requirements for the data processing pipeline. More details can be found in the [Output Modes documentation](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#output-modes) from the Spark documentation.\n\nFor reference, the information was sourced from the Spark Structured Streaming programming guide in the provided materials ([link to the source](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb)).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2831,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 286,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:14:35+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8w7T0ILD24bo8UZdZSEQcDB6VWF",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "06-streaming/python/streams-example/redpanda/streaming-notebook.ipynb",
+    "question": "Can you explain the difference between the Complete, Append, and Update output modes in Spark Streaming?"
+  }
+}

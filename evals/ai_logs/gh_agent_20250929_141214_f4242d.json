@@ -1,0 +1,139 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "What are the key configurations required to connect to a Kafka cluster in the `JsonKStreamJoins` implementation?",
+          "timestamp": "2025-09-29T14:12:09.594013+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"JsonKStreamJoins Kafka cluster connection configurations\"}",
+          "tool_call_id": "call_6XfIxY6HXSZTrbeQD2MC1joE",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 229,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 21,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:12:13+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL8tpSne5Vcb0VVeqll0h6jzXp45I",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "start": 3000,
+              "content": "cefully if errors occur.\n4. **Starting the Stream**: Initiates the stream and checks its state in a loop until it transitions to the `RUNNING` state.\n5. **Shutdown Hook**: Adds a shutdown hook to ensure the stream is closed properly on application termination.\n\n## Entry Point\n\n### Main Method\n\nThe `main` method serves as the entry point for running the `JsonKStreamJoins` application:\n\n1. An instance of `JsonKStreamJoins` is created.\n2. The `joinRidesPickupLocation` method is called, starting the stream processing.\n\nThis encapsulative flow is typical in Kafka Streams applications, where application logic is housed in specific classes, and the main method initializes the execution context.\n\n## Conclusion\n\nThe `JsonKStreamJoins` class exemplifies the use of Kafka Streams for real-time data processing by joining ride data with pickup location data. Utilizing proper configurations for security, custom serialization, and meticulous handling of stream state, this class serves as a robust framework for applications needing to perform on-the-fly joins of temporal datasets. The structured exception handling and seamless integration with Kafka topics make it a suitable solution for scalable data processing tasks.",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java"
+            },
+            {
+              "start": 0,
+              "content": "# JsonKStreamJoins Documentation\n\n## Overview\n\nThe `JsonKStreamJoins` class is designed to process data streams from Kafka topics, specifically for joining ride and pickup location data. It leverages the Kafka Streams API to perform the joining operation and outputs the results to a designated Kafka topic. The implementation focuses on ensuring that the data is only combined under certain temporal conditions, using custom serializers and handling exceptions robustly.\n\n## Properties Configuration\n\n### Kafka Streams Configuration\n\nThe constructor of the `JsonKStreamJoins` class initializes a set of properties necessary for connecting to a Kafka cluster:\n\n- **Bootstrap Servers**: Points to the Kafka broker (`pkc-75m1o.europe-west3.gcp.confluent.cloud:9092`).\n- **Security Protocol**: Configured to use `SASL_SSL`.\n- **Authentication**: Uses JAAS for authentication, where the username and password are fetched from a `Secrets` class.\n- **Client Configuration**: Various settings, such as DNS lookup strategies and session timeout.\n- **Application ID**: Uniquely identifies the Kafka Streams application.\n- **Offset Reset Policy**: Configured to read the latest messages if no offsets are found.\n- **Buffering Configuration**: Set to disable the maximum bytes buffering.\n\n## Topology Creation\n\n### Stream Processing\n\nThe `createTopology` method is responsible for defining the data flow for the Kafka Streams application:\n\n1. **Stream Sources**: It creates two input streams:\n   - `rides`: Processes data from the `INPUT_RIDE_TOPIC`, deserialized into `Ride` objects using a custom serializer.\n   - `pickupLocations`: Processes data from the `INPUT_RIDE_LOCATION_TOPIC`, deserialized into `PickupLocation` objects.\n\n2. **Key Selection**: The `pickupLocations` stream is then re-keyed based on the `PULocationID`, which is intended for joining with rides.\n\n3. **Joining Streams**: \n   - A join operation between `rides` and `pickupLocationsKeyedOnPUId` is established. The `join` uses a `ValueJo",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java"
+            },
+            {
+              "start": 2000,
+              "content": "iner` that checks if the difference between the drop-off and pickup times is within 10 minutes.\n   - If the condition is met, a new `VendorInfo` instance is created, containing the ride and location information.\n\n4. **Windowing**: The joining operation uses a time window of 20 minutes and a grace period of 5 minutes.\n\n5. **Filtering and Output**: After the join, the resulting stream is filtered to exclude any `Optional` values that are empty. The final results, containing `VendorInfo`, are sent to the `OUTPUT_TOPIC`.\n\n## Stream Execution\n\n### Kafka Streams Lifecycle Management\n\nThe `joinRidesPickupLocation` method executes and manages the Kafka Streams lifecycle:\n\n1. **Topology Building**: Calls the `createTopology` method to build the processing topology.\n2. **Stream Initialization**: Constructs a `KafkaStreams` instance with the defined topology and properties.\n3. **Exception Handling**: Sets an uncaught exception handler that will log any exceptions and shut down the application gracefully if errors occur.\n4. **Starting the Stream**: Initiates the stream and checks its state in a loop until it transitions to the `RUNNING` state.\n5. **Shutdown Hook**: Adds a shutdown hook to ensure the stream is closed properly on application termination.\n\n## Entry Point\n\n### Main Method\n\nThe `main` method serves as the entry point for running the `JsonKStreamJoins` application:\n\n1. An instance of `JsonKStreamJoins` is created.\n2. The `joinRidesPickupLocation` method is called, starting the stream processing.\n\nThis encapsulative flow is typical in Kafka Streams applications, where application logic is housed in specific classes, and the main method initializes the execution context.\n\n## Conclusion\n\nThe `JsonKStreamJoins` class exemplifies the use of Kafka Streams for real-time data processing by joining ride data with pickup location data. Utilizing proper configurations for security, custom serialization, and meticulous handling of stream state, this class serves as a robust fram",
+              "code": false,
+              "filename": "06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java"
+            },
+            {
+              "start": 0,
+              "content": "# PostgreSQL Database Interaction and Data Loading\n\nThis document provides a structured overview of how to interact with a PostgreSQL database using Python and the Pandas library. It includes examples of how to create a database connection, execute SQL queries, and load CSV data into the database.\n\n## Setting Up Your Environment\n\nTo start, you'll need to install some essential packages. The following command installs SQLAlchemy and psycopg2-binary, which are required for database connectivity with PostgreSQL.\n\n```bash\npip install sqlalchemy psycopg2-binary \n```\n\n### Importing Necessary Libraries\n\nAfter installing the required packages, you should import the necessary libraries into your Python script. In this case, we are using the Pandas library for data manipulation and SQLAlchemy to manage the database connections.\n\n```python\nimport pandas as pd\nfrom sqlalchemy import create_engine\n```\n\n## Creating a Database Connection\n\nTo connect to a PostgreSQL database, you can use SQLAlchemy's `create_engine` function. This function constructs a connection string that specifies the database type, user credentials, host, and database name.\n\n```python\nengine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')\n```\n\n### Verifying the Connection\n\nOnce you have created the engine, it's good practice to verify that the connection is successful. This can be done by calling the `connect()` method on the engine object.\n\n```python\nengine.connect()\n```\n\n## Executing Simple SQL Queries\n\nWith an established connection, you can execute SQL queries. \n\n### Example Query: Simple SELECT\n\nThe following SQL query selects a constant value and returns it. It serves as a simple test to check if the database is operational.\n\n```python\nquery = \"\"\"\nSELECT 1 as number;\n\"\"\"\n\npd.read_sql(query, con=engine)\n```\n\n### Querying Database Tables\n\nYou can query the existing tables in your database. The next block retrieves all user-defined tables, excluding system tables.\n\n```python\nquery = \"\"\"\nSEL",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pg-test-connection.ipynb"
+            },
+            {
+              "start": 1000,
+              "content": "`create_engine` function. This function constructs a connection string that specifies the database type, user credentials, host, and database name.\n\n```python\nengine = create_engine('postgresql://root:root@localhost:5432/ny_taxi')\n```\n\n### Verifying the Connection\n\nOnce you have created the engine, it's good practice to verify that the connection is successful. This can be done by calling the `connect()` method on the engine object.\n\n```python\nengine.connect()\n```\n\n## Executing Simple SQL Queries\n\nWith an established connection, you can execute SQL queries. \n\n### Example Query: Simple SELECT\n\nThe following SQL query selects a constant value and returns it. It serves as a simple test to check if the database is operational.\n\n```python\nquery = \"\"\"\nSELECT 1 as number;\n\"\"\"\n\npd.read_sql(query, con=engine)\n```\n\n### Querying Database Tables\n\nYou can query the existing tables in your database. The next block retrieves all user-defined tables, excluding system tables.\n\n```python\nquery = \"\"\"\nSELECT *\nFROM pg_catalog.pg_tables\nWHERE schemaname != 'pg_catalog' AND \n    schemaname != 'information_schema';\n\"\"\"\n\npd.read_sql(query, con=engine)\n```\n\n## Loading Data from CSV\n\nAfter validating the database queries, you may want to load external data into your database. This example shows how to read a CSV file containing taxi trip data.\n\n```python\ndf = pd.read_csv('yellow_tripdata_2021-01.csv', nrows=100)\n```\n\n### Preprocessing Date Columns\n\nFor proper date-time representation, you need to convert string dates in the dataset to datetime objects. This step ensures that date-related functions operate correctly later on.\n\n```python\ndf.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)\ndf.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)\n```\n\n## Saving Data to the Database\n\nAfter loading and preprocessing the data, you can save it to your PostgreSQL database. The following command writes the DataFrame to a specified table without including the DataFrame index.\n\n",
+              "code": false,
+              "filename": "01-docker-terraform/2_docker_sql/pg-test-connection.ipynb"
+            }
+          ],
+          "tool_call_id": "call_6XfIxY6HXSZTrbeQD2MC1joE",
+          "metadata": null,
+          "timestamp": "2025-09-29T14:12:10.763630+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To connect to a Kafka cluster in the `JsonKStreamJoins` implementation, the following key configurations are required:\n\n1. **Bootstrap Servers**: Specifies the Kafka broker address. In the implementation, it points to `pkc-75m1o.europe-west3.gcp.confluent.cloud:9092`.\n\n2. **Security Protocol**: Set to `SASL_SSL`, which is necessary for secure communication with the Kafka brokers.\n\n3. **Authentication**: Uses JAAS (Java Authentication and Authorization Service) for authentication. The username and password are typically fetched from a `Secrets` class to enhance security.\n\n4. **Client Configuration**: This could include various settings such as DNS lookup strategies and session timeouts, tailored to the specific requirements of the application and Kafka cluster.\n\n5. **Application ID**: A unique identifier for the Kafka Streams application, which allows Kafka to track the state of this application.\n\n6. **Offset Reset Policy**: Configured to read the latest messages from the topic if no offsets are found, ensuring that the application starts reading from the most recent data when initiating for the first time.\n\n7. **Buffering Configuration**: Set to disable maximum bytes buffering, which can affect how messages are batched before they are sent to Kafka.\n\nThese configurations help ensure that the application connects securely and efficiently to the Kafka cluster, allowing for proper message processing.\n\nFor more details, you can refer to the implementation in the file: [JsonKStreamJoins.java](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2536,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 343,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T14:12:14+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL8tqW1V261p7po306BiKLxOausR6",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "ai-generated",
+  "extra": {
+    "filepath": "06-streaming/java/kafka_examples/src/main/java/org/example/JsonKStreamJoins.java",
+    "question": "What are the key configurations required to connect to a Kafka cluster in the `JsonKStreamJoins` implementation?"
+  }
+}
