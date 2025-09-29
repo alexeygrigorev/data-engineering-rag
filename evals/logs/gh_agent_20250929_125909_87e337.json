@@ -1,0 +1,128 @@
+{
+  "agent_name": "gh_agent",
+  "system_prompt": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "tools": [
+    "search"
+  ],
+  "messages": [
+    {
+      "parts": [
+        {
+          "content": "how do I run Kafka with python?",
+          "timestamp": "2025-09-29T12:59:03.993863+00:00",
+          "part_kind": "user-prompt"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "args": "{\"query\":\"run Kafka with Python\"}",
+          "tool_call_id": "call_IsK8WQBUbtH4MDC2sGXXegvN",
+          "part_kind": "tool-call"
+        }
+      ],
+      "usage": {
+        "input_tokens": 214,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 16,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T12:59:08+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "tool_calls"
+      },
+      "provider_response_id": "chatcmpl-CL7l6ZgkK19ZfR6mMfqUTEhix26HG",
+      "finish_reason": "tool_call"
+    },
+    {
+      "parts": [
+        {
+          "tool_name": "search",
+          "content": [
+            {
+              "content": "### Stream-Processing with Python\n\nIn this document, you will be finding information about stream processing \nusing different Python libraries (`kafka-python`,`confluent-kafka`,`pyspark`, `faust`).\n\nThis Python module can be separated in following modules.\n\n####  1. Docker\nDocker module includes, Dockerfiles and docker-compose definitions \nto run Kafka and Spark in a docker container. Setting up required services is\nthe prerequsite step for running following modules.\n\n#### 2. Kafka Producer - Consumer Examples\n- [Json Producer-Consumer Example](json_example) using `kafka-python` library\n- [Avro Producer-Consumer Example](avro_example) using `confluent-kafka` library\n\nBoth of these examples require, up-and running Kafka services, therefore please ensure\nfollowing steps under [docker-README](docker/README.md)\n\nTo run the producer-consumer examples in the respective example folder, run following commands\n```bash\n# Start producer script\npython3 producer.py\n# Start consumer script\npython3 consumer.py\n```",
+              "filename": "06-streaming/python/README.md"
+            },
+            {
+              "code": false,
+              "content": "# Code Documentation\n\n## Overview\n\nThis code snippet is a configuration setup that defines file paths, schema registry details, and Kafka broker information for processing ride-sharing data using Apache Kafka and Avro schema format. It outlines the necessary components required to interact with a Kafka topic designed to handle data related to taxi rides.\n\n\n## File Paths\n\n### Input Data Path\n\n```python\nINPUT_DATA_PATH = '../resources/rides.csv'\n```\n\nThis variable specifies the location of a CSV file that contains ride-sharing data. The path is relative to the current working directory, directing to the `resources` directory where the `rides.csv` file is stored. This file likely contains structured data pertaining to individual taxi rides, such as timestamps, passenger counts, pickup and drop-off locations, and fare information.\n\n\n### Schema Paths\n\n```python\nRIDE_KEY_SCHEMA_PATH = '../resources/schemas/taxi_ride_key.avsc'\nRIDE_VALUE_SCHEMA_PATH = '../resources/schemas/taxi_ride_value.avsc'\n```\n\nThese variables define paths to Avro schema files used to enforce data structure and validation for the ride-sharing data. \n\n- **Key Schema** (`taxi_ride_key.avsc`): This schema is likely responsible for defining the structure of data keys used in Kafka, typically to identify unique records.\n  \n- **Value Schema** (`taxi_ride_value.avsc`): This schema describes the structure of the data values (payload) carried by the records relating to taxi rides, dictating what fields should be included and their types (e.g., strings, integers, dates).\n\n\n## Kafka Configuration\n\n### Schema Registry URL\n\n```python\nSCHEMA_REGISTRY_URL = 'http://localhost:8081'\n```\n\nThis variable indicates the URL of the Schema Registry, which is essential for managing and retrieving Avro schemas dynamically. The Schema Registry exists as a service that allows producers and consumers of Kafka messages to store and retrieve schema definitions. The URL points to a local instance, suggesting that the schema registry service is running on the same machine.\n\n\n### Bootstrap Servers\n\n```python\nBOOTSTRAP_SERVERS = 'localhost:9092'\n```\n\nThis variable specifies the address of the Kafka broker(s) that the application will connect to for producing and consuming messages. In this case, it points to a local Kafka server running on port 9092. This is the entry point for communication with the Kafka ecosystem.\n\n\n### Kafka Topic\n\n```python\nKAFKA_TOPIC = 'rides_avro'\n```\n\nThis variable defines the Kafka topic named `rides_avro`, where the ride-sharing data will be published and consumed. Topics in Kafka serve as categories or feeds to which records are sent, and they play a critical role in how data is organized and processed.\n\n\n## Summary\n\nIn summary, this code snippet serves as a fundamental configuration block for an application that aims to process taxi ride data using Kafka and Avro for serialization. The specified file paths, schema registry URL, bootstrap servers, and Kafka topic provide the necessary parameters for the program to effectively read ride data from a CSV file, validate it against defined schemas, and interact with Kafka's messaging system for data flow.",
+              "filename": "06-streaming/python/avro_example/settings.py"
+            },
+            {
+              "content": "# Running Spark and Kafka Clusters on Docker\n\n### 1. Build Required Images for running Spark\n\nThe details of how to spark-images are build in different layers can be created can be read through \nthe blog post written by Andr\u00e9 Perez on [Medium blog -Towards Data Science](https://towardsdatascience.com/apache-spark-cluster-on-docker-ft-a-juyterlab-interface-418383c95445)\n\n```bash\n# Build Spark Images\n./build.sh \n```\n\n### 2. Create Docker Network & Volume\n\n```bash\n# Create Network\ndocker network  create kafka-spark-network\n\n# Create Volume\ndocker volume create --name=hadoop-distributed-file-system\n```\n\n### 3. Run Services on Docker\n```bash\n# Start Docker-Compose (within for kafka and spark folders)\ndocker compose up -d\n```\nIn depth explanation of [Kafka Listeners](https://www.confluent.io/blog/kafka-listeners-explained/)\n\nExplanation of [Kafka Listeners](https://www.confluent.io/blog/kafka-listeners-explained/)\n\n### 4. Stop Services on Docker\n```bash\n# Stop Docker-Compose (within for kafka and spark folders)\ndocker compose down\n```\n\n### 5. Helpful Comands\n```bash\n# Delete all Containers\ndocker rm -f $(docker ps -a -q)\n\n# Delete all volumes\ndocker volume rm $(docker volume ls -q)\n```",
+              "filename": "06-streaming/python/docker/README.md"
+            },
+            {
+              "code": false,
+              "content": "# Documentation for RideAvroProducer Script\n\n## Overview\n\nThis script is designed as a Kafka producer that sends ride record data to a specified Kafka topic using Avro serialization. It reads records from a CSV file, serializes them according to predefined schemas, and publishes them to a Kafka topic, providing a delivery report on the success or failure of each message sent.\n\n## Key Imports\n\n1. **OS and CSV Libraries**: Used for file handling and parsing CSV files.\n2. **Confluent Kafka Library**: This library provides the necessary tools for producing messages to Kafka and for Avro serialization.\n3. **Custom Modules**: \n   - `ride_record_key` and `ride_record`: These modules define the data structures for the ride records and their keys.\n   - `settings`: Configuration parameters for Kafka, schema paths, and input data paths.\n\n## Delivery Report Function\n\n```python\ndef delivery_report(err, msg):\n    ...\n```\n\nThis function is called after attempting to send a message to Kafka. It checks for errors during the delivery process:\n- If an error occurred, it outputs an error message indicating which record failed.\n- If successful, it logs the details of the successfully produced record, including the topic, partition, and offset.\n\n## RideAvroProducer Class\n\n### Initialization\n\n```python\nclass RideAvroProducer:\n    def __init__(self, props: Dict):\n        ...\n```\n\nUpon instantiation, the `RideAvroProducer` class synchronizes with the schema registry and initializes the necessary serializers. It does the following:\n1. Loads the key and value schemas from the provided schema paths.\n2. Configures the Schema Registry client.\n3. Initializes Avro serializers for both keys and values.\n4. Sets up a Kafka producer with the provided bootstrap servers.\n\n### Load Schema\n\n```python\n@staticmethod\ndef load_schema(schema_path: str):\n    ...\n```\n\nThis static method reads and returns the content of a schema file given its path. It ensures that the producer can utilize appropriate serialization/deserialization schemas.\n\n### Read Records\n\n```python\n@staticmethod\ndef read_records(resource_path: str):\n    ...\n```\n\nThis static method reads ride records from a CSV file:\n- It skips the header row and processes each subsequent row.\n- Constructs `RideRecord` and `RideRecordKey` instances based on specific columns of the CSV data.\n- Returns a zipped list of keys and values.\n\n### Publish Method\n\n```python\ndef publish(self, topic: str, records: [RideRecordKey, RideRecord]):\n    ...\n```\n\nThe `publish` method takes a Kafka topic and a series of ride records as inputs. It processes each record:\n1. Serializes the key and value using the Avro serializers.\n2. Sends each record to Kafka with an associated delivery report callback.\n3. It catches any exceptions and breaks on a keyboard interrupt.\n4. After sending all records, it flushes the producer, ensuring that all messages are delivered before closing, and introduces a brief sleep to manage the flow.\n\n## Main Execution Block\n\n```python\nif __name__ == \"__main__\":\n    ...\n```\n\nWhen the script is executed directly:\n1. It constructs a configuration dictionary with necessary Kafka and schema registry properties.\n2. Instantiates a `RideAvroProducer` object with this configuration.\n3. Calls the `read_records` method to fetch ride records from the specified CSV file.\n4. Publishes the read records to the specified Kafka topic using the `publish` method.\n\n## Summary\n\nThis script effectively integrates with Kafka and Avro serialization, showcasing how to read data from a CSV, serialize it, and send it to a Kafka topic. The `RideAvroProducer` class encapsulates all functionalities related to Kafka production, focusing on schema management, message publishing, and handling delivery reports. This composition supports a clean and extensible approach for producing ride record data in a real-time streaming application.",
+              "filename": "06-streaming/python/avro_example/producer.py"
+            },
+            {
+              "code": false,
+              "content": "# Kafka JSON Consumer Documentation\n\nThis document provides a high-level overview of a Python script that implements a Kafka consumer for JSON messages. The script utilizes the `kafka-python` library to connect to a Kafka broker, consume messages from a specified topic, and deserialize the JSON messages into Python objects. \n\n## Overview\n\nThe script consists of a **JsonConsumer** class responsible for connecting to Kafka and consuming messages, and a stand-alone execution block that initializes and runs the consumer. The primary focus of this code is to read messages from a Kafka topic, print the keys and values of the messages, and deserialize the JSON data into `Ride` objects for further processing.\n\n## Key Components\n\n### Imports\n\nThe necessary modules and classes are imported at the beginning of the script:\n- `Dict` and `List` from the `typing` module for type hinting.\n- `loads` from the `json` module for JSON deserialization.\n- `KafkaConsumer` from the `kafka` package to facilitate interaction with the Kafka messaging system.\n- The `Ride` class from a local module that likely defines how to structure the ride data.\n- `BOOTSTRAP_SERVERS` and `KAFKA_TOPIC` constants, presumably defined in a `settings` module, which configure the Kafka connection and topic.\n\n### JsonConsumer Class\n\nThe **JsonConsumer** class encapsulates the logic for consuming messages from Kafka:\n\n- **`__init__` method**: \n  - The constructor initializes a Kafka consumer instance using the provided properties (props) dictionary, which includes configuration settings like server details and deserialization functions. \n\n- **`consume_from_kafka` method**: \n  - This method manages the workflow of subscribing to specified Kafka topics and consuming messages in a loop. \n  - The consumer subscribes to the given topics and starts a loop to poll for messages every second.\n  - If a keyboard interrupt (SIGINT) occurs, the loop exits gracefully, and the consumer closes the connection. \n  - The messages are printed out, specifically their keys and values, which helps in monitoring or debugging received messages.\n\n### Main Execution Block\n\nThis section of the code is executed when the script is run directly:\n\n- **Configuration Dictionary**:\n  - A dictionary named `config` is created with key-value pairs defining various Kafka consumer settings, such as:\n    - `bootstrap_servers`: The Kafka server(s) to connect to.\n    - `auto_offset_reset`: Defines the behavior for retrieving messages when there is no prior offset.\n    - `enable_auto_commit`: Specifies whether message offsets should be committed automatically.\n    - `key_deserializer`: A lambda function to deserialize message keys from byte format to integers.\n    - `value_deserializer`: A lambda function to deserialize message values from byte format into `Ride` objects using the `loads` function.\n    - `group_id`: Identifies the consumer group to which this consumer belongs.\n\n- **Instantiating the Consumer**:\n  - An instance of the **JsonConsumer** class is created using the `config` dictionary, allowing it to manage message consumption.\n\n- **Starting Consumption**:\n  - The `consume_from_kafka` method is called with the Kafka topic specified in `KAFKA_TOPIC`, starting the consumer loop to process incoming messages.\n\n## Conclusion\n\nThis script serves as a basic but efficient Kafka consumer tailored to handle JSON messages, deserialize them into Python objects, and print useful information to the console. The use of customization through deserializers and configuration settings allows for flexibility and adaptability to varying Kafka message structures and requirements. Its clean structure and separation of responsibilities make it straightforward for developers to extend or modify for specific use cases, such as logging, data processing, or error handling.",
+              "filename": "06-streaming/python/json_example/consumer.py"
+            }
+          ],
+          "tool_call_id": "call_IsK8WQBUbtH4MDC2sGXXegvN",
+          "metadata": null,
+          "timestamp": "2025-09-29T12:59:05.915363+00:00",
+          "part_kind": "tool-return"
+        }
+      ],
+      "instructions": "You are a helpful assistant that answers questions about documentation.  \n\nUse the search tool to find relevant information from the course materials before answering questions.  \n\nIf you can find specific information through search, use it to provide accurate answers.\n\nAlways include references by citing the filename of the source material you used.\nReplace it with the full path to the GitHub repository:\n\"https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/\"\nFormat: [LINK TITLE](FULL_GITHUB_LINK)\n\nIf the search doesn't return relevant results, let the user know and provide general guidance.",
+      "kind": "request"
+    },
+    {
+      "parts": [
+        {
+          "content": "To run Kafka with Python, you can utilize various libraries such as `kafka-python` and `confluent-kafka`. Here's a general guide on how to set up and run Kafka with Python:\n\n### 1. Set Up Kafka\nYou need to have Kafka running on your machine or in a Docker container. If you're using Docker, you can manage your Kafka instance with Docker commands.\n\n```bash\n# Create Docker Network\ndocker network create kafka-spark-network\n\n# Create Volume\ndocker volume create --name=hadoop-distributed-file-system\n\n# Start the Kafka service\ndocker compose up -d\n```\nThis will start Kafka and any other related services defined in your `docker-compose.yml` file. Make sure you have a suitable configuration in your Docker setup to run Kafka.\n\n### 2. Using Kafka with Python\nOnce Kafka is up and running, you can use the following examples for producing and consuming messages in Python:\n\n#### Kafka Producer Example (`producer.py`)\nYou can create a Kafka producer that sends messages to a Kafka topic. Here's a simplified version of what the producer might look like using the `confluent-kafka` library:\n\n```python\nfrom confluent_kafka import Producer\nimport json\n\n# Define Kafka parameters\nBOOTSTRAP_SERVERS = 'localhost:9092'\nKAFKA_TOPIC = 'your_topic_name'\n\n# Create a Producer instance\nproducer = Producer({'bootstrap.servers': BOOTSTRAP_SERVERS})\n\n# Delivery report callback\ndef delivery_report(err, msg):\n    if err is not None:\n        print(f\"Message delivery failed: {err}\")\n    else:\n        print(f\"Message delivered to {msg.topic()} [{msg.partition()}]\")\n\n# Produce a message\nmessage = {'key': 'value'}\nproducer.produce(KAFKA_TOPIC, json.dumps(message).encode('utf-8'), callback=delivery_report)\nproducer.flush()  # Wait for any outstanding messages to be delivered\n```\n\n#### Kafka Consumer Example (`consumer.py`)\nYou can also create a Kafka consumer to read messages from a topic:\n\n```python\nfrom confluent_kafka import Consumer\n\n# Define Kafka parameters\nBOOTSTRAP_SERVERS = 'localhost:9092'\nKAFKA_TOPIC = 'your_topic_name'\n\n# Create a Consumer instance\nconsumer = Consumer({\n    'bootstrap.servers': BOOTSTRAP_SERVERS,\n    'group.id': 'my_group',\n    'auto.offset.reset': 'earliest'\n})\n\nconsumer.subscribe([KAFKA_TOPIC])\n\n# Poll for messages\nwhile True:\n    msg = consumer.poll(1.0)\n    if msg is None:\n        continue\n    if msg.error():\n        print(f\"Consumer error: {msg.error()}\")\n        continue\n    print(f\"Received message: {msg.value().decode('utf-8')}\")\n\nconsumer.close()  # Close the consumer\n```\n\n### Notes\n- Make sure to install the necessary libraries if you haven't already, e.g., `confluent-kafka`.\n- Ensure that Kafka is running and your producers/consumers have access to the correct broker address specified in the code.\n\nThese snippets illustrate how to set up basic Kafka producers and consumers using Python. More details can be found in [the streaming module documentation](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/06-streaming/python/README.md).",
+          "id": null,
+          "part_kind": "text"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3263,
+        "cache_write_tokens": 0,
+        "cache_read_tokens": 0,
+        "output_tokens": 687,
+        "input_audio_tokens": 0,
+        "cache_audio_read_tokens": 0,
+        "output_audio_tokens": 0,
+        "details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        }
+      },
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "timestamp": "2025-09-29T12:59:09+00:00",
+      "kind": "response",
+      "provider_name": "openai",
+      "provider_details": {
+        "finish_reason": "stop"
+      },
+      "provider_response_id": "chatcmpl-CL7l7zAfb0K4tlbvYkTwt1oTqx4cv",
+      "finish_reason": "stop"
+    }
+  ],
+  "source": "user"
+}

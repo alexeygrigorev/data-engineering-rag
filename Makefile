@@ -5,3 +5,6 @@ notebook:
 
 data:
 	uv run python -m zc_agent.prepare_data
+
+agent:
+	uv run python -m zc_agent.main
