@@ -7,7 +7,7 @@ from datetime import datetime
 from pydantic_ai.messages import ModelMessagesTypeAdapter
 
 
-LOG_DIR = Path(os.getenv('LOGS_DIRECTORY', 'logs'))
+LOG_DIR = Path(os.getenv('LOGS_DIRECTORY', 'evals/logs'))
 LOG_DIR.mkdir(exist_ok=True)
 
 

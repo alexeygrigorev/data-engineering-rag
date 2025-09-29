@@ -1,29 +1,23 @@
-import ingest
 import search_agent 
 import logs
 
 import asyncio
 
 
-REPO_OWNER = "DataTalksClub"
-REPO_NAME = "faq"
-
+from zc_agent.load_data import index_data
 
 def initialize_index():
-    print(f"Starting AI FAQ Assistant for {REPO_OWNER}/{REPO_NAME}")
+    print("Starting the AI Assistant")
     print("Initializing data ingestion...")
 
-    def filter(doc):
-        return 'data-engineering' in doc['filename']
-
-    index = ingest.index_data(REPO_OWNER, REPO_NAME, filter=filter)
+    index = index_data(filter=filter)
     print("Data indexing completed successfully!")
     return index
 
 
 def initialize_agent(index):
     print("Initializing search agent...")
-    agent = search_agent.init_agent(index, REPO_OWNER, REPO_NAME)
+    agent = search_agent.init_agent(index)
     print("Agent initialized successfully!")
     return agent
 

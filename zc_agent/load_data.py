@@ -1,38 +1,13 @@
-import io
-import zipfile
-import requests
-
-import frontmatter
+import json
 
 from minsearch import Index
+from zc_agent.prepare_data import PROCESSED_DATA_PATH
 
 
-def read_repo_data(repo_owner, repo_name):
-    url = f'https://codeload.github.com/{repo_owner}/{repo_name}/zip/refs/heads/main'
-    resp = requests.get(url)
-
-    repository_data = []
-
-    zf = zipfile.ZipFile(io.BytesIO(resp.content))
-    
-    for file_info in zf.infolist():
-        filename = file_info.filename.lower()
-
-        if not (filename.endswith('.md') or filename.endswith('.mdx')):
-            continue
-    
-        with zf.open(file_info) as f_in:
-            content = f_in.read()
-            post = frontmatter.loads(content)
-            data = post.to_dict()
-
-            _, filename_repo = file_info.filename.split('/', maxsplit=1)
-            data['filename'] = filename_repo
-            repository_data.append(data)
-    
-    zf.close()
-
-    return repository_data
+def read_repo_data():
+    with open(PROCESSED_DATA_PATH, "r", encoding="utf-8") as f_in:
+        data = json.load(f_in)
+    return data
 
 
 def sliding_window(seq, size, step):
@@ -65,16 +40,10 @@ def chunk_documents(docs, size=2000, step=1000):
 
 
 def index_data(
-        repo_owner,
-        repo_name,
-        filter=None,
         chunk=False,
         chunking_params=None,
     ):
-    docs = read_repo_data(repo_owner, repo_name)
-
-    if filter is not None:
-        docs = [doc for doc in docs if filter(doc)]
+    docs = read_repo_data()
 
     if chunk:
         if chunking_params is None:
