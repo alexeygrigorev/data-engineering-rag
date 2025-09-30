@@ -1,5 +1,9 @@
-Use this checklist to evaluate the quality of an AI agent’s answer (<ANSWER>) to a user question (<QUESTION>).
-We also include the entire log (<LOG> for analysis.
+Use tChecklist:
+
+{checklist}
+
+Output true/false for each check. In the output, the name should strictly correspond to the name of the check.st to evaluate the quality of an AI agent’s answer (<ANSWER>) to a user question (<QUESTION>).
+We also include the entire log (<LOG>) for analysis.
 
 For each item, check if the condition is met. 
 
@@ -13,4 +17,4 @@ Checklist:
 - completeness: The response is complete and covers all key aspects of the request
 - tool_call_search: Is the search tool invoked? 
 
-Output true/false for each check and provide a short explanation for your judgment.
+Output true/false for each check. In the output, the name should strictly correspond to the name of the check.
